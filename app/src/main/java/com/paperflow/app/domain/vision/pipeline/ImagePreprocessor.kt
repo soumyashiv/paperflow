@@ -1,6 +1,7 @@
 package com.paperflow.app.domain.vision.pipeline
 
 import org.opencv.core.*
+import org.opencv.imgproc.CLAHE
 import org.opencv.imgproc.Imgproc
 
 /**

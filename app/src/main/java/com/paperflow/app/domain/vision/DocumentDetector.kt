@@ -3,19 +3,64 @@ package com.paperflow.app.domain.vision
 import android.graphics.Bitmap
 import android.graphics.PointF
 import android.util.Log
+import com.paperflow.app.domain.vision.pipeline.*
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
-import kotlin.math.max
-import kotlin.math.min
+import kotlin.math.sqrt
 
 /**
- * Production-grade document corner detection using OpenCV for Android.
+ * Production-grade document detection pipeline orchestrator.
+ *
+ * Composes the following stages into a single, end-to-end detection call:
+ *
+ *   Bitmap (RGBA)
+ *     ↓  [ImagePreprocessor]   Resize → Grayscale → CLAHE → Bilateral
+ *     ↓  [EdgeDetector]        Canny + AdaptiveThreshold + MorphGrad → Fused edges
+ *     ↓  [ContourFinder]       RETR_EXTERNAL + RETR_TREE → merged contours
+ *     ↓  [CandidateGenerator]  approxPolyDP → Hull → minAreaRect fallbacks
+ *     ↓  [CandidateValidator]  Geometry validation (7 rules)
+ *     ↓  [CandidateScorer]     7-term weighted confidence model
+ *     ↓  [CornerRefiner]       cornerSubPix sub-pixel precision
+ *     ↓  [TemporalSmoother]    EMA smoothing + stability score
+ *     ↓  Blur estimation       Variance of Laplacian
+ *     ↓  Auto-capture logic
+ *     ↓  [DetectionResult]
+ *
+ * Memory: Every OpenCV [Mat] is allocated in local scope and released before
+ * returning. Pre-allocated Mats inside sub-components are released via [release()].
+ *
+ * Thread safety: NOT thread-safe. Use one instance per analysis thread.
+ *
+ * Usage:
+ *   val detector = DocumentDetector()
+ *   val result = detector.detect(bitmap)
+ *   detector.release() // call when camera session ends
  */
-object DocumentDetector {
+class DocumentDetector(
+    private val config: DocumentDetectionConfig = DocumentDetectionConfig.DEFAULT,
+) {
+    // ─── Pipeline Components ──────────────────────────────────────────────────
 
-    private const val TAG = "DocDetector"
+    private val preprocessor = ImagePreprocessor(config)
+    private val edgeDetector = EdgeDetector(config)
+    private val contourFinder = ContourFinder(config)
+    private val candidateGenerator = CandidateGenerator()
+    private val candidateValidator = CandidateValidator(config)
+    private val candidateScorer = CandidateScorer(config)
+    private val cornerRefiner = CornerRefiner(config)
+    private val temporalSmoother = TemporalSmoother(config)
 
+    // ─── Auto Capture State ───────────────────────────────────────────────────
+    private var stableDetectionStartMs: Long = 0L
+    private var lastConfidence: Float = 0f
+
+    // ─── Public API ───────────────────────────────────────────────────────────
+
+    /**
+     * Ordered 4-corner quadrilateral in image pixel coordinates.
+     * Corners are in clockwise order: TL, TR, BR, BL.
+     */
     data class Quad(
         val topLeft: PointF,
         val topRight: PointF,
@@ -23,163 +68,236 @@ object DocumentDetector {
         val bottomLeft: PointF,
     )
 
-    fun detectDocument(bitmap: Bitmap): Quad? {
-        val origW = bitmap.width
-        val origH = bitmap.height
-        Log.d(TAG,"━━━ detectDocument (OPENCV) ━━━ input=${origW}x${origH}")
+    /**
+     * Rich result returned on every analyzed frame.
+     *
+     * @param quad Smoothed document corners, or null if no document detected.
+     * @param confidence Detection confidence [0, 1].
+     * @param stability How long the detection has been stable [0, 1].
+     * @param blur Blur score [0, 1]. Higher = sharper. Below 0.25 = too blurry.
+     * @param shouldAutoCapture True when all auto-capture criteria are met.
+     */
+    data class DetectionResult(
+        val quad: Quad?,
+        val confidence: Float,
+        val stability: Float,
+        val blur: Float,
+        val shouldAutoCapture: Boolean,
+    )
 
-        // 1. Downscale for faster processing
-        val maxDim = 800.0 // Higher resolution for OpenCV for better accuracy
-        val scale = min(1.0, maxDim / max(origW, origH))
-        val w = max(1, (origW * scale).toInt())
-        val h = max(1, (origH * scale).toInt())
+    /**
+     * Detect the document boundary in a [Bitmap] frame.
+     *
+     * This is the main entry point. The bitmap is NOT recycled by this call.
+     *
+     * @param bitmap ARGB/RGBA bitmap of the camera frame (any size).
+     * @return [DetectionResult] with quad corners, confidence, stability, blur, and auto-capture flag.
+     */
+    fun detect(bitmap: Bitmap): DetectionResult {
+        val t0 = System.currentTimeMillis()
 
-        val scaledBmp = if (scale < 1.0) Bitmap.createScaledBitmap(bitmap, w, h, true) else bitmap
+        // Convert Bitmap to RGBA Mat
+        val rgbaMat = Mat()
+        Utils.bitmapToMat(bitmap, rgbaMat)
 
-        val srcMat = Mat()
-        Utils.bitmapToMat(scaledBmp, srcMat)
-        if (scaledBmp !== bitmap) scaledBmp.recycle()
+        val result = detectFromMat(rgbaMat, bitmap.width, bitmap.height, t0)
+        rgbaMat.release()
+        return result
+    }
 
-        // 2. Grayscale
-        val grayMat = Mat()
-        Imgproc.cvtColor(srcMat, grayMat, Imgproc.COLOR_RGBA2GRAY)
+    // ─── Old API compatibility shim ───────────────────────────────────────────
+    // SmartDocumentAnalyzer still calls detectDocument(), so we keep this entry.
 
-        // 3. Blur to reduce noise
-        val blurredMat = Mat()
-        Imgproc.GaussianBlur(grayMat, blurredMat, Size(5.0, 5.0), 0.0)
-        Imgproc.medianBlur(blurredMat, blurredMat, 3)
+    /** @deprecated Prefer [detect] which returns the full [DetectionResult]. */
+    fun detectDocument(bitmap: Bitmap): Quad? = detect(bitmap).quad
 
-        // 4. Adaptive Edge Detection (Canny)
-        val edgesMat = Mat()
-        // Compute median to dynamically adjust Canny thresholds
-        val median = computeMedian(blurredMat)
-        val sigma = 0.33
-        val lowerThresh = max(0.0, (1.0 - sigma) * median)
-        val upperThresh = min(255.0, (1.0 + sigma) * median)
-        Imgproc.Canny(blurredMat, edgesMat, lowerThresh, upperThresh)
-        
-        Log.d(TAG, "[1] OpenCV Canny: median=$median thresholds=($lowerThresh, $upperThresh)")
+    // ─── Private Pipeline Execution ───────────────────────────────────────────
 
-        // 5. Morphological Closing (Dilate + Erode) to connect fragmented edges
-        val closedMat = Mat()
-        val kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, Size(5.0, 5.0))
-        Imgproc.morphologyEx(edgesMat, closedMat, Imgproc.MORPH_CLOSE, kernel)
+    private fun detectFromMat(rgba: Mat, origW: Int, origH: Int, t0: Long): DetectionResult {
+        // ── Stage 1: Preprocess ──────────────────────────────────────────────
+        val preprocessed = preprocessor.process(rgba)
+        val grayMat = preprocessed.mat
+        val scale = preprocessed.scale
 
-        // 6. Find Contours
-        val contours = ArrayList<MatOfPoint>()
-        val hierarchy = Mat()
-        Imgproc.findContours(closedMat, contours, hierarchy, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE)
-        Log.d(TAG, "[2] Found ${contours.size} contours")
+        // ── Blur Estimation (done on preprocessed gray) ──────────────────────
+        // Variance of Laplacian: sharp image = high variance. Cheap and reliable.
+        val blurScore = estimateBlur(grayMat)
 
-        // 7. Sort by area descending
-        contours.sortByDescending { Imgproc.contourArea(it) }
+        // ── Stage 2: Edge Detection ──────────────────────────────────────────
+        val edgeMat = edgeDetector.detect(grayMat)
 
-        var bestQuad: Quad? = null
-        var maxArea = 0.0
-        val frameArea = w * h.toDouble()
+        // ── Stage 3: Find Contours ────────────────────────────────────────────
+        val contours = contourFinder.find(edgeMat)
+        edgeMat.release()
 
-        // 8. Approximate polygons
-        for (i in 0 until min(10, contours.size)) {
-            val contour = contours[i]
-            val area = Imgproc.contourArea(contour)
-            val coverage = area / frameArea * 100.0
+        val frameArea = (grayMat.cols() * grayMat.rows()).toDouble()
+        val frameW = grayMat.cols()
+        val frameH = grayMat.rows()
 
-            if (coverage < 8.0) break // Too small
-
-            val contour2f = MatOfPoint2f(*contour.toArray())
-            val approx2f = MatOfPoint2f()
-            
-            // Douglas-Peucker epsilon: 2% of contour perimeter
-            val perimeter = Imgproc.arcLength(contour2f, true)
-            val epsilon = 0.02 * perimeter
-            Imgproc.approxPolyDP(contour2f, approx2f, epsilon, true)
-
-            val points = approx2f.toArray()
-            
-            if (points.size == 4 && Imgproc.isContourConvex(MatOfPoint(*points))) {
-                if (area > maxArea) {
-                    maxArea = area
-                    
-                    val ordered = orderCorners(points)
-                    
-                    // Scale back up to original bitmap coordinates
-                    fun Point.scaleUp() = PointF((x / scale).toFloat(), (y / scale).toFloat())
-                    
-                    bestQuad = Quad(
-                        topLeft = ordered[0].scaleUp(),
-                        topRight = ordered[1].scaleUp(),
-                        bottomRight = ordered[2].scaleUp(),
-                        bottomLeft = ordered[3].scaleUp()
-                    )
-                }
-            }
-        }
-
-        if (bestQuad != null) {
-            Log.d(TAG, "✅ [3] DETECTED DOCUMENT: area=${maxArea.toInt()} (${String.format("%.1f", maxArea/frameArea*100)}%)")
-        } else {
-            Log.w(TAG, "❌ [3] REJECT: No OpenCV contours formed a valid convex quad > 8% area.")
-        }
-
-        // Cleanup native memory
-        srcMat.release()
-        grayMat.release()
-        blurredMat.release()
-        edgesMat.release()
-        closedMat.release()
-        hierarchy.release()
-        kernel.release()
+        // ── Stage 4: Generate Candidates ─────────────────────────────────────
+        val candidates = candidateGenerator.generate(
+            contours, frameArea,
+            config.minAreaFraction, config.maxAreaFraction
+        )
         contours.forEach { it.release() }
 
-        return bestQuad
-    }
+        // ── Stage 5: Validate + Stage 6: Score ───────────────────────────────
+        var bestCandidate: CandidateScorer.ScoredCandidate? = null
+        var bestConfidence = 0f
+        var rejectLog = StringBuilder()
 
-    private fun computeMedian(mat: Mat): Double {
-        val hist = Mat()
-        Imgproc.calcHist(
-            listOf(mat),
-            MatOfInt(0),
-            Mat(),
-            hist,
-            MatOfInt(256),
-            MatOfFloat(0f, 256f)
-        )
-        
-        val total = mat.rows() * mat.cols()
-        var currentSum = 0f
-        val histData = FloatArray(256)
-        hist.get(0, 0, histData)
-        
-        for (i in 0..255) {
-            currentSum += histData[i]
-            if (currentSum >= total / 2.0f) {
-                hist.release()
-                return i.toDouble()
+        for (candidate in candidates) {
+            val validation = candidateValidator.validate(candidate)
+            if (!validation.passed) {
+                rejectLog.append("  REJECT(${validation.reason}) ")
+                continue
+            }
+            val scored = candidateScorer.score(candidate, frameW, frameH)
+            if (scored.confidence > bestConfidence) {
+                bestConfidence = scored.confidence
+                bestCandidate = scored
             }
         }
-        hist.release()
-        return 127.0
+
+        if (rejectLog.isNotEmpty()) {
+            Log.d(TAG, "Rejected candidates:$rejectLog")
+        }
+
+        // ── Stage 7: Corner Refinement ────────────────────────────────────────
+        val refinedCorners: Array<org.opencv.core.Point>? = bestCandidate?.let {
+            cornerRefiner.refine(it.points, grayMat)
+        }
+        grayMat.release()
+
+        // ── Stage 8: Scale corners back to original image dimensions ──────────
+        val scaledCorners: Array<PointF>? = refinedCorners?.let { pts ->
+            Array(4) { i ->
+                PointF((pts[i].x / scale).toFloat(), (pts[i].y / scale).toFloat())
+            }
+        }
+
+        // ── Stage 9: Temporal Smoothing ───────────────────────────────────────
+        val smoothed = temporalSmoother.update(scaledCorners)
+
+        // ── Build Quad ────────────────────────────────────────────────────────
+        val quad: Quad? = smoothed.corners?.let {
+            Quad(topLeft = it[0], topRight = it[1], bottomRight = it[2], bottomLeft = it[3])
+        }
+
+        // ── Auto Capture Logic ────────────────────────────────────────────────
+        val coverage = bestCandidate?.let { it.points.let { _ ->
+            // Re-derive coverage using confidence-gated area
+            candidates.firstOrNull()?.coverage?.toFloat() ?: 0f
+        }} ?: 0f
+
+        val shouldAutoCapture = evaluateAutoCapture(
+            confidence = bestConfidence,
+            stability = smoothed.stability,
+            blurScore = blurScore,
+            quad = quad,
+            origW = origW,
+            origH = origH,
+        )
+
+        val elapsed = System.currentTimeMillis() - t0
+        Log.d(TAG, "detect: ${elapsed}ms | contours=${contours.size} | candidates=${candidates.size} | conf=${String.format("%.2f", bestConfidence)} | stability=${String.format("%.2f", smoothed.stability)} | blur=${String.format("%.2f", blurScore)} | quad=${if (quad != null) "✅" else "❌"} | autoCapture=$shouldAutoCapture")
+
+        return DetectionResult(
+            quad = quad,
+            confidence = bestConfidence,
+            stability = smoothed.stability,
+            blur = blurScore,
+            shouldAutoCapture = shouldAutoCapture,
+        )
     }
 
-    private fun orderCorners(pts: Array<Point>): List<Point> {
-        // Sort corners into TL, TR, BR, BL based on their sum/diff of coordinates
-        // Top-Left has smallest sum, Bottom-Right has largest sum
-        // Top-Right has largest diff (x-y), Bottom-Left has smallest diff
-        
-        var tl = pts[0]; var minSum = Double.MAX_VALUE
-        var br = pts[0]; var maxSum = -Double.MAX_VALUE
-        var tr = pts[0]; var maxDiff = -Double.MAX_VALUE
-        var bl = pts[0]; var minDiff = Double.MAX_VALUE
-
-        for (p in pts) {
-            val sum = p.x + p.y
-            val diff = p.x - p.y
-            if (sum < minSum) { minSum = sum; tl = p }
-            if (sum > maxSum) { maxSum = sum; br = p }
-            if (diff > maxDiff) { maxDiff = diff; tr = p }
-            if (diff < minDiff) { minDiff = diff; bl = p }
+    /**
+     * Estimate image sharpness using variance of the Laplacian.
+     *
+     * Rationale: A blurry image has low-amplitude Laplacian values (no sharp transitions).
+     * A sharp image has a high variance (many transitions with high amplitude).
+     *
+     * @return Normalized blur score in [0, 1]. 1 = sharp, 0 = very blurry.
+     */
+    private fun estimateBlur(gray: Mat): Float {
+        if (gray.empty()) return 0f
+        return try {
+            val lap = Mat()
+            Imgproc.Laplacian(gray, lap, CvType.CV_64F)
+            val mean = MatOfDouble()
+            val stddev = MatOfDouble()
+            Core.meanStdDev(lap, mean, stddev)
+            val variance = stddev.toArray()[0].let { it * it }
+            lap.release()
+            mean.release()
+            stddev.release()
+            // Normalize: variance of 500+ = fully sharp, 0 = blurry
+            (variance / config.blurVarianceLaplacianThreshold).coerceIn(0.0, 1.0).toFloat()
+        } catch (e: Exception) {
+            0.5f // Unknown — assume acceptable
         }
-        
-        return listOf(tl, tr, br, bl)
+    }
+
+    /**
+     * Evaluate whether all auto-capture preconditions are met.
+     *
+     * All conditions must be true simultaneously:
+     *   1. Confidence ≥ threshold
+     *   2. Stability ≥ threshold
+     *   3. Blur score ≥ threshold (image is sharp)
+     *   4. Document inside safe zone (not clipped by frame edge)
+     *   5. Detection has been stable for ≥ autoCaptureStableMs
+     */
+    private fun evaluateAutoCapture(
+        confidence: Float,
+        stability: Float,
+        blurScore: Float,
+        quad: Quad?,
+        origW: Int,
+        origH: Int,
+    ): Boolean {
+        if (quad == null) {
+            stableDetectionStartMs = 0L
+            return false
+        }
+
+        val passesConfidence = confidence >= config.autoCaptureMinConfidence
+        val passesStability = stability >= config.autoCaptureMinStability
+        val passesBlur = blurScore >= config.autoCaptureMinBlurScore
+
+        // Safe zone check: all corners must be inside the frame with a small margin
+        val marginX = origW * 0.03f
+        val marginY = origH * 0.03f
+        val corners = listOf(quad.topLeft, quad.topRight, quad.bottomRight, quad.bottomLeft)
+        val passesInsideFrame = corners.all { p ->
+            p.x >= marginX && p.y >= marginY &&
+                    p.x <= origW - marginX && p.y <= origH - marginY
+        }
+
+        val allPass = passesConfidence && passesStability && passesBlur && passesInsideFrame
+
+        return if (allPass) {
+            val now = System.currentTimeMillis()
+            if (stableDetectionStartMs == 0L) stableDetectionStartMs = now
+            (now - stableDetectionStartMs) >= config.autoCaptureStableMs
+        } else {
+            stableDetectionStartMs = 0L
+            false
+        }
+    }
+
+    /**
+     * Release all native OpenCV resources held by pipeline components.
+     * Call this when the camera session ends (e.g. in [ViewModel.onCleared]).
+     */
+    fun release() {
+        preprocessor.release()
+        edgeDetector.release()
+        contourFinder.release()
+        temporalSmoother.reset()
+    }
+
+    companion object {
+        private const val TAG = "DocDetector"
     }
 }

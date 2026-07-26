@@ -38,6 +38,9 @@ data class ScannerUiState(
     val autoCaptureCountdown: Int? = null,
     // ── Live Corners Overlay ──────────────────────────────────────────────
     val detectedCorners: DocumentDetector.Quad? = null,
+    val detectionConfidence: Float = 0f,
+    val detectionStability: Float = 0f,
+    val detectionBlur: Float = 0f,
     val frameWidth: Int = 0,
     val frameHeight: Int = 0,
     // ── Image quality ─────────────────────────────────────────────────────
@@ -109,10 +112,11 @@ class ScannerViewModel @Inject constructor(
         confidence: Float,
         isBlurry: Boolean,
         isLowLight: Boolean,
-        corners: DocumentDetector.Quad?,
+        detectionResult: DocumentDetector.DetectionResult,
         imageWidth: Int,
-        imageHeight: Int
+        imageHeight: Int,
     ) {
+        val corners = detectionResult.quad
         Log.d(TAG, "onDetectionResult: type=$type conf=$confidence blur=$isBlurry dark=$isLowLight corners=${if (corners != null) "FOUND" else "null"}")
         _state.update {
             it.copy(
@@ -121,6 +125,9 @@ class ScannerViewModel @Inject constructor(
                 detectedCorners = corners,
                 frameWidth = imageWidth,
                 frameHeight = imageHeight,
+                detectionConfidence = detectionResult.confidence,
+                detectionStability = detectionResult.stability,
+                detectionBlur = detectionResult.blur,
             )
         }
 
@@ -152,7 +159,9 @@ class ScannerViewModel @Inject constructor(
 
     private fun startAutoCaptureIfNeeded() {
         val s = _state.value
+        // Use the richer stability signal from the detector rather than a simple null check
         if (!s.isAutoMode || s.isCapturing || s.isBlurry || s.isLowLight || s.detectedCorners == null) return
+        if (s.detectionConfidence < 0.70f) return // Don't auto-capture low-confidence detections
 
         countdownJob?.cancel()
         countdownJob = viewModelScope.launch {
@@ -216,7 +225,9 @@ class ScannerViewModel @Inject constructor(
 
         // ── Stage A: Document boundary detection on full-res image ──────────
         Log.d(TAG, "processAndSave: running DocumentDetector on full-res bitmap...")
-        val preciseCorners = DocumentDetector.detectDocument(rawBitmap)
+        val detector = DocumentDetector(com.paperflow.app.domain.vision.pipeline.DocumentDetectionConfig.HIGH_PRECISION)
+        val preciseCorners = detector.detect(rawBitmap).quad
+        detector.release()
 
         // ── Stage B: Perspective correction / crop ───────────────────────────
         val croppedBitmap = if (preciseCorners != null) {

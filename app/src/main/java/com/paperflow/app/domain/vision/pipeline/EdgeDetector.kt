@@ -90,7 +90,7 @@ class EdgeDetector(private val config: DocumentDetectionConfig) {
         // Why: More robust to wide, soft edges (book spines, rounded corners).
         Imgproc.morphologyEx(gray, morphGradMat, Imgproc.MORPH_GRADIENT, gradKernel)
         // Threshold to binary
-        Core.threshold(morphGradMat, morphGradMat, 30.0, 255.0, Core.THRESH_BINARY)
+        Imgproc.threshold(morphGradMat, morphGradMat, 30.0, 255.0, Imgproc.THRESH_BINARY)
 
         // ── D. Weighted Fusion ────────────────────────────────────────────────
         // Combine three maps with weights from config.
@@ -100,7 +100,7 @@ class EdgeDetector(private val config: DocumentDetectionConfig) {
 
         // Normalize to 0-255 and threshold to binary
         Core.normalize(fusedMat, fusedMat, 0.0, 255.0, Core.NORM_MINMAX)
-        Core.threshold(fusedMat, fusedMat, 50.0, 255.0, Core.THRESH_BINARY)
+        Imgproc.threshold(fusedMat, fusedMat, 50.0, 255.0, Imgproc.THRESH_BINARY)
 
         // ── E. Morphological Closing ──────────────────────────────────────────
         // Connect edges that have small gaps (due to shadows, highlights, text overlay).

@@ -100,8 +100,8 @@ fun ScannerScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             CameraPreview(
                 onCameraReady = { imageCapture -> viewModel.setImageCapture(imageCapture) },
-                onDetectionResult = { type, conf, blur, dark, corners, w, h ->
-                    viewModel.onDetectionResult(type, conf, blur, dark, corners, w, h)
+                onDetectionResult = { type, conf, blur, dark, detectionResult, w, h ->
+                    viewModel.onDetectionResult(type, conf, blur, dark, detectionResult, w, h)
                 },
                 onError = { msg -> viewModel.onCameraError(msg) },
                 modifier = Modifier.fillMaxSize(),
@@ -415,7 +415,7 @@ private fun ShutterButton(isCapturing: Boolean, onClick: () -> Unit) {
 @Composable
 private fun CameraPreview(
     onCameraReady: (ImageCapture) -> Unit,
-    onDetectionResult: (DocumentType, Float, Boolean, Boolean, com.paperflow.app.domain.vision.DocumentDetector.Quad?, Int, Int) -> Unit,
+    onDetectionResult: (DocumentType, Float, Boolean, Boolean, com.paperflow.app.domain.vision.DocumentDetector.DetectionResult, Int, Int) -> Unit,
     onError: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {

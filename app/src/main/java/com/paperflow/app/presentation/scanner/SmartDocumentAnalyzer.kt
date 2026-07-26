@@ -16,18 +16,24 @@ import kotlin.math.abs
 /**
  * CameraX [ImageAnalysis.Analyzer] that classifies the document type visible
  * in the viewfinder using ML Kit Text Recognition + Document Boundary Detection.
+ *
+ * The [DocumentDetector.detect] API is used, providing a full [DocumentDetector.DetectionResult]
+ * including confidence, stability, blur score, and auto-capture recommendation.
  */
 class SmartDocumentAnalyzer(
     private val onResult: (
-        type: DocumentType, 
-        confidence: Float, 
-        isBlurry: Boolean, 
+        type: DocumentType,
+        confidence: Float,
+        isBlurry: Boolean,
         isLowLight: Boolean,
-        corners: DocumentDetector.Quad?,
+        detectionResult: DocumentDetector.DetectionResult,
         imageWidth: Int,
-        imageHeight: Int
+        imageHeight: Int,
     ) -> Unit,
 ) : ImageAnalysis.Analyzer {
+
+    // One detector instance per analyzer (single-threaded use guaranteed by CameraX)
+    private val detector = DocumentDetector()
 
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     private val isBusy = AtomicBoolean(false)
@@ -56,29 +62,35 @@ class SmartDocumentAnalyzer(
         val (isBlurry, isLowLight, lumaVariance) = analyzeImageQuality(imageProxy)
         
         // ── 2. Document Boundary Detection ────────────────────────────────────
-        var detectedCorners: DocumentDetector.Quad? = null
+        val detectionResult: DocumentDetector.DetectionResult
         val rotationDegrees = imageProxy.imageInfo.rotationDegrees
         
         try {
             // Convert to bitmap for boundary detection
             val bitmap = imageProxy.toBitmap()
-            // If the camera is rotated, we must rotate the bitmap so corners match the display
+            // Rotate so corners match the display orientation
             val rotatedBitmap = if (rotationDegrees != 0) {
                 val matrix = Matrix().apply { postRotate(rotationDegrees.toFloat()) }
                 Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
             } else bitmap
             
-            detectedCorners = DocumentDetector.detectDocument(rotatedBitmap)
-            if (rotatedBitmap != bitmap) rotatedBitmap.recycle()
+            detectionResult = detector.detect(rotatedBitmap)
+            if (rotatedBitmap !== bitmap) rotatedBitmap.recycle()
             bitmap.recycle()
         } catch (e: Exception) {
-            android.util.Log.e("SmartDocAnalyzer", "DocumentDetector threw an exception: ${e.javaClass.simpleName}: ${e.message}", e)
+            android.util.Log.e("SmartDocAnalyzer", "DocumentDetector threw: ${e.javaClass.simpleName}: ${e.message}", e)
+            isBusy.set(false)
+            imageProxy.close()
+            return
         }
 
         // Final dimensions based on rotation
         val isPortrait = rotationDegrees == 90 || rotationDegrees == 270
         val finalWidth = if (isPortrait) imageProxy.height else imageProxy.width
         val finalHeight = if (isPortrait) imageProxy.width else imageProxy.height
+
+        // Use the blur score from the rich DetectionResult instead of re-computing
+        val isBlurryFromDetector = detectionResult.blur < 0.25f
 
         // ── 3. OCR Text Classification ────────────────────────────────────────
         val inputImage = InputImage.fromMediaImage(mediaImage, rotationDegrees)
@@ -95,7 +107,7 @@ class SmartDocumentAnalyzer(
                         imageHeight = finalHeight.toFloat(),
                     )
                 }
-                onResult(type, confidence, isBlurry, isLowLight, detectedCorners, finalWidth, finalHeight)
+                onResult(type, confidence, isBlurry || isBlurryFromDetector, isLowLight, detectionResult, finalWidth, finalHeight)
             }
             .addOnCompleteListener {
                 isBusy.set(false)
