@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude encrypted and vault directories from backup -->
+    <exclude domain="file" path="encrypted/" />
+    <exclude domain="file" path="vault/" />
+    <exclude domain="sharedpref" path="vault_prefs.xml" />
+    <exclude domain="database" path="paperflow_secure.db" />
+</full-backup-content>

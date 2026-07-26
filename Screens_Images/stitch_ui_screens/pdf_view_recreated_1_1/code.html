@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>View PDF</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+          },
+          colors: {
+            primary: '#ffcc0f',
+            surface: '#f9f9f9',
+            border: '#e5e5e5',
+            text: {
+              main: '#333333',
+              muted: '#8e8e93',
+            }
+          },
+          boxShadow: {
+            'doc': '0 4px 12px rgba(0, 0, 0, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-styles">
+    body {
+      background-color: #f0f0f0; /* Default background outside phone container */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .phone-container {
+      width: 390px;
+      height: 844px;
+      background-color: #ffffff;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Hide scrollbar for thumbnail list */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+  </style>
+</head>
+<body>
+<!-- BEGIN: Phone Container -->
+<div class="phone-container" data-purpose="mobile-frame">
+<!-- BEGIN: Status Bar -->
+
+<!-- END: Status Bar -->
+<!-- BEGIN: Header -->
+<header class="flex items-center justify-between px-4 py-3 bg-white z-10" data-purpose="app-header">
+<button aria-label="Back" class="p-2 -ml-2">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M15 18l-6-6 6-6"></path>
+</svg>
+</button>
+<h1 class="text-lg font-semibold text-text-main">Employment Contract</h1>
+<button aria-label="Menu" class="p-2 -mr-2">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<circle cx="12" cy="12" r="1"></circle>
+<circle cx="12" cy="5" r="1"></circle>
+<circle cx="12" cy="19" r="1"></circle>
+</svg>
+</button>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Top Toolbar -->
+<div class="flex items-center justify-between px-4 py-3 bg-surface border-b border-border z-10" data-purpose="pdf-toolbar">
+<div class="bg-white border border-border rounded-lg px-3 py-1.5 text-sm font-medium text-text-main shadow-sm">
+        1 / 3
+      </div>
+<div class="flex items-center gap-4 text-text-main">
+<button aria-label="Search" class="p-1">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+</button>
+<button aria-label="Zoom Out" class="p-1">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22">
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</button>
+<div class="h-6 w-px bg-border"></div>
+<button aria-label="Zoom In" class="p-1">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</button>
+<button aria-label="Bookmark" class="p-1">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22">
+<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- END: Top Toolbar -->
+<!-- BEGIN: Main Document Area -->
+<main class="flex-1 bg-[#f0f0f0] overflow-y-auto relative p-4 flex justify-center" data-purpose="document-viewer">
+<!-- Document Page -->
+<div class="bg-white shadow-doc rounded-sm p-6 w-full max-w-[340px] text-xs leading-relaxed" style="min-height: 480px;">
+<h2 class="font-bold text-[14px] mb-4 text-center">EMPLOYMENT CONTRACT</h2>
+<p class="mb-4">This Employment Contract ("Contract") is made and entered into as of the date of signing ("Effective Date"), by and between:</p>
+<ul class="list-disc pl-5 mb-4 space-y-2">
+<li class=""><strong>Employer:</strong> ABC Company, a company organized and existing under the laws of the State of California, with its principal office at 123 Business Road, San Francisco, CA 94110.</li>
+<li class=""><strong>Employee:</strong> John Doe, residing at 456 Employee Lane, San Francisco, CA 94110.</li>
+</ul>
+<h3 class="font-bold mb-1">1. POSITION</h3>
+<p class="mb-4">The <strong>Employer</strong> hereby employs the Employee as a Software Engineer. The Employee agrees to perform all duties and responsibilities associated with such position.</p>
+<h3 class="font-bold mb-1">2. COMPENSATION</h3>
+<p class="mb-4">The Employer shall pay the Employee a monthly salary of $6,000, subject to applicable taxes and deductions.</p>
+<h3 class="font-bold mb-1">3. TERM</h3>
+<p class="mb-4">This Contract shall commence on the Effective Date and shall continue until terminated by either party in accordance with Section 6.</p>
+<h3 class="font-bold mb-1">4. CONFIDENTIALITY</h3>
+<p class="mb-4">The Employee agrees to maintain the confidentiality of all proprietary information of the Employer.</p>
+<h3 class="font-bold mb-1">5. TERMINATION</h3>
+<p class="mb-4">Either party may terminate this Contract with 30 days written notice.</p>
+<table class="w-full border-collapse border border-gray-300 mt-4 text-[11px]">
+<tbody><tr>
+<th class="border border-gray-300 p-2 text-left w-1/4"></th>
+<th class="border border-gray-300 p-2 text-left w-3/8">Employer</th>
+<th class="border border-gray-300 p-2 text-left w-3/8">Employee</th>
+</tr>
+<tr>
+<td class="border border-gray-300 p-2 font-bold">Signature:</td>
+<td class="border border-gray-300 p-2 h-10 relative">
+<svg class="absolute top-1 left-2 w-16 h-8 text-black opacity-70" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 100 40">
+<path d="M10,30 Q30,10 50,25 T90,15"></path>
+</svg>
+</td>
+<td class="border border-gray-300 p-2 h-10 relative">
+<svg class="absolute top-1 left-2 w-16 h-8 text-black opacity-70" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 100 40">
+<path d="M10,25 Q40,-10 60,30 T95,10"></path>
+</svg>
+</td>
+</tr>
+<tr>
+<td class="border border-gray-300 p-2 font-bold">Name:</td>
+<td class="border border-gray-300 p-2">ABC Company</td>
+<td class="border border-gray-300 p-2">John Doe</td>
+</tr>
+<tr>
+<td class="border border-gray-300 p-2 font-bold">Date:</td>
+<td class="border border-gray-300 p-2">May 1, 2024</td>
+<td class="border border-gray-300 p-2">May 1, 2024</td>
+</tr>
+</tbody></table>
+</div>
+</main>
+<!-- END: Main Document Area -->
+<!-- BEGIN: Thumbnail Navigator -->
+<div class="bg-surface border-t border-border py-3 px-4 flex items-center justify-between" data-purpose="thumbnail-nav">
+<button aria-label="Previous Page" class="p-2 text-text-main">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<polyline points="15 18 9 12 15 6"></polyline>
+</svg>
+</button>
+<div class="flex gap-4 overflow-x-auto scrollbar-hide flex-1 px-2 items-end justify-center">
+<!-- Thumbnail 1 (Active) -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-[60px] h-[80px] bg-white border-2 border-primary rounded shadow-sm relative overflow-hidden p-1 flex flex-col">
+<div class="bg-gray-200 h-[2px] w-[80%] mb-[4px] mt-1"></div>
+<div class="bg-gray-200 h-[2px] w-[90%] mb-[2px]"></div>
+<div class="bg-gray-200 h-[2px] w-[85%] mb-[2px]"></div>
+<div class="bg-gray-200 h-[2px] w-[60%] mb-[6px]"></div>
+<div class="bg-gray-200 h-[2px] w-[90%] mb-[2px]"></div>
+<div class="bg-gray-200 h-[2px] w-[80%] mb-[2px]"></div>
+</div>
+<span class="bg-primary text-white text-[11px] font-bold py-0.5 px-3 rounded-full">1</span>
+</div>
+<!-- Thumbnail 2 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-[60px] h-[80px] bg-white border border-border rounded shadow-sm opacity-60 p-1 flex flex-col">
+<div class="bg-gray-200 h-[2px] w-[90%] mb-[2px] mt-2"></div>
+<div class="bg-gray-200 h-[2px] w-[85%] mb-[2px]"></div>
+<div class="bg-gray-200 h-[2px] w-[60%] mb-[6px]"></div>
+<div class="bg-gray-200 h-[2px] w-[90%] mb-[2px]"></div>
+<div class="bg-gray-200 h-[2px] w-[80%] mb-[2px]"></div>
+</div>
+<span class="text-text-muted text-[11px] font-medium py-0.5 px-3 bg-white rounded-full border border-border shadow-sm">2</span>
+</div>
+<!-- Thumbnail 3 -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-[60px] h-[80px] bg-white border border-border rounded shadow-sm opacity-60 p-1 flex flex-col">
+<div class="bg-gray-200 h-[2px] w-[90%] mb-[2px] mt-2"></div>
+<div class="bg-gray-200 h-[2px] w-[85%] mb-[2px]"></div>
+<div class="bg-gray-200 h-[2px] w-[60%] mb-[6px]"></div>
+</div>
+<span class="text-text-muted text-[11px] font-medium py-0.5 px-3 bg-white rounded-full border border-border shadow-sm">3</span>
+</div>
+</div>
+<button aria-label="Next Page" class="p-2 text-text-main opacity-30">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<polyline points="9 18 15 12 9 6"></polyline>
+</svg>
+</button>
+</div>
+<!-- END: Thumbnail Navigator -->
+<!-- BEGIN: Bottom Tab Bar -->
+<nav class="bg-white border-t border-border px-2 pt-3 pb-8 flex justify-around items-center" data-purpose="bottom-nav">
+<!-- Share -->
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+<polyline points="16 6 12 2 8 6"></polyline>
+<line x1="12" x2="12" y1="2" y2="15"></line>
+</svg>
+<span class="text-[10px] text-text-main font-medium">Share</span>
+</button>
+<!-- Annotate -->
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+<span class="text-[10px] text-text-main font-medium">Annotate</span>
+</button>
+<!-- Edit -->
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+</svg>
+<span class="text-[10px] text-text-main font-medium">Edit</span>
+</button>
+<!-- Print -->
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<polyline points="6 9 6 2 18 2 18 9"></polyline>
+<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+<rect height="8" width="12" x="6" y="14"></rect>
+</svg>
+<span class="text-[10px] text-text-main font-medium">Print</span>
+</button>
+<!-- More -->
+<button class="flex flex-col items-center gap-1 min-w-[64px]">
+<svg class="text-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<circle cx="12" cy="12" r="1"></circle>
+<circle cx="19" cy="12" r="1"></circle>
+<circle cx="5" cy="12" r="1"></circle>
+</svg>
+<span class="text-[10px] text-text-main font-medium">More</span>
+</button>
+</nav>
+<!-- Home Indicator -->
+<div class="absolute bottom-1 w-full flex justify-center pb-2 z-20">
+<div class="w-[134px] h-[5px] bg-black rounded-full"></div>
+</div>
+<!-- END: Bottom Tab Bar -->
+</div>
+<!-- END: Phone Container -->
+
+
+</body></html>

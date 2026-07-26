@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Edit Scan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'solaris-surface': '#fff8f1',
+                        'solaris-primary': '#ffcc0f',
+                        'solaris-primary-light': 'rgba(255, 204, 15, 0.2)',
+                        'solaris-text-main': '#333333',
+                        'solaris-text-sub': '#666666',
+                        'solaris-border': '#e0e0e0',
+                    },
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<style data-purpose="custom-utilities">
+        /* Hide scrollbar for horizontal scrolling containers */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Box shadow for bottom action area to make it pop slightly */
+        .bottom-actions-shadow {
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="bg-solaris-surface text-solaris-text-main font-sans antialiased min-h-screen flex flex-col max-w-md mx-auto relative shadow-2xl">
+<!-- BEGIN: Header -->
+<header class="flex items-center px-4 py-4 bg-white/80 backdrop-blur-md sticky top-0 z-10">
+<!-- Back Button -->
+<button aria-label="Go back" class="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors">
+<svg class="text-solaris-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M15 18l-6-6 6-6"></path>
+</svg>
+</button>
+<!-- Title -->
+<h1 class="text-xl font-bold ml-2">Edit Scan</h1>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col p-4 overflow-y-auto">
+<!-- Document Preview Container -->
+<div class="relative bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex-1 mb-6 flex flex-col justify-start overflow-hidden">
+<!-- Retake/Reset Icon Button floating top right of document -->
+<button aria-label="Retake scan" class="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md border border-gray-50 z-10 hover:bg-gray-50 transition-colors">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+<path d="M3 3v5h5"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+</button>
+<!-- Mock Document Content (Text based for clarity, simulating the image) -->
+<div class="text-[0.65rem] leading-tight text-gray-800 font-serif pt-4">
+<h2 class="font-bold mb-2 text-[0.75rem]">EMPLOYMENT CONTRACT</h2>
+<p class="mb-2">This Employment Contract ("Contract") is made and entered into as of the date of signing ("Effective Date"), by and between:</p>
+<ul class="list-disc pl-4 mb-2 space-y-1">
+<li><strong>Employer:</strong> ABC Company, a company organized and existing under the laws of the State of California, with its principal office at 123 Business Road, San Francisco, CA 94105.</li>
+<li><strong>Employee:</strong> John Doe, residing at 456 Employee Lane, San Francisco, CA 94110.</li>
+</ul>
+<h3 class="font-bold mt-3 mb-1">1. POSITION</h3>
+<p class="mb-2">The Employer hereby employs the Employee as a Software Engineer. The Employee agrees to perform all duties and responsibilities associated with such position.</p>
+<h3 class="font-bold mt-3 mb-1">2. COMPENSATION</h3>
+<p class="mb-2">The Employer shall pay the Employee a monthly salary of $6,000, subject to applicable taxes and deductions.</p>
+<h3 class="font-bold mt-3 mb-1">3. TERM</h3>
+<p class="mb-2">This Contract shall commence on the Effective Date and shall continue until terminated by either party in accordance with Section 6.</p>
+<h3 class="font-bold mt-3 mb-1">4. CONFIDENTIALITY</h3>
+<p class="mb-2">The Employee agrees to maintain the confidentiality of all proprietary information of the Employer.</p>
+<h3 class="font-bold mt-3 mb-1">5. TERMINATION</h3>
+<p class="mb-3">Either party may terminate this Contract with 30 days written notice.</p>
+<table class="w-full border-collapse border border-gray-300 text-center mt-4">
+<thead>
+<tr>
+<th class="border border-gray-300 p-1"></th>
+<th class="border border-gray-300 p-1 font-bold">Employer</th>
+<th class="border border-gray-300 p-1 font-bold">Employee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-gray-300 p-1 font-bold text-left pl-2">Signature:</td>
+<td class="border border-gray-300 p-1 italic text-gray-500 font-signature">ABC Company</td>
+<td class="border border-gray-300 p-1 italic text-gray-500 font-signature">John Doe</td>
+</tr>
+<tr>
+<td class="border border-gray-300 p-1 font-bold text-left pl-2">Name:</td>
+<td class="border border-gray-300 p-1">ABC Company</td>
+<td class="border border-gray-300 p-1">John Doe</td>
+</tr>
+<tr>
+<td class="border border-gray-300 p-1 font-bold text-left pl-2">Date:</td>
+<td class="border border-gray-300 p-1">May 1, 2024</td>
+<td class="border border-gray-300 p-1">May 1, 2024</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+<!-- BEGIN: Bottom Tools Area -->
+<div class="bg-white rounded-t-3xl bottom-actions-shadow pt-6 pb-8 px-4 flex flex-col gap-6 mt-auto">
+<!-- Filter Carousel -->
+<div class="flex overflow-x-auto no-scrollbar gap-4 pb-2 snap-x snap-mandatory">
+<!-- Filter Option: None (Active) -->
+<button class="flex flex-col items-center gap-2 snap-start min-w-[70px]">
+<div class="w-[60px] h-[80px] rounded-lg border-2 border-solaris-primary p-1 bg-solaris-primary-light flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-white flex flex-col text-[3px] p-1 border border-gray-200">
+<div class="font-bold mb-1">EMPLOYMENT CONTRACT</div>
+<div class="bg-gray-200 h-[2px] w-full mb-1"></div>
+<div class="bg-gray-200 h-[2px] w-3/4 mb-1"></div>
+</div>
+</div>
+<span class="text-xs font-semibold text-solaris-text-main bg-solaris-primary rounded-full px-3 py-1">None</span>
+</button>
+<!-- Filter Option: B&W -->
+<button class="flex flex-col items-center gap-2 snap-start min-w-[70px]">
+<div class="w-[60px] h-[80px] rounded-lg border border-gray-200 p-1 bg-white flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-white flex flex-col text-[3px] p-1 border border-gray-200 grayscale">
+<div class="font-bold mb-1">EMPLOYMENT CONTRACT</div>
+<div class="bg-gray-300 h-[2px] w-full mb-1"></div>
+<div class="bg-gray-300 h-[2px] w-3/4 mb-1"></div>
+</div>
+</div>
+<span class="text-xs text-solaris-text-sub mt-1">B&amp;W</span>
+</button>
+<!-- Filter Option: Color -->
+<button class="flex flex-col items-center gap-2 snap-start min-w-[70px]">
+<div class="w-[60px] h-[80px] rounded-lg border border-gray-200 p-1 bg-white flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-white flex flex-col text-[3px] p-1 border border-gray-200">
+<div class="font-bold text-blue-800 mb-1">EMPLOYMENT CONTRACT</div>
+<div class="bg-blue-100 h-[2px] w-full mb-1"></div>
+<div class="bg-blue-100 h-[2px] w-3/4 mb-1"></div>
+</div>
+</div>
+<span class="text-xs text-solaris-text-sub mt-1">Color</span>
+</button>
+<!-- Filter Option: Enhance -->
+<button class="flex flex-col items-center gap-2 snap-start min-w-[70px]">
+<div class="w-[60px] h-[80px] rounded-lg border border-gray-200 p-1 bg-white flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-white flex flex-col text-[3px] p-1 border border-gray-200 contrast-125">
+<div class="font-bold mb-1">EMPLOYMENT CONTRACT</div>
+<div class="bg-gray-800 h-[2px] w-full mb-1"></div>
+<div class="bg-gray-800 h-[2px] w-3/4 mb-1"></div>
+</div>
+</div>
+<span class="text-xs text-solaris-text-sub mt-1">Enhance</span>
+</button>
+<!-- Filter Option: Magic -->
+<button class="flex flex-col items-center gap-2 snap-start min-w-[70px]">
+<div class="w-[60px] h-[80px] rounded-lg border border-gray-200 p-1 bg-white flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-white flex flex-col text-[3px] p-1 border border-gray-200 brightness-110">
+<div class="font-bold text-purple-800 mb-1">EMPLOYMENT CONTRACT</div>
+<div class="bg-purple-100 h-[2px] w-full mb-1"></div>
+<div class="bg-purple-100 h-[2px] w-3/4 mb-1"></div>
+</div>
+</div>
+<span class="text-xs text-solaris-text-sub mt-1">Magic</span>
+</button>
+</div>
+<!-- Toolset Row -->
+<div class="flex justify-between px-2">
+<!-- Tool: Crop -->
+<button class="flex flex-col items-center gap-2 group">
+<div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+<svg class="text-solaris-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"></path>
+<path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"></path>
+</svg>
+</div>
+<span class="text-[10px] text-solaris-text-main font-medium">Crop</span>
+</button>
+<!-- Tool: Rotate -->
+<button class="flex flex-col items-center gap-2 group">
+<div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+<svg class="text-solaris-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+<path d="M3 3v5h5"></path>
+</svg>
+</div>
+<span class="text-[10px] text-solaris-text-main font-medium">Rotate</span>
+</button>
+<!-- Tool: Filter (Active) -->
+<button class="flex flex-col items-center gap-2 group">
+<div class="w-12 h-12 rounded-full bg-solaris-primary-light flex items-center justify-center">
+<svg fill="none" height="24" stroke="#eab308" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+</svg>
+</div>
+<span class="text-[10px] text-yellow-500 font-semibold">Filter</span>
+</button>
+<!-- Tool: Brightness -->
+<button class="flex flex-col items-center gap-2 group">
+<div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+<svg class="text-solaris-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</div>
+<span class="text-[10px] text-solaris-text-main font-medium">Brightnes</span>
+</button>
+<!-- Tool: More -->
+<button class="flex flex-col items-center gap-2 group">
+<div class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+<svg class="text-solaris-text-main" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<circle cx="12" cy="12" r="1"></circle>
+<circle cx="19" cy="12" r="1"></circle>
+<circle cx="5" cy="12" r="1"></circle>
+</svg>
+</div>
+<span class="text-[10px] text-solaris-text-main font-medium">More</span>
+</button>
+</div>
+<!-- Action Buttons (Cancel / Done) -->
+<div class="flex gap-4 mt-2">
+<button class="flex-1 py-4 rounded-xl border border-gray-200 text-solaris-text-main font-semibold bg-white hover:bg-gray-50 transition-colors shadow-sm">
+                Cancel
+            </button>
+<button class="flex-1 py-4 rounded-xl text-solaris-text-main font-semibold bg-solaris-primary hover:bg-yellow-400 transition-colors shadow-sm">
+                Done
+            </button>
+</div>
+<!-- Home Indicator Mockup -->
+<div class="w-1/3 h-1 bg-black rounded-full mx-auto mt-4 opacity-20"></div>
+</div>
+<!-- END: Bottom Tools Area -->
+</body></html>

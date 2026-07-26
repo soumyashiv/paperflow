@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>View Options</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #000; /* Dark background to show bottom sheet effect */
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      height: 100vh;
+      margin: 0;
+    }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#fff8f1',
+            'surface-container': '#fcf4e8',
+            primary: '#ffcc0f',
+            'primary-light': '#fff4cc', /* Approximation for selected backgrounds */
+            'on-surface': '#1c1b1b',
+            'on-surface-variant': '#49454f',
+            outline: '#e2d9c8',
+          },
+          borderRadius: {
+            'xl': '1rem',
+            '2xl': '1.5rem',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+<!-- BEGIN: BottomSheet -->
+<main class="w-full max-w-md bg-white rounded-t-3xl pb-10 pt-6 px-6 flex flex-col gap-6 h-auto" data-purpose="bottom-sheet">
+<!-- BEGIN: Header -->
+<header class="flex justify-between items-center" data-purpose="sheet-header">
+<h1 class="text-xl font-bold text-gray-900">View Options</h1>
+<button aria-label="Close" class="text-gray-900 focus:outline-none">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Page Layout Section -->
+<section data-purpose="page-layout-options">
+<div class="grid grid-cols-2 gap-4">
+<!-- Single Page Option (Selected) -->
+<button class="flex flex-col items-center justify-center p-6 rounded-2xl bg-primary-light border-2 border-transparent transition-colors">
+<div class="bg-primary/20 p-3 rounded-xl mb-3">
+<svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-sm font-medium text-gray-900">Single Page</span>
+</button>
+<!-- Double Page Option -->
+<button class="flex flex-col items-center justify-center p-6 rounded-2xl bg-gray-50 hover:bg-gray-100 border-2 border-transparent transition-colors">
+<div class="flex gap-1 mb-3">
+<svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-sm font-medium text-gray-900">Double Page</span>
+</button>
+</div>
+</section>
+<!-- END: Page Layout Section -->
+<!-- BEGIN: Scroll Mode Section -->
+<section class="flex flex-col gap-3" data-purpose="scroll-mode-options">
+<h2 class="text-base font-semibold text-gray-900">Scroll Mode</h2>
+<div class="flex bg-gray-50 rounded-xl p-1">
+<button class="flex-1 py-3 text-sm font-medium rounded-lg bg-primary-light text-gray-900 shadow-sm transition-all">
+          Vertical
+        </button>
+<button class="flex-1 py-3 text-sm font-medium rounded-lg text-gray-600 hover:text-gray-900 transition-all">
+          Horizontal
+        </button>
+</div>
+</section>
+<!-- END: Scroll Mode Section -->
+<hr class="border-gray-100">
+<!-- BEGIN: Fit to Screen Section -->
+<section class="flex flex-col gap-3" data-purpose="fit-to-screen-options">
+<h2 class="text-base font-semibold text-gray-900">Fit to Screen</h2>
+<div class="grid grid-cols-3 gap-3">
+<!-- Width (Selected) -->
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-primary-light border-2 border-transparent transition-colors">
+<svg class="w-6 h-6 mb-2 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-medium text-gray-900">Width</span>
+</button>
+<!-- Fit -->
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 border-2 border-transparent transition-colors">
+<div class="w-6 h-6 mb-2 border-2 border-dashed border-gray-600 rounded"></div>
+<span class="text-xs font-medium text-gray-900">Fit</span>
+</button>
+<!-- Auto -->
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 hover:bg-gray-100 border-2 border-transparent transition-colors">
+<svg class="w-6 h-6 mb-2 text-gray-800" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-medium text-gray-900">Auto</span>
+</button>
+</div>
+</section>
+<!-- END: Fit to Screen Section -->
+<hr class="border-gray-100">
+<!-- BEGIN: Auto Scroll Section -->
+<section class="flex justify-between items-center" data-purpose="auto-scroll-toggle">
+<div class="flex flex-col">
+<span class="text-base font-semibold text-gray-900">Auto Scroll</span>
+<span class="text-sm text-gray-500">Automatically scroll pages</span>
+</div>
+<!-- Toggle Switch -->
+<button aria-checked="false" class="bg-gray-200 relative inline-flex h-8 w-14 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span aria-hidden="true" class="translate-x-0 pointer-events-none inline-block h-7 w-7 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</section>
+<!-- END: Auto Scroll Section -->
+<hr class="border-gray-100">
+<!-- BEGIN: Scroll Speed Section -->
+<section class="flex flex-col gap-4 pb-4" data-purpose="scroll-speed-slider">
+<h2 class="text-base font-semibold text-gray-900">Scroll Speed</h2>
+<div class="flex items-center gap-4">
+<!-- Turtle Icon -->
+<svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<!-- Slider Track -->
+<div class="flex-1 relative flex items-center h-2 bg-gray-200 rounded-full">
+<!-- Filled Track -->
+<div class="absolute h-full bg-primary rounded-full" style="width: 50%;"></div>
+<!-- Thumb -->
+<div class="absolute w-4 h-4 bg-primary rounded-full shadow cursor-pointer transform -translate-x-1/2" style="left: 50%;"></div>
+</div>
+<!-- Rabbit Icon -->
+<svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.437 4.437 0 002.94-2.315m2.384-2.36a4.48 4.48 0 00-4.306-1.758 4.436 4.436 0 002.315 2.942" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</section>
+<!-- END: Scroll Speed Section -->
+<!-- Home Indicator Area -->
+<div class="w-full flex justify-center mt-2 pb-2">
+<div class="w-32 h-1 bg-black rounded-full"></div>
+</div>
+</main>
+<!-- END: BottomSheet -->
+</body></html>

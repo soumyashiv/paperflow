@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Print Options</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-utilities">
+    /* Custom radio styling to match design system active state */
+    .radio-custom:checked {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+      border-color: #ffcc0f;
+      background-color: #ffcc0f;
+    }
+    .toggle-custom:checked {
+      background-color: #ffcc0f;
+    }
+  </style>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ffcc0f',
+            surface: '#fff8f1',
+            'surface-container': '#f0e6d6',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '0.5rem', /* ROUND_EIGHT */
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+</head>
+<body class="bg-surface font-sans text-gray-900 antialiased min-h-screen flex justify-center">
+<!-- BEGIN: Main App Container -->
+<main class="w-full max-w-md bg-white shadow-lg min-h-[100dvh] flex flex-col relative pb-24">
+<!-- BEGIN: Header -->
+<header class="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-white sticky top-0 z-10">
+<button aria-label="Go back" class="text-gray-800 p-2">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<h1 class="text-lg font-semibold">Print Options</h1>
+<button aria-label="Print" class="text-primary font-medium p-2">
+        Print
+      </button>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Scrollable Content -->
+<div class="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+<!-- Printer Selection -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Printer</h2>
+<div class="flex items-center justify-between p-4 border border-gray-200 rounded-card cursor-pointer hover:bg-gray-50">
+<div class="flex items-center gap-4">
+<div class="p-2 bg-gray-100 rounded-md">
+<svg class="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+</div>
+<div>
+<p class="font-medium text-gray-900">HP LaserJet Pro MFP M428fdw</p>
+<p class="text-sm text-green-500 mt-0.5">Ready</p>
+</div>
+</div>
+<svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</section>
+<!-- Copies -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Copies</h2>
+<div class="flex items-center justify-between p-2 border border-gray-200 rounded-card">
+<button aria-label="Decrease copies" class="w-10 h-10 flex items-center justify-center text-gray-600 rounded-md hover:bg-gray-100">
+<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" fill-rule="evenodd"></path>
+</svg>
+</button>
+<span class="font-semibold text-lg">1</span>
+<button aria-label="Increase copies" class="w-10 h-10 flex items-center justify-center text-gray-600 rounded-md hover:bg-gray-100">
+<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" fill-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- Pages -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Pages</h2>
+<div class="border border-gray-200 rounded-card divide-y divide-gray-100">
+<label class="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50">
+<div class="flex items-center gap-3">
+<input checked="" class="radio-custom form-radio h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="pages" type="radio" value="all">
+<span class="text-gray-900 font-medium">All Pages</span>
+</div>
+<span class="text-gray-400 text-sm">1-3</span>
+</label>
+<label class="flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50">
+<div class="flex items-center gap-3">
+<input class="radio-custom form-radio h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="pages" type="radio" value="range">
+<span class="text-gray-900">Range</span>
+</div>
+<span class="text-gray-400 text-sm">e.g. 1-3, 6-8</span>
+</label>
+</div>
+</section>
+<!-- Paper Size -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Paper Size</h2>
+<div class="relative">
+<select class="block w-full pl-4 pr-10 py-3 text-base border border-gray-200 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-card appearance-none bg-white font-medium text-gray-900">
+<option>A4</option>
+<option>Letter</option>
+<option>Legal</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
+<svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<p class="absolute left-4 bottom-1.5 text-xs text-gray-400 pointer-events-none">210 x 297 mm</p>
+</div>
+</section>
+<!-- Orientation -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Orientation</h2>
+<div class="flex gap-3">
+<button class="flex-1 flex items-center justify-center gap-2 py-3 px-4 border border-primary text-primary rounded-card bg-orange-50/50 font-medium">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+            Portrait
+          </button>
+<button class="flex-1 flex items-center justify-center gap-2 py-3 px-4 border border-gray-200 text-gray-600 rounded-card font-medium">
+<svg class="h-5 w-5 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+</svg>
+            Landscape
+          </button>
+</div>
+</section>
+<!-- Color -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Color</h2>
+<div class="border border-gray-200 rounded-card divide-y divide-gray-100">
+<label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50">
+<input checked="" class="radio-custom form-radio h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="color_mode" type="radio" value="color">
+<span class="text-gray-900 font-medium">Color</span>
+</label>
+<label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50">
+<input class="radio-custom form-radio h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="color_mode" type="radio" value="bw">
+<span class="text-gray-900">Black &amp; White</span>
+</label>
+</div>
+</section>
+<!-- Quality -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Quality</h2>
+<div class="border border-gray-200 rounded-card divide-y divide-gray-100">
+<label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50">
+<input checked="" class="radio-custom form-radio h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="quality" type="radio" value="high">
+<span class="text-gray-900 font-medium">High</span>
+</label>
+<label class="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50">
+<input class="radio-custom form-radio h-5 w-5 text-primary border-gray-300 focus:ring-primary" name="quality" type="radio" value="standard">
+<span class="text-gray-900">Standard</span>
+</label>
+</div>
+</section>
+<!-- Margins -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Margins</h2>
+<div class="flex items-center justify-between p-4 border border-gray-200 rounded-card cursor-pointer hover:bg-gray-50">
+<div>
+<p class="font-medium text-gray-900">Default</p>
+<p class="text-sm text-gray-500 mt-0.5">Normal margins on all sides</p>
+</div>
+<svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</section>
+<!-- Options Toggles -->
+<section>
+<h2 class="text-sm font-medium text-gray-500 mb-2 px-1">Options</h2>
+<div class="border border-gray-200 rounded-card divide-y divide-gray-100">
+<label class="flex items-center justify-between p-4 cursor-pointer">
+<span class="text-gray-900 font-medium">Print Background</span>
+<div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-custom focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer checked:border-primary" id="print_bg" name="print_bg" type="checkbox">
+<label class="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="print_bg"></label>
+</div>
+</label>
+<label class="flex items-center justify-between p-4 cursor-pointer">
+<span class="text-gray-900 font-medium">Print Annotations</span>
+<div class="relative inline-block w-12 h-6 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-custom focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer checked:border-primary" id="print_ann" name="print_ann" type="checkbox">
+<label class="block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="print_ann"></label>
+</div>
+</label>
+</div>
+</section>
+</div>
+<!-- END: Scrollable Content -->
+<!-- BEGIN: Bottom Action Area -->
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 pb-8">
+<button class="w-full bg-primary hover:bg-yellow-400 text-gray-900 font-semibold py-4 rounded-card text-lg transition-colors">
+        Print
+      </button>
+<!-- Home indicator placeholder -->
+<div class="w-1/3 h-1 bg-gray-900 rounded-full mx-auto mt-6"></div>
+</div>
+<!-- END: Bottom Action Area -->
+</main>
+<!-- END: Main App Container -->
+</body></html>

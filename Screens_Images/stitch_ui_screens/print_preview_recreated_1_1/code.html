@@ -1,0 +1,209 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Print Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="font">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ffcc0f',
+            surface: {
+              DEFAULT: '#fff8f1',
+              dim: '#e2d9c8',
+              container: '#fdf2e1',
+              'container-low': '#fdf2e1',
+              'container-lowest': '#ffffff',
+            },
+            onSurface: {
+              DEFAULT: '#221b10',
+              variant: '#524430'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-onSurface h-screen flex flex-col overflow-hidden max-w-[430px] mx-auto border-x border-surface-dim relative">
+<!-- BEGIN: Header -->
+<header class="bg-surface-container-lowest px-4 py-3 flex items-center justify-between border-b border-surface-dim sticky top-0 z-10 shrink-0">
+<button aria-label="Go back" class="w-8 h-8 flex items-center justify-center text-onSurface">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<h1 class="text-lg font-semibold flex-1 text-center">Print Preview</h1>
+<button aria-label="Print" class="text-primary font-semibold text-[17px] px-2">
+      Print
+    </button>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Secondary Toolbar -->
+<div class="bg-surface-container-lowest px-4 py-2.5 flex items-center justify-between border-b border-surface-dim shrink-0">
+<div class="bg-surface border border-surface-dim rounded px-3 py-1 text-sm font-medium">
+      1 / 3
+    </div>
+<div class="flex items-center gap-4 text-onSurface-variant">
+<button aria-label="Search">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div class="w-px h-5 bg-surface-dim mx-1"></div>
+<button aria-label="Zoom Out">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.5 12h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button aria-label="Zoom In">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- END: Secondary Toolbar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 overflow-hidden flex flex-col bg-surface relative z-0">
+<!-- Document Preview Wrapper -->
+<div class="flex-1 overflow-auto p-4 flex justify-center pb-24">
+<!-- Document Page -->
+<div class="bg-surface-container-lowest shadow-md w-full max-w-sm shrink-0 p-5 text-xs text-onSurface leading-relaxed relative">
+<h2 class="font-bold mb-4 uppercase text-sm">Employment Contract</h2>
+<p class="mb-3">This Employment Contract ("Contract") is made and entered into as of the date of signing ("Effective Date"), by and between:</p>
+<ul class="list-disc pl-4 mb-3 space-y-2">
+<li><strong>Employer:</strong> ABC Company, a company organized and existing under the laws of the State of California, with its principal office at 123 Business Road, San Francisco, CA 94110.</li>
+<li><strong>Employee:</strong> John Doe, residing at 456 Employee Lane, San Francisco, CA 94110.</li>
+</ul>
+<h3 class="font-bold mt-4 mb-1 text-[11px] uppercase">1. Position</h3>
+<p class="mb-3">The Employer hereby employs the Employee as a Software Engineer. The Employee agrees to perform all duties and responsibilities associated with such position.</p>
+<h3 class="font-bold mt-4 mb-1 text-[11px] uppercase">2. Compensation</h3>
+<p class="mb-3">The Employer shall pay the Employee a monthly salary of $6,000, subject to applicable taxes and deductions.</p>
+<h3 class="font-bold mt-4 mb-1 text-[11px] uppercase">3. Term</h3>
+<p class="mb-3">This Contract shall commence on the Effective Date and shall continue until terminated by either party in accordance with Section 6.</p>
+<h3 class="font-bold mt-4 mb-1 text-[11px] uppercase">4. Confidentiality</h3>
+<p class="mb-3">The Employee agrees to maintain the confidentiality of all proprietary information of the Employer.</p>
+<h3 class="font-bold mt-4 mb-3 text-[11px] uppercase">5. Termination</h3>
+<p class="mb-4">Either party may terminate this Contract with 30 days written notice.</p>
+<table class="w-full border-collapse border border-surface-dim text-[10px] text-left">
+<thead>
+<tr>
+<th class="border border-surface-dim p-2 w-[80px]"></th>
+<th class="border border-surface-dim p-2">Employer</th>
+<th class="border border-surface-dim p-2">Employee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="border border-surface-dim p-2 font-semibold">Signature:</td>
+<td class="border border-surface-dim p-2 h-10"><img alt="Signature 1" class="h-full object-contain mix-blend-multiply opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3LQ_P49_divpVdpXDS6k0zvJSx9t7ZcEzxNx5Sn5TlAfF1mHqAmekNbnQgvCPGZ7BFDKyljqK_Kb0rf-juVsWcwG_4AWu5ekfjPSxARNP8omA0HbyqlxinNnjJ_VddNEuWUkKRw9JEXY6TZQBiPJzqterKOkyj9RFRqI9pYXTdmMUQRAb6bMUy9K8aISQBiondfB3hZ6l55sV8YMpndvl-BMW0WE7yR7jMsk_V2uz6pU7dRwMuQtb90hp6hr_9WY9srGPsfTKRPtq"></td>
+<td class="border border-surface-dim p-2 h-10"><img alt="Signature 2" class="h-full object-contain mix-blend-multiply opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkxuMplJsZtBLx8cxIjMFuE9japMLuIh3ZemZExIhaH1XYH8862Vqp_JBZa0hXo60o6rbwFWt6MtXX8YCKXztCpY91lcM1cx7lZ0TbcyABZfm-sFx2H9gMvg_1N1viFvkA-hi0Rz3GSrMvWFBl_G9Vl1FM6ODybgzTE07_PxM5UxzOlASbN0aQ-VpBmxDGEkc8omI_9QoCjru8ekVSC5XgllOAd2hG_nqFYyz5xsLEer4yYk0JWgMe8zRjw-yqkcQdPQnMDzgMrynE"></td>
+</tr>
+<tr>
+<td class="border border-surface-dim p-2 font-semibold">Name:</td>
+<td class="border border-surface-dim p-2 font-medium">ABC Company</td>
+<td class="border border-surface-dim p-2 font-medium">John Doe</td>
+</tr>
+<tr>
+<td class="border border-surface-dim p-2 font-semibold">Date:</td>
+<td class="border border-surface-dim p-2">May 1, 2024</td>
+<td class="border border-surface-dim p-2">May 1, 2024</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- BEGIN: Page Carousel Overlay -->
+<div class="absolute bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-sm border-t border-surface-dim pt-4 pb-2 px-2 flex items-center z-10 shadow-[0_-4px_10px_rgba(0,0,0,0.03)]">
+<button aria-label="Previous Page" class="p-2 text-onSurface-variant">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<div class="flex-1 flex justify-center items-end gap-4 overflow-x-auto px-2 snap-x">
+<!-- Thumbnail 1 (Active) -->
+<div class="flex flex-col items-center gap-1 snap-center shrink-0">
+<div class="w-[60px] h-[80px] bg-white border-2 border-primary rounded-sm shadow-sm overflow-hidden p-1 relative">
+<div class="w-full h-full bg-gray-100/50 flex flex-col gap-[2px] p-1">
+<div class="h-1 bg-gray-300 w-2/3"></div>
+<div class="h-[2px] bg-gray-200 w-full mt-1"></div>
+<div class="h-[2px] bg-gray-200 w-full"></div>
+<div class="h-[2px] bg-gray-200 w-4/5"></div>
+<div class="h-[2px] bg-gray-200 w-full mt-1"></div>
+<div class="h-[2px] bg-gray-200 w-3/4"></div>
+</div>
+</div>
+<span class="bg-primary text-onSurface text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">1</span>
+</div>
+<!-- Thumbnail 2 -->
+<div class="flex flex-col items-center gap-1 snap-center shrink-0">
+<div class="w-[60px] h-[80px] bg-white border border-surface-dim rounded-sm shadow-sm overflow-hidden p-1 relative opacity-70">
+<div class="w-full h-full bg-gray-100/50 flex flex-col gap-[2px] p-1">
+<div class="h-[2px] bg-gray-200 w-full"></div>
+<div class="h-[2px] bg-gray-200 w-full"></div>
+<div class="h-[2px] bg-gray-200 w-4/5"></div>
+<div class="h-[2px] bg-gray-200 w-full mt-2"></div>
+<div class="h-[2px] bg-gray-200 w-5/6"></div>
+</div>
+</div>
+<span class="bg-surface-container text-onSurface-variant text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow-sm border border-surface-dim">2</span>
+</div>
+<!-- Thumbnail 3 -->
+<div class="flex flex-col items-center gap-1 snap-center shrink-0">
+<div class="w-[60px] h-[80px] bg-white border border-surface-dim rounded-sm shadow-sm overflow-hidden p-1 relative opacity-70">
+<div class="w-full h-full bg-gray-100/50 flex flex-col gap-[2px] p-1">
+<div class="h-[2px] bg-gray-200 w-full"></div>
+<div class="h-[2px] bg-gray-200 w-3/4"></div>
+<div class="h-[2px] bg-gray-200 w-full mt-2"></div>
+</div>
+</div>
+<span class="bg-surface-container text-onSurface-variant text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow-sm border border-surface-dim">3</span>
+</div>
+</div>
+<button aria-label="Next Page" class="p-2 text-onSurface-variant">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- END: Page Carousel Overlay -->
+</main>
+<!-- END: Main Content Area -->
+<!-- BEGIN: Printer Info Bottom Bar -->
+<footer class="bg-surface-container-lowest border-t border-surface-dim pb-safe shrink-0">
+<div class="grid grid-cols-2 divide-x divide-surface-dim px-2 py-3">
+<!-- Printer Info -->
+<button class="flex items-start gap-3 px-3 py-2 text-left hover:bg-surface-container transition-colors rounded">
+<svg class="w-6 h-6 text-onSurface mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-semibold text-onSurface">Printer</span>
+<span class="text-xs text-onSurface-variant truncate">HP LaserJet Pro MFP M428fdw</span>
+</div>
+</button>
+<!-- Options -->
+<button class="flex items-start gap-3 px-3 py-2 text-left hover:bg-surface-container transition-colors rounded">
+<svg class="w-6 h-6 text-onSurface mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<div class="flex flex-col overflow-hidden">
+<span class="text-sm font-semibold text-onSurface">Options</span>
+<span class="text-xs text-onSurface-variant truncate">1 Copy, A4, Portrait</span>
+</div>
+</button>
+</div>
+<!-- iOS bottom safe area padding spacer -->
+<div class="h-6 w-full flex justify-center pb-1">
+<div class="w-1/3 h-1 bg-onSurface/20 rounded-full"></div>
+</div>
+</footer>
+<!-- END: Printer Info Bottom Bar -->
+</body></html>

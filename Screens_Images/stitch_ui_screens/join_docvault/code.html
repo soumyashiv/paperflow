@@ -1,0 +1,207 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title class="">PaperFlow - Welcome</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#685d4e",
+                    "secondary-container": "#ecdecd",
+                    "primary-fixed": "#ffe08c",
+                    "inverse-primary": "#f1c000",
+                    "status-cloud": "#2563eb",
+                    "on-surface-primary": "#1f1a10",
+                    "secondary-fixed-dim": "#d2c4b5",
+                    "on-error": "#ffffff",
+                    "primary": "#745b00",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#ebe1d0",
+                    "inverse-on-surface": "#faf0de",
+                    "secondary-fixed": "#eee0d0",
+                    "on-primary-fixed": "#241a00",
+                    "status-study": "#9333ea",
+                    "surface-container-highest": "#ecdfce",
+                    "surface-container-high": "#f1e7d5",
+                    "on-surface": "#1f1b10",
+                    "on-surface-secondary": "#52493d",
+                    "status-personal": "#ea580c",
+                    "on-secondary-container": "#6b6154",
+                    "tertiary-fixed-dim": "#d4c4b2",
+                    "on-secondary-fixed": "#211a11",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#745b00",
+                    "surface-container": "#f7eddb",
+                    "on-primary-container": "#6f5700",
+                    "on-secondary-fixed-variant": "#4e453a",
+                    "surface-container-low": "#fdf2e1",
+                    "surface-bright": "#fff8f1",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "status-work": "#16a34a",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1f1b10",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#221a0f",
+                    "surface": "#fff8f1",
+                    "inverse-surface": "#353024",
+                    "on-surface-variant": "#4e4632",
+                    "outline-variant": "#d6c9b8",
+                    "primary-fixed-dim": "#f1c000",
+                    "tertiary-fixed": "#f1e0cd",
+                    "status-error": "#dc2626",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e2d9c8",
+                    "on-tertiary-fixed-variant": "#504537",
+                    "secondary": "#675d50",
+                    "on-tertiary-container": "#64584a",
+                    "tertiary-container": "#e0d0bd",
+                    "on-primary-fixed-variant": "#584400",
+                    "primary-container": "#ffcc0f",
+                    "background": "#fff8f1",
+                    "outline": "#857868"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-gap-lg": "2rem",
+                    "grid-gutter": "0.75rem",
+                    "container-padding": "1.25rem",
+                    "stack-gap-sm": "1rem",
+                    "stack-gap-md": "1.5rem",
+                    "element-padding-x": "1rem",
+                    "element-padding-y": "0.75rem"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "label-lg": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "30px",
+                            {
+                                    "lineHeight": "36px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "11px",
+                            {
+                                    "lineHeight": "14px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "10px",
+                            {
+                                    "lineHeight": "12px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen flex flex-col items-center justify-center p-container-padding">
+<!-- Splash Screen Container -->
+<div class="w-full max-w-md bg-surface rounded-xl shadow-card p-8 flex flex-col items-center text-center border border-outline-variant">
+<!-- Brand Logo -->
+<div class="w-16 h-16 bg-primary-container rounded-full flex items-center justify-center mb-6 shadow-sm border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">
+                folder_special
+            </span>
+</div>
+<!-- Headline & Subtext -->
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Join PaperFlow</h1>
+<p class="font-body-md text-body-md text-on-surface-secondary mb-8 max-w-[280px]">
+            Your structured serenity for document management. Secure, fast, and beautifully organized.
+        </p>
+<!-- Action Buttons -->
+<div class="w-full flex flex-col gap-4">
+<button class="w-full bg-primary hover:bg-on-primary-container text-on-primary font-label-lg text-label-lg py-element-padding-y px-element-padding-x rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2">
+                Create Account
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="w-full bg-surface-container-lowest hover:bg-surface-container-low text-primary border border-outline-variant font-label-lg text-label-lg py-element-padding-y px-element-padding-x rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2">
+                Log In
+            </button>
+</div>
+<!-- Footer terms -->
+<div class="mt-8 text-center w-full">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                By continuing, you agree to our <a class="text-primary hover:underline" href="#">Terms of Service</a> and <a class="text-primary hover:underline" href="#">Privacy Policy</a>.
+            </p>
+</div>
+</div>
+
+
+</body></html>

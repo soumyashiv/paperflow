@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Workspace - Solaris Modern</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" class="">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            surface: '#fff8f1',
+            'surface-dim': '#e2d9c8',
+            'surface-bright': '#fff8f1',
+            'surface-container-lowest': '#ffffff',
+            'surface-container-low': '#fdf2e1',
+            'surface-container': '#f7ebda',
+            'surface-container-high': '#f1e4d3',
+            'surface-container-highest': '#ecdfce',
+            primary: '#ffcc0f',
+            'primary-text': '#1f1a10',
+            'secondary-text': '#52493d',
+            outline: '#857868',
+            'outline-variant': '#d6c9b8',
+          },
+          borderRadius: {
+            'xl': '1rem',
+            '2xl': '1.5rem',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    body {
+      background-color: theme('colors.surface');
+      color: theme('colors.primary-text');
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 100px; /* Space for bottom nav */
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .shadow-card {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+  </style>
+</head>
+<body class="max-w-md mx-auto relative min-h-screen border-x border-outline-variant bg-surface-container-lowest pb-32">
+<!-- BEGIN: TopBar (iOS Status Bar Placeholder) -->
+
+<!-- END: TopBar -->
+<!-- BEGIN: MainHeader -->
+<header class="px-5 pt-2 pb-4 bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-primary-text">Workspace</h1>
+<p class="text-sm text-secondary-text mt-1">All your documents in one place</p>
+</div>
+
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: SearchSection -->
+<section class="px-5 pb-5">
+<div class="flex gap-3">
+<div class="flex-1 relative">
+<i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-secondary-text text-sm"></i>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-2xl py-3 pl-10 pr-4 text-sm placeholder-secondary-text focus:outline-none focus:border-outline focus:ring-1 focus:ring-outline shadow-sm" placeholder="Search documents, folders, notes..." type="text">
+</div>
+<button class="flex items-center gap-2 px-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-2xl text-sm font-medium shadow-sm whitespace-nowrap">
+<i class="fa-solid fa-arrow-down-up-across-line text-secondary-text"></i>
+        Sort
+      </button>
+</div>
+</section>
+<!-- END: SearchSection -->
+<!-- BEGIN: FilterPills -->
+<section class="pl-5 pb-6 overflow-x-auto hide-scrollbar">
+<div class="flex gap-3 w-max pr-5">
+<!-- Active Pill -->
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-primary text-primary-text rounded-xl text-sm font-medium shadow-sm">
+<i class="fa-regular fa-folder text-primary"></i>
+        All
+      </button>
+<!-- Inactive Pills -->
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant text-primary-text rounded-xl text-sm font-medium shadow-sm">
+<i class="fa-regular fa-file-pdf text-red-500"></i>
+        PDF
+      </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant text-primary-text rounded-xl text-sm font-medium shadow-sm">
+<i class="fa-regular fa-image text-green-500"></i>
+        Images
+      </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant text-primary-text rounded-xl text-sm font-medium shadow-sm">
+<i class="fa-regular fa-note-sticky text-purple-500"></i>
+        Notes
+      </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant text-primary-text rounded-xl text-sm font-medium shadow-sm">
+<i class="fa-solid fa-expand text-orange-500"></i>
+        OCR
+      </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant text-primary-text rounded-xl text-sm font-medium shadow-sm">
+<i class="fa-solid fa-star text-primary"></i>
+        Starred
+      </button>
+</div>
+</section>
+<!-- END: FilterPills -->
+<!-- BEGIN: FoldersGrid -->
+<section class="px-5 pb-8">
+<div class="grid grid-cols-4 gap-3">
+<!-- Folder Card: Work -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-briefcase text-green-600"></i>
+</div>
+<span class="text-sm font-semibold text-primary-text">Work</span>
+<span class="text-[10px] text-secondary-text mt-0.5">32 items</span>
+</div>
+<!-- Folder Card: Study -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-graduation-cap text-purple-600"></i>
+</div>
+<span class="text-sm font-semibold text-primary-text">Study</span>
+<span class="text-[10px] text-secondary-text mt-0.5">18 items</span>
+</div>
+<!-- Folder Card: Personal -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-user text-orange-600"></i>
+</div>
+<span class="text-sm font-semibold text-primary-text">Personal</span>
+<span class="text-[10px] text-secondary-text mt-0.5">15 items</span>
+</div>
+<!-- Folder Card: Cloud Import -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-cloud text-blue-600"></i>
+</div>
+<span class="text-[11px] font-semibold text-primary-text text-center leading-tight">Cloud<br>Import</span>
+<span class="text-[10px] text-secondary-text mt-0.5">24 items</span>
+</div>
+<!-- Folder Card: Trash -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-trash-can text-gray-600"></i>
+</div>
+<span class="text-sm font-semibold text-primary-text">Trash</span>
+<span class="text-[10px] text-secondary-text mt-0.5">7 items</span>
+</div>
+<!-- Folder Card: Starred -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-star text-teal-500"></i>
+</div>
+<span class="text-sm font-semibold text-primary-text">Starred</span>
+<span class="text-[10px] text-secondary-text mt-0.5">12 items</span>
+</div>
+<!-- Folder Card: Vault -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-outline-variant shadow-card aspect-square">
+<div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center mb-2">
+<i class="fa-solid fa-lock text-slate-600"></i>
+</div>
+<span class="text-sm font-semibold text-primary-text">Vault</span>
+<span class="text-[10px] text-secondary-text mt-0.5">Locked</span>
+</div>
+<!-- Folder Card: New Folder -->
+<button class="bg-surface-container-lowest rounded-2xl p-4 flex flex-col items-center justify-center border border-dashed border-outline-variant shadow-sm aspect-square active:bg-surface-container">
+<div class="w-8 h-8 flex items-center justify-center mb-1">
+<i class="fa-solid fa-plus text-primary text-xl"></i>
+</div>
+<span class="text-xs text-secondary-text text-center leading-tight">New Folder</span>
+</button>
+</div>
+</section>
+<!-- END: FoldersGrid -->
+<!-- BEGIN: RecentDocuments -->
+<section class="px-5">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-lg font-bold text-primary-text">Recent Documents</h2>
+<div class="flex gap-2">
+<div class="flex bg-surface-container-lowest border border-outline-variant rounded-lg p-0.5 shadow-sm">
+<button class="w-8 h-8 rounded-md bg-surface-container-highest text-primary-text flex items-center justify-center shadow-sm">
+<i class="fa-solid fa-list-ul text-sm"></i>
+</button>
+<button class="w-8 h-8 rounded-md text-secondary-text flex items-center justify-center">
+<i class="fa-solid fa-border-all text-sm"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-card divide-y divide-outline-variant overflow-hidden">
+<!-- Document Item 1 -->
+<div class="p-3 flex items-center gap-3 active:bg-surface-container">
+<button class="w-6 flex items-center justify-center text-primary">
+<i class="fa-solid fa-star text-sm"></i>
+</button>
+<div class="w-12 h-14 bg-gray-100 rounded flex-shrink-0 border border-gray-200 overflow-hidden relative flex items-center justify-center">
+<i class="fa-regular fa-file-pdf text-gray-400 text-xl absolute"></i>
+</div>
+<div class="flex-1 min-w-0 py-1">
+<h3 class="text-sm font-semibold text-primary-text truncate">Employment Contract.pdf</h3>
+<div class="text-xs text-secondary-text mt-0.5 flex items-center gap-1.5 truncate">
+<span class="">Work</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">Today, 10:21 AM</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">2.4 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600">PDF</span>
+<button class="w-8 h-8 flex items-center justify-center text-secondary-text">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</div>
+</div>
+<!-- Document Item 2 -->
+<div class="p-3 flex items-center gap-3 active:bg-surface-container">
+<button class="w-6 flex items-center justify-center text-outline-variant">
+<i class="fa-regular fa-star text-sm"></i>
+</button>
+<div class="w-12 h-14 bg-gray-100 rounded flex-shrink-0 border border-gray-200 overflow-hidden relative flex items-center justify-center">
+<i class="fa-regular fa-file-pdf text-gray-400 text-xl absolute"></i>
+</div>
+<div class="flex-1 min-w-0 py-1">
+<h3 class="text-sm font-semibold text-primary-text truncate">Project Proposal.pdf</h3>
+<div class="text-xs text-secondary-text mt-0.5 flex items-center gap-1.5 truncate">
+<span class="">Work</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">Today, 8:13 AM</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">1.8 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600">PDF</span>
+<button class="w-8 h-8 flex items-center justify-center text-secondary-text">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</div>
+</div>
+<!-- Document Item 3 -->
+<div class="p-3 flex items-center gap-3 active:bg-surface-container">
+<button class="w-6 flex items-center justify-center text-outline-variant">
+<i class="fa-regular fa-star text-sm"></i>
+</button>
+<div class="w-12 h-14 bg-orange-50 rounded flex-shrink-0 border border-orange-100 overflow-hidden relative flex items-center justify-center">
+<i class="fa-regular fa-image text-orange-200 text-xl absolute"></i>
+</div>
+<div class="flex-1 min-w-0 py-1">
+<h3 class="text-sm font-semibold text-primary-text truncate">Handwritten Notes.jpg</h3>
+<div class="text-xs text-secondary-text mt-0.5 flex items-center gap-1.5 truncate">
+<span class="">Study</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">Yesterday, 11:03 PM</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">1.6 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-600">IMG</span>
+<button class="w-8 h-8 flex items-center justify-center text-secondary-text">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</div>
+</div>
+<!-- Document Item 4 -->
+<div class="p-3 flex items-center gap-3 active:bg-surface-container">
+<button class="w-6 flex items-center justify-center text-outline-variant">
+<i class="fa-regular fa-star text-sm"></i>
+</button>
+<div class="w-12 h-14 bg-green-50 rounded flex-shrink-0 border border-green-100 overflow-hidden relative flex items-center justify-center">
+<i class="fa-solid fa-file-excel text-green-300 text-xl absolute"></i>
+</div>
+<div class="flex-1 min-w-0 py-1">
+<h3 class="text-sm font-semibold text-primary-text truncate">Budget_2024.xlsx</h3>
+<div class="text-xs text-secondary-text mt-0.5 flex items-center gap-1.5 truncate">
+<span class="">Work</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">Yesterday, 9:15 PM</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">128 KB</span>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-100 text-green-600">XLSX</span>
+<button class="w-8 h-8 flex items-center justify-center text-secondary-text">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</div>
+</div>
+<!-- Document Item 5 -->
+<div class="p-3 flex items-center gap-3 active:bg-surface-container">
+<button class="w-6 flex items-center justify-center text-primary">
+<i class="fa-solid fa-star text-sm"></i>
+</button>
+<div class="w-12 h-14 bg-orange-50 rounded flex-shrink-0 border border-orange-100 overflow-hidden relative flex items-center justify-center">
+<i class="fa-solid fa-file-powerpoint text-orange-300 text-xl absolute"></i>
+</div>
+<div class="flex-1 min-w-0 py-1">
+<h3 class="text-sm font-semibold text-primary-text truncate">Marketing Deck.pptx</h3>
+<div class="text-xs text-secondary-text mt-0.5 flex items-center gap-1.5 truncate">
+<span class="">Work</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">Yesterday, 6:02 PM</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="">3.2 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-100 text-orange-600">PPTX</span>
+<button class="w-8 h-8 flex items-center justify-center text-secondary-text">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-4">
+<button class="text-sm font-medium text-secondary-text flex items-center gap-1 hover:text-primary-text">
+<i class="fa-solid fa-chevron-down text-xs"></i>
+        View more
+      </button>
+</div>
+</section>
+<!-- END: RecentDocuments -->
+<!-- BEGIN: StorageCard -->
+<section class="px-5 mt-6 mb-8">
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-4 shadow-card flex items-center gap-4 cursor-pointer active:bg-surface-container">
+<div class="w-14 h-14 rounded-full border-4 border-outline-variant relative flex items-center justify-center flex-shrink-0">
+<!-- SVG for circular progress placeholder -->
+<svg class="absolute w-full h-full -rotate-90" viewBox="0 0 36 36">
+<path class="text-outline-variant" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="24, 100" stroke-width="4"></path>
+</svg>
+<span class="text-xs font-bold text-primary-text relative z-10">24%</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-primary-text">Storage</h4>
+<p class="text-xs text-secondary-text mt-0.5">2.45 GB of 10 GB used</p>
+<div class="h-1.5 w-full bg-outline-variant rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[24%]"></div>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-secondary-text text-sm"></i>
+</div>
+</section>
+<!-- END: StorageCard -->
+<!-- BEGIN: BottomNavigation -->
+<nav class="fixed bottom-0 w-full px-4 pb-8 pt-4 bg-[#FAFAFA]/90 backdrop-blur-md z-50 border-t border-gray-100/50" data-purpose="bottom-nav">
+<div class="flex items-center justify-between mx-auto max-w-sm px-2">
+<!-- Home -->
+<button class="flex flex-col items-center gap-1 group px-4 py-2">
+<svg class="text-gray-500 group-hover:text-gray-900 transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-gray-900 transition-colors">Home</span>
+</button>
+<!-- Workspace (Active) -->
+<button class="flex flex-col items-center gap-1 group bg-gray-100 px-4 py-2 rounded-2xl">
+<svg class="text-gray-900" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+<polyline points="2 17 12 22 22 17"></polyline>
+<polyline points="2 12 12 17 22 12"></polyline>
+</svg>
+<span class="text-[10px] font-bold text-gray-900">Workspace</span>
+</button>
+<!-- Central Scan Button -->
+<button class="flex flex-col items-center justify-center bg-black text-white w-14 h-14 rounded-full shadow-lg -mt-6 active:scale-95 transition-transform border-4 border-[#FAFAFA]">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+<path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+<path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+<path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+<line x1="7" x2="17" y1="12" y2="12"></line>
+</svg>
+</button>
+<!-- Notes -->
+<button class="flex flex-col items-center gap-1 group px-4 py-2">
+<svg class="text-gray-500 group-hover:text-gray-900 transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+<polyline points="14 2 14 8 20 8"></polyline>
+<line x1="16" x2="8" y1="13" y2="13"></line>
+<line x1="16" x2="8" y1="17" y2="17"></line>
+<polyline points="10 9 9 9 8 9"></polyline>
+</svg>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-gray-900 transition-colors">Notes</span>
+</button>
+<!-- Settings -->
+<button class="flex flex-col items-center gap-1 group px-4 py-2">
+<svg class="text-gray-500 group-hover:text-gray-900 transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-gray-900 transition-colors">Settings</span>
+</button>
+</div>
+<!-- iPhone Home Indicator line -->
+<div class="w-1/3 h-1 bg-gray-900 rounded-full mx-auto mt-6 mb-1"></div>
+</nav>
+<!-- END: BottomNavigation -->
+
+
+
+
+
+
+
+
+</body></html>

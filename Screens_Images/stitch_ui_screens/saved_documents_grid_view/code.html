@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Saved Documents</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- FontAwesome for Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<!-- Tailwind Configuration for Solaris Modern Design System -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: '#ffcc0f', // Solaris Modern Primary
+            surface: {
+              DEFAULT: '#ffffff', // surface-container-lowest for cards
+              dim: '#e2d9c8',
+              bright: '#fff8f1',
+            },
+            background: '#fdf2e1', // surface-container-low for app background
+            text: {
+              main: '#1c1c1e',
+              muted: '#8e8e93',
+            }
+          },
+          borderRadius: {
+            'DEFAULT': '8px', // ROUND_EIGHT
+            'lg': '8px',
+            'xl': '12px',
+            '2xl': '16px',
+          },
+          boxShadow: {
+            'subtle': '0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.025)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="global-styles">
+    body {
+      background-color: #e5e5e5; /* Gray background outside mobile container for preview */
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* Main mobile constraint */
+    #app-container {
+      width: 100%;
+      max-width: 430px; /* Standard large mobile width */
+      min-height: 100vh;
+      background-color: theme('colors.background');
+      position: relative;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hide scrollbar for a cleaner mobile feel */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-text-main">
+<div id="app-container">
+<!-- BEGIN: Top App Bar -->
+<header class="bg-surface sticky top-0 z-20 shadow-sm border-b border-gray-100">
+<div class="flex justify-between items-center px-4 py-3">
+<!-- Back Button -->
+<button aria-label="Go back" class="text-2xl text-text-main w-8 text-left">
+<i class="fa-solid fa-angle-left"></i>
+</button>
+<!-- Screen Title -->
+<h1 class="text-lg font-semibold tracking-tight">Saved Documents</h1>
+<!-- Action Button -->
+<button class="text-primary font-medium text-[17px] w-8 text-right">Edit</button>
+</div>
+<!-- BEGIN: Search Bar -->
+<div class="px-4 pb-3 pt-1">
+<div class="relative">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-text-muted">
+<i class="fa-solid fa-magnifying-glass text-sm"></i>
+</div>
+<input class="bg-[#f2f2f7] border-none text-[15px] rounded-lg focus:ring-primary focus:border-primary block w-full pl-9 py-2 text-text-main placeholder-text-muted transition-colors" placeholder="Search" type="text">
+</div>
+</div>
+<!-- END: Search Bar -->
+</header>
+<!-- END: Top App Bar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 overflow-y-auto hide-scrollbar px-4 pt-4 pb-32">
+<!-- BEGIN: Today Section -->
+<section class="mb-6">
+<h2 class="text-[13px] font-semibold text-text-muted mb-2 px-1">Today</h2>
+<div class="grid grid-cols-2 gap-4">
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#ffeceb] text-[#ff3b30]">
+<i class="fa-regular fa-file-pdf text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Employment Contract.pdf</h3>
+<p class="text-[13px] text-text-muted truncate w-full">May 1, 2024</p>
+<p class="text-[13px] text-text-muted">248 KB</p>
+</article>
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#ffeceb] text-[#ff3b30]">
+<i class="fa-regular fa-file-pdf text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">NDA Agreement.pdf</h3>
+<p class="text-[13px] text-text-muted truncate w-full">May 1, 2024</p>
+<p class="text-[13px] text-text-muted">189 KB</p>
+</article>
+
+</div>
+</section>
+<!-- END: Today Section -->
+<!-- BEGIN: Yesterday Section -->
+<section class="mb-6">
+<h2 class="text-[13px] font-semibold text-text-muted mb-2 px-1">Yesterday</h2>
+<div class="grid grid-cols-2 gap-4">
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#eaf7ec] text-[#34c759]">
+<i class="fa-regular fa-file-excel text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Budget Report.xlsx</h3>
+<p class="text-[13px] text-text-muted truncate w-full">Apr 30, 2024</p>
+<p class="text-[13px] text-text-muted">482 KB</p>
+</article>
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#fff4e5] text-[#ff9500]">
+<i class="fa-regular fa-file-powerpoint text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Q2 Presentation.pptx</h3>
+<p class="text-[13px] text-text-muted truncate w-full">Apr 30, 2024</p>
+<p class="text-[13px] text-text-muted">6.7 MB</p>
+</article>
+</div>
+</section>
+<!-- END: Yesterday Section -->
+<!-- BEGIN: This Week Section -->
+<section class="mb-6">
+<h2 class="text-[13px] font-semibold text-text-muted mb-2 px-1">This Week</h2>
+<div class="grid grid-cols-2 gap-4">
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#ffeceb] text-[#ff3b30]">
+<i class="fa-regular fa-file-pdf text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Invoice_0424.pdf</h3>
+<p class="text-[13px] text-text-muted truncate w-full">Apr 29, 2024</p>
+<p class="text-[13px] text-text-muted">156 KB</p>
+</article>
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#e0f0fe] text-[#007aff]">
+<i class="fa-regular fa-file-word text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Meeting Notes.docx</h3>
+<p class="text-[13px] text-text-muted truncate w-full">Apr 28, 2024</p>
+<p class="text-[13px] text-text-muted">1.1 MB</p>
+</article>
+
+</div>
+</section>
+<!-- END: This Week Section -->
+<!-- BEGIN: Older Section -->
+<section>
+<h2 class="text-[13px] font-semibold text-text-muted mb-2 px-1">Older</h2>
+<div class="grid grid-cols-2 gap-4">
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#eaf7ec] text-[#34c759]">
+<i class="fa-regular fa-file-excel text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Employee Data.xlsx</h3>
+<p class="text-[13px] text-text-muted truncate w-full">Apr 20, 2024</p>
+<p class="text-[13px] text-text-muted">351 KB</p>
+</article>
+<article class="flex flex-col items-center bg-surface p-4 rounded-lg shadow-subtle text-center">
+<div class="w-16 h-20 rounded-lg flex items-center justify-center mb-3 bg-[#ffeceb] text-[#ff3b30]">
+<i class="fa-regular fa-file-pdf text-4xl"></i>
+</div>
+<h3 class="text-[15px] font-medium text-text-main truncate w-full mb-1">Company Policy.pdf</h3>
+<p class="text-[13px] text-text-muted truncate w-full">Apr 15, 2024</p>
+<p class="text-[13px] text-text-muted">277 KB</p>
+</article>
+</div>
+</section>
+<!-- END: Older Section -->
+</main>
+<!-- END: Main Content Area -->
+<!-- BEGIN: Floating Action Button -->
+<!-- END: Floating Action Button -->
+<!-- BEGIN: Bottom Navigation -->
+<nav class="fixed bottom-4 left-4 right-4 h-20 bg-surface border border-gray-100 flex items-center justify-around px-2 z-30 shadow-lg rounded-2xl">
+<button class="flex flex-col items-center justify-center w-16 h-full text-text-main relative">
+<div class="absolute inset-0 bg-primary/20 rounded-2xl m-1 z-0"></div>
+<i class="fa-solid fa-house text-xl z-10 mb-1"></i>
+<span class="text-[10px] font-medium z-10">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-text-muted hover:text-text-main transition-colors">
+<i class="fa-solid fa-layer-group text-xl mb-1"></i>
+<span class="text-[10px] font-medium">Workspace</span>
+</button>
+<div class="relative w-16 h-full flex justify-center translate-y-2">
+<button class="absolute w-16 h-16 bg-black text-white rounded-full flex items-center justify-center shadow-lg shadow-black/20 hover:scale-105 transition-transform border-4 border-surface z-40 -top-8">
+<i class="fa-solid fa-expand text-2xl"></i>
+</button>
+</div>
+<button class="flex flex-col items-center justify-center w-16 h-full text-text-muted hover:text-text-main transition-colors">
+<i class="fa-regular fa-file-lines text-xl mb-1"></i>
+<span class="text-[10px] font-medium">Notes</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-text-muted hover:text-text-main transition-colors">
+<i class="fa-solid fa-gear text-xl mb-1"></i>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</nav>
+<!-- END: Bottom Navigation -->
+</div>
+
+
+</body></html>

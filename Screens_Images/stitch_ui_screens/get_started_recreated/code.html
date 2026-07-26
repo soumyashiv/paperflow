@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>PaperFlow - Get Started</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'app-bg': '#FDFBF7',
+            'app-yellow': '#F9CF6E',
+            'app-black': '#111111',
+            'app-gray': '#555555'
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    /* Subtle background pattern for the bottom section */
+    .bg-wavy-pattern {
+      background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,200 C150,250 250,150 400,200 C550,250 650,150 800,200 L800,400 L0,400 Z' fill='none' stroke='%23F1E3C4' stroke-width='1' opacity='0.5'/%3E%3Cpath d='M0,220 C150,270 250,170 400,220 C550,270 650,170 800,220 L800,400 L0,400 Z' fill='none' stroke='%23F1E3C4' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M0,240 C150,290 250,190 400,240 C550,290 650,190 800,240 L800,400 L0,400 Z' fill='none' stroke='%23F1E3C4' stroke-width='1' opacity='0.3'/%3E%3Cpath d='M0,260 C150,310 250,210 400,260 C550,310 650,210 800,260 L800,400 L0,400 Z' fill='none' stroke='%23F1E3C4' stroke-width='1' opacity='0.2'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: bottom;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body class="bg-app-bg text-app-black font-sans antialiased min-h-screen flex flex-col relative overflow-hidden selection:bg-app-yellow selection:text-app-black">
+<!-- Background decorative pattern container -->
+<div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-1/2 bg-wavy-pattern pointer-events-none z-0"></div>
+<!-- BEGIN: Simulated StatusBar -->
+<header aria-hidden="true" class="w-full px-6 pt-4 pb-2 flex justify-between items-center text-sm font-semibold z-20 relative">
+<div class="w-14">
+<span>9:41</span>
+</div>
+<div class="flex items-center space-x-2">
+<!-- Cellular signal icon -->
+<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+<path d="M2 22h20V2L2 22zm18-2H6.83L20 6.83V20z"></path>
+</svg>
+<!-- Wifi icon -->
+<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12.01 21.49L23.64 7c-.45-.34-4.93-4-11.64-4C5.28 3 .81 6.66.36 7l11.63 14.49.01.01.01-.01z"></path>
+</svg>
+<!-- Battery icon -->
+<svg class="w-6 h-4" fill="currentColor" viewBox="0 0 24 24">
+<path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"></path>
+</svg>
+</div>
+</header>
+<!-- END: Simulated StatusBar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 z-10 relative pb-10">
+<!-- Logo Container -->
+<div aria-label="PaperFlow Logo" class="w-[120px] h-[120px] bg-app-yellow rounded-[32px] flex items-center justify-center mb-8 shadow-sm">
+<!-- Approximated PaperFlow 'P' Logo SVG -->
+<svg fill="none" height="70" viewBox="0 0 60 70" width="60" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 0H35C48.8071 0 60 11.1929 60 25C60 38.8071 48.8071 50 35 50H25V60C25 65.5228 20.5228 70 15 70C9.47715 70 5 65.5228 5 60V10C5 4.47715 9.47715 0 15 0Z" fill="#111111"></path>
+<path d="M25 50C25 44.4772 20.5228 40 15 40C9.47715 40 5 44.4772 5 50C5 55.5228 9.47715 60 15 60H25V50Z" fill="#333333"></path>
+<path d="M25 0H15C9.47715 0 5 4.47715 5 10V40C5 44.4772 9.47715 48 15 48H25V0Z" fill="#222222"></path>
+</svg>
+</div>
+<!-- Brand Name -->
+<h1 class="text-[42px] font-bold tracking-tight text-app-black mb-4">
+      PaperFlow
+    </h1>
+<!-- Tagline -->
+<p class="text-xl text-app-gray text-center leading-[1.4] max-w-[280px]">
+      Scan. Organize. Annotate.<br>
+      All in one workspace.
+    </p>
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: BottomAction -->
+<div class="w-full px-6 pb-12 pt-6 z-20 relative">
+<button aria-label="Get Started with PaperFlow" class="w-full bg-app-black text-white text-[17px] font-semibold py-[18px] rounded-[24px] hover:bg-gray-900 active:scale-[0.98] transition-all duration-200 ease-in-out shadow-md" type="button">
+      Get Started
+    </button>
+</div>
+<!-- END: BottomAction -->
+</body></html>

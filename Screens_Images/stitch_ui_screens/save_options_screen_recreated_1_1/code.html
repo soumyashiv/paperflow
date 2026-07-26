@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Save Options</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="font-setup">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            surface: '#fff8f1',
+            'surface-container-lowest': '#ffffff',
+            'surface-container-low': '#fdf2e1',
+            primary: '#ffcc0f',
+            'on-primary': '#4a3700',
+            'outline-variant': '#d6c9b6',
+            'on-surface': '#201b13',
+            'on-surface-variant': '#51453a',
+          },
+          borderRadius: {
+            'xl': '0.75rem',
+            '2xl': '1rem',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen pb-24">
+<!-- BEGIN: Header -->
+<header class="sticky top-0 bg-surface/90 backdrop-blur-md z-10 border-b border-outline-variant/30 px-4 py-4 flex items-center justify-between">
+<button aria-label="Go back" class="text-on-surface p-2 -ml-2">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<h1 class="text-lg font-semibold absolute left-1/2 -translate-x-1/2">Save Options</h1>
+<button class="text-primary font-medium p-2 -mr-2">Cancel</button>
+</header>
+<!-- END: Header -->
+<main class="p-4 space-y-8 max-w-md mx-auto">
+<!-- BEGIN: File Name Section -->
+<section>
+<h2 class="text-sm font-medium text-on-surface-variant mb-2 px-1">File Name</h2>
+<div class="relative bg-surface-container-lowest rounded-xl border border-outline-variant/50 flex items-center pr-2 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-shadow">
+<input class="w-full bg-transparent border-none py-3 px-4 focus:ring-0 text-on-surface rounded-xl" type="text" value="Employment Contract.pdf">
+<button aria-label="Clear input" class="p-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-outline-variant/30 transition-colors">
+<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: File Name Section -->
+<!-- BEGIN: Save To Section -->
+<section>
+<h2 class="text-sm font-medium text-on-surface-variant mb-2 px-1">Save to</h2>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/30 shadow-sm">
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="text-blue-500 bg-blue-50 rounded-lg p-1.5 group-hover:bg-blue-100 transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-on-surface font-medium">On My iPhone</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="text-sky-500 bg-sky-50 rounded-lg p-1.5 group-hover:bg-sky-100 transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-on-surface font-medium">iCloud Drive</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="text-blue-600 bg-blue-50 rounded-lg p-1.5 group-hover:bg-blue-100 transition-colors">
+<!-- Dropbox icon approximation -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.25 10.5l-8.25-4.5-8.25 4.5L12 15l8.25-4.5zM12 15l-8.25-4.5L12 6l8.25 4.5L12 15zM12 21l-8.25-4.5L12 12l8.25 4.5L12 21z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-on-surface font-medium">Dropbox</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="text-green-500 bg-green-50 rounded-lg p-1.5 group-hover:bg-green-100 transition-colors">
+<!-- Google Drive icon approximation -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2.25L4.5 15h15L12 2.25zM4.5 15l7.5-12.75L19.5 15M4.5 15h15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-on-surface font-medium">Google Drive</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="text-blue-500 bg-blue-50 rounded-lg p-1.5 group-hover:bg-blue-100 transition-colors">
+<!-- OneDrive icon approximation -->
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-on-surface font-medium">OneDrive</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="text-on-surface-variant bg-surface rounded-lg p-1.5 group-hover:bg-outline-variant/20 transition-colors">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-on-surface font-medium">Browse</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: Save To Section -->
+<!-- BEGIN: File Format Section -->
+<section>
+<h2 class="text-sm font-medium text-on-surface-variant mb-2 px-1">File Format</h2>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/30 shadow-sm">
+<label class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="relative flex items-center justify-center w-6 h-6">
+<input checked="" class="peer sr-only" name="file-format" type="radio" value="pdf">
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary transition-colors"></div>
+<div class="absolute w-2.5 h-2.5 rounded-full bg-primary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-on-surface font-medium">PDF</span>
+</div>
+<span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">Recommended</span>
+</label>
+<label class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="relative flex items-center justify-center w-6 h-6">
+<input class="peer sr-only" name="file-format" type="radio" value="jpeg">
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary transition-colors"></div>
+<div class="absolute w-2.5 h-2.5 rounded-full bg-primary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-on-surface font-medium">JPEG</span>
+</div>
+</label>
+<label class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="relative flex items-center justify-center w-6 h-6">
+<input class="peer sr-only" name="file-format" type="radio" value="png">
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:border-primary transition-colors"></div>
+<div class="absolute w-2.5 h-2.5 rounded-full bg-primary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+<span class="text-on-surface font-medium">PNG</span>
+</div>
+</label>
+</div>
+</section>
+<!-- END: File Format Section -->
+<!-- BEGIN: PDF Options Section -->
+<section>
+<h2 class="text-sm font-medium text-on-surface-variant mb-2 px-1">PDF Options</h2>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/30 shadow-sm">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors text-left group">
+<span class="text-on-surface font-medium">Document Quality</span>
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant text-sm">High</span>
+<svg class="w-4 h-4 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</button>
+<label class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Reduce File Size</span>
+<span class="text-xs text-on-surface-variant mt-0.5">Slightly lower quality to reduce file size</span>
+</div>
+<div class="relative">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Password Protect</span>
+<span class="text-xs text-on-surface-variant mt-0.5">Require a password to open this PDF</span>
+</div>
+<div class="relative">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<label class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Add Watermark</span>
+<span class="text-xs text-on-surface-variant mt-0.5">Add a watermark to this PDF</span>
+</div>
+<div class="relative">
+<input class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+</div>
+</section>
+<!-- END: PDF Options Section -->
+<!-- BEGIN: More Options Section -->
+<section>
+<h2 class="text-sm font-medium text-on-surface-variant mb-2 px-1">More Options</h2>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/30 shadow-sm">
+<label class="flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="text-on-surface font-medium">Save to Recents</span>
+<div class="relative">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-11 h-6 bg-outline-variant/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors text-left group">
+<span class="text-on-surface font-medium">Create New Folder</span>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors text-left group">
+<div class="flex flex-col">
+<span class="text-on-surface font-medium">Tags</span>
+<span class="text-xs text-on-surface-variant mt-0.5">Add tags to this file</span>
+</div>
+<svg class="w-5 h-5 text-outline-variant group-hover:text-on-surface-variant transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: More Options Section -->
+</main>
+<!-- BEGIN: Bottom Action Area -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 p-4 pb-safe flex justify-center">
+<div class="w-full max-w-md mx-auto">
+<button class="w-full bg-primary hover:bg-[#e6b80d] text-on-primary font-semibold py-3.5 px-6 rounded-xl shadow-sm transition-colors text-lg">
+        Save
+      </button>
+</div>
+</div>
+<!-- END: Bottom Action Area -->
+</body></html>

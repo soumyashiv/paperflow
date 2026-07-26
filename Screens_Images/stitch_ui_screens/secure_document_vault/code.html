@@ -1,0 +1,174 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>DocVault - Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#685d4e",
+                    "secondary-container": "#ecdecd",
+                    "primary-fixed": "#ffe08c",
+                    "inverse-primary": "#f1c000",
+                    "status-cloud": "#2563eb",
+                    "on-surface-primary": "#1f1a10",
+                    "secondary-fixed-dim": "#d2c4b5",
+                    "on-error": "#ffffff",
+                    "primary": "#745b00",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#ebe1d0",
+                    "inverse-on-surface": "#faf0de",
+                    "secondary-fixed": "#eee0d0",
+                    "on-primary-fixed": "#241a00",
+                    "status-study": "#9333ea",
+                    "surface-container-highest": "#ecdfce",
+                    "surface-container-high": "#f1e7d5",
+                    "on-surface": "#1f1b10",
+                    "on-surface-secondary": "#52493d",
+                    "status-personal": "#ea580c",
+                    "on-secondary-container": "#6b6154",
+                    "tertiary-fixed-dim": "#d4c4b2",
+                    "on-secondary-fixed": "#211a11",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#745b00",
+                    "surface-container": "#f7eddb",
+                    "on-primary-container": "#6f5700",
+                    "on-secondary-fixed-variant": "#4e453a",
+                    "surface-container-low": "#fdf2e1",
+                    "surface-bright": "#fff8f1",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "status-work": "#16a34a",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1f1b10",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed": "#221a0f",
+                    "surface": "#fff8f1",
+                    "inverse-surface": "#353024",
+                    "on-surface-variant": "#4e4632",
+                    "outline-variant": "#d6c9b8",
+                    "primary-fixed-dim": "#f1c000",
+                    "tertiary-fixed": "#f1e0cd",
+                    "status-error": "#dc2626",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#e2d9c8",
+                    "on-tertiary-fixed-variant": "#504537",
+                    "secondary": "#675d50",
+                    "on-tertiary-container": "#64584a",
+                    "tertiary-container": "#e0d0bd",
+                    "on-primary-fixed-variant": "#584400",
+                    "primary-container": "#ffcc0f",
+                    "background": "#fff8f1",
+                    "outline": "#857868"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-gap-lg": "2rem",
+                    "grid-gutter": "0.75rem",
+                    "container-padding": "1.25rem",
+                    "stack-gap-sm": "1rem",
+                    "stack-gap-md": "1.5rem",
+                    "element-padding-x": "1rem",
+                    "element-padding-y": "0.75rem"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "display-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-md": ["11px", {"lineHeight": "14px", "fontWeight": "600"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .onboarding-gradient {
+            background: radial-gradient(circle at top right, var(--tw-colors-primary-container) 0%, transparent 60%),
+                        radial-gradient(circle at bottom left, var(--tw-colors-surface-container-highest) 0%, transparent 50%);
+            background-color: var(--tw-colors-surface-container-lowest);
+        }
+        
+        .shield-glow {
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(116, 91, 0, 0.1); }
+            100% { box-shadow: 0 0 40px rgba(116, 91, 0, 0.3); }
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface min-h-screen flex flex-col font-body-md antialiased onboarding-gradient">
+<!-- Top Navigation (Suppressed per logic, showing simple skip for onboarding) -->
+<header class="w-full flex justify-end p-container-padding fixed top-0 z-10">
+<button class="text-on-surface-secondary font-label-lg hover:text-primary transition-colors">
+            Skip
+        </button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-container-padding relative">
+<!-- Visual Container -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 mb-stack-gap-lg flex items-center justify-center">
+<!-- Decorative background elements -->
+<div class="absolute inset-0 bg-primary-container rounded-full opacity-20 shield-glow"></div>
+<div class="absolute inset-4 bg-surface-container-high rounded-full border border-outline-variant shadow-card flex items-center justify-center">
+<div class="bg-surface-container-lowest rounded-full p-8 shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-size: 80px; font-variation-settings: 'FILL' 1;">
+                        shield_lock
+                    </span>
+</div>
+</div>
+<!-- Floating Data Nodes -->
+<div class="absolute top-10 left-10 bg-surface-container-lowest p-3 rounded-xl shadow-card border border-outline-variant transform -rotate-12 animate-bounce" style="animation-duration: 4s;">
+<span class="material-symbols-outlined text-status-study" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div class="absolute bottom-10 right-10 bg-surface-container-lowest p-3 rounded-xl shadow-card border border-outline-variant transform rotate-12 animate-bounce" style="animation-duration: 5s; animation-delay: 1s;">
+<span class="material-symbols-outlined text-status-work" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+</div>
+<!-- Typography -->
+<div class="text-center max-w-md mx-auto space-y-stack-gap-sm mb-stack-gap-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface">Military-Grade Security</h1>
+<p class="font-body-md text-body-md text-on-surface-secondary px-4">Your sensitive documents are protected with advanced end-to-end encryption. Keep your contracts, IDs, and financial records safe in your personal PaperFlow digital vault.</p>
+</div>
+</main>
+<!-- Bottom Controls -->
+<footer class="w-full p-container-padding pb-8 flex flex-col items-center gap-stack-gap-md sticky bottom-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest to-transparent">
+<!-- Pagination Dots -->
+<div class="flex gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<div class="w-8 h-2 rounded-full bg-primary transition-all duration-300"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+<!-- Next Button -->
+<button class="w-full max-w-sm bg-primary text-on-primary font-label-lg text-label-lg rounded-xl py-4 flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors shadow-sm active:scale-95">
+            Next
+            <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+</button>
+</footer>
+
+
+</body></html>

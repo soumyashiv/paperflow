@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">PaperFlow</string>
+    <!-- Accessibility labels -->
+    <string name="cd_back">Go back</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_search">Search documents</string>
+    <string name="cd_scan">Scan document</string>
+    <string name="cd_more_options">More options</string>
+    <string name="cd_close">Close</string>
+    <string name="cd_bookmark">Bookmark page</string>
+    <string name="cd_favorite">Add to favorites</string>
+    <string name="cd_document_thumbnail">Document thumbnail</string>
+    <string name="cd_folder_icon">Folder icon</string>
+    <!-- Empty states -->
+    <string name="empty_documents">No documents yet</string>
+    <string name="empty_documents_sub">Tap the scan button to add your first document</string>
+    <string name="empty_notes">No notes yet</string>
+    <string name="empty_notes_sub">Create a note or convert a scan</string>
+    <string name="empty_search">No results found</string>
+    <string name="empty_search_sub">Try different keywords or check spelling</string>
+    <string name="empty_vault">Vault is empty</string>
+    <string name="empty_vault_sub">Move documents here to keep them secure</string>
+    <!-- Vault -->
+    <string name="vault_title">Enter Vault</string>
+    <string name="vault_subtitle">Authenticate to access your secure vault</string>
+    <string name="vault_biometric_hint">Touch the fingerprint sensor</string>
+    <string name="vault_use_pin">Use PIN</string>
+    <string name="vault_biometric_title">PaperFlow Vault</string>
+    <string name="vault_biometric_subtitle">Verify your identity to access secure documents</string>
+    <string name="vault_negative_button">Use PIN instead</string>
+    <!-- Security -->
+    <string name="security_move_from_vault_title">Move from Vault?</string>
+    <string name="security_move_from_vault_message">This document will become accessible outside the secure vault. Are you sure?</string>
+    <string name="security_confirm">Confirm</string>
+    <string name="security_cancel">Cancel</string>
+    <!-- OCR -->
+    <string name="ocr_indexing">Indexing document…</string>
+    <string name="ocr_complete">Document indexed</string>
+    <!-- Errors -->
+    <string name="error_pdf_open">Unable to open PDF</string>
+    <string name="error_camera_permission">Camera permission required for scanning</string>
+    <string name="error_storage_low">Storage is running low</string>
+    <string name="error_scan_failed">Scan failed. Please try again.</string>
+    <!-- Actions -->
+    <string name="action_convert_to_note">Convert to Note</string>
+    <string name="action_open">Open</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_rename">Rename</string>
+    <string name="action_move">Move</string>
+    <string name="action_add_to_vault">Add to Vault</string>
+    <string name="action_undo">Undo</string>
+</resources>

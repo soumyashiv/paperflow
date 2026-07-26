@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            surface: '#fff8f1',
+            primary: '#ffcc0f',
+            textMain: '#1a1a1a',
+            textMuted: '#666666',
+            borderLight: '#f0e6dd'
+          },
+          boxShadow: {
+            'custom': '0 4px 20px rgba(0, 0, 0, 0.05)',
+            'nav': '0 -4px 20px rgba(0, 0, 0, 0.05)'
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-styles">
+    body {
+      background-color: #fcfcfc;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Hide scrollbar for cleaner look */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-gray-200">
+<!-- Mobile Device Container -->
+<div class="relative w-[414px] h-[896px] bg-[#fafafa] rounded-[40px] overflow-hidden shadow-2xl border-8 border-white flex flex-col">
+<!-- iOS Status Bar Placeholder -->
+
+<!-- Scrollable Content Area -->
+<main class="flex-1 overflow-y-auto px-5 pb-32">
+<!-- BEGIN: Header -->
+<header class="pt-6 pb-8">
+<h1 class="text-[34px] font-bold text-textMain tracking-tight">Settings</h1>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: User Profile Card -->
+<section class="bg-white rounded-3xl p-4 shadow-custom flex items-center justify-between mb-6 cursor-pointer hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4">
+<!-- Avatar Placeholder -->
+<div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden border border-gray-100 flex-shrink-0">
+<img alt="Alex Johnson Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6PEHb52Nq5K6bFtgHRirBaNfd0sR2p0OYq23C17CJL63YDPI2BdRWEfaO9U450NA3wh8pCW-ljWI9FJ5qRwc3DNH-7fB-sCFE1CkRmgTv2LRb5-l1o3Q8p9mooKcEmldniO8JNc72cptZhYPZxrgwJGd4w9y6OOo-3lNrx3zVo5H-hgM7Zc3CKnmsavauS4nItOAI10nnVch6m8vHYf3vSnrZIFDRhnpayq2AeIq8l7XLk2GO0d-zZcNxScP_9QIrxP2bWx0ozvMo">
+</div>
+<div>
+<h2 class="text-xl font-semibold text-textMain">Alex Johnson</h2>
+<p class="text-[15px] text-textMuted mt-0.5">alex.johnson@email.com</p>
+</div>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400 text-lg mr-2"></i>
+</section>
+<!-- END: User Profile Card -->
+<!-- BEGIN: Settings List -->
+<section class="bg-white rounded-3xl shadow-custom overflow-hidden mb-6">
+<!-- Setting Item: General -->
+<a class="flex items-center justify-between p-5 border-b border-borderLight hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-solid fa-gear text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">General</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+<!-- Setting Item: Scanner -->
+<a class="flex items-center justify-between p-5 border-b border-borderLight hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-solid fa-expand text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">Scanner</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+<!-- Setting Item: PDF Reader -->
+<a class="flex items-center justify-between p-5 border-b border-borderLight hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-regular fa-file-pdf text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">PDF Reader</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+<!-- Setting Item: Notes -->
+<a class="flex items-center justify-between p-5 border-b border-borderLight hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-regular fa-pen-to-square text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">Notes</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+<!-- Setting Item: Security -->
+<a class="flex items-center justify-between p-5 border-b border-borderLight hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-solid fa-shield-halved text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">Security</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+<!-- Setting Item: Backup & Restore -->
+<a class="flex items-center justify-between p-5 border-b border-borderLight hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-solid fa-cloud-arrow-up text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">Backup &amp; Restore</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+<!-- Setting Item: About -->
+<a class="flex items-center justify-between p-5 hover:bg-gray-50 transition-colors" href="#">
+<div class="flex items-center gap-4">
+<i class="fa-solid fa-circle-info text-[22px] text-textMain w-6 text-center"></i>
+<span class="text-[17px] font-medium text-textMain">About PaperFlow</span>
+</div>
+<i class="fa-solid fa-chevron-right text-gray-400"></i>
+</a>
+</section>
+<!-- END: Settings List -->
+</main>
+<!-- BEGIN: Bottom Navigation Bar -->
+<nav class="fixed bottom-4 left-4 right-4 h-20 bg-white border border-gray-100 flex items-center justify-around px-2 z-30 shadow-lg rounded-2xl">
+<button class="flex flex-col items-center justify-center w-16 h-full text-textMuted hover:text-textMain transition-colors">
+<i class="fa-solid fa-house text-xl mb-1"></i>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-textMuted hover:text-textMain transition-colors">
+<i class="fa-solid fa-layer-group text-xl mb-1"></i>
+<span class="text-[10px] font-medium">Workspace</span>
+</button>
+<div class="relative w-16 h-full flex justify-center translate-y-2">
+<button class="absolute w-16 h-16 bg-black text-white rounded-full flex items-center justify-center shadow-lg shadow-black/20 hover:scale-105 transition-transform border-4 border-white z-40 -top-8">
+<i class="fa-solid fa-expand text-2xl"></i>
+</button>
+</div>
+<button class="flex flex-col items-center justify-center w-16 h-full text-textMuted hover:text-textMain transition-colors">
+<i class="fa-regular fa-file-lines text-xl mb-1"></i>
+<span class="text-[10px] font-medium">Notes</span>
+</button>
+<button class="flex flex-col items-center justify-center w-16 h-full text-textMain relative">
+<div class="absolute inset-0 bg-surface rounded-2xl m-1 z-0"></div>
+<i class="fa-solid fa-gear text-xl z-10 mb-1"></i>
+<span class="text-[10px] font-semibold z-10">Settings</span>
+</button>
+</nav>
+<!-- END: Bottom Navigation Bar -->
+</div>
+
+
+</body></html>

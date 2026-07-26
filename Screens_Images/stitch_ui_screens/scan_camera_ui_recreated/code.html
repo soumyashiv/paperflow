@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Scan Camera UI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: '#ffcc0f',
+            surface: '#111', // Darker surface for camera
+            onSurface: '#fff',
+            surfaceContainer: 'rgba(0, 0, 0, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #app-container {
+      width: 100%;
+      max-width: 430px; /* iPhone Pro Max width approx */
+      height: 100%;
+      max-height: 932px;
+      position: relative;
+      background-color: #111;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .corner-bracket {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #fff;
+      border-radius: 4px;
+    }
+    
+    .corner-tl { top: 10%; left: 10%; border-right: none; border-bottom: none; }
+    .corner-tr { top: 10%; right: 10%; border-left: none; border-bottom: none; }
+    .corner-bl { bottom: 10%; left: 10%; border-right: none; border-top: none; }
+    .corner-br { bottom: 10%; right: 10%; border-left: none; border-top: none; }
+
+    /* Hide scrollbar for mode selector */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" data-snapdom="injected-import"></head>
+<body>
+<!-- BEGIN: AppContainer -->
+<div data-purpose="app-root" id="app-container">
+<!-- BEGIN: StatusBar -->
+
+<!-- END: StatusBar -->
+<!-- BEGIN: TopControls -->
+<div class="absolute top-12 w-full px-6 flex justify-between items-center z-50" data-purpose="top-controls">
+<!-- Close Button -->
+<button aria-label="Close" class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+<svg fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" width="16"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
+</button>
+<!-- Flash Icon -->
+<button aria-label="Flash" class="text-white">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+</button>
+<!-- Auto Toggle -->
+<button aria-label="Auto Mode" class="px-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white font-medium text-sm">
+      Auto
+    </button>
+</div>
+<!-- END: TopControls -->
+<!-- BEGIN: CameraViewfinder -->
+<div class="flex-1 relative w-full h-full bg-[#3a2512]" data-purpose="camera-viewfinder">
+<!-- Using a placeholder image for the document background -->
+<img alt="Camera View" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCThWoLaY6l-52J_h0EGkXIe0cLk2q5N58z9LdPOmflZfhV9rts9xCP-Mp7O50X98lVsa-k2xBjst-Xnl2U_Y2WxefBvf6hcmgcYT_v11D2XVEaxIVt0Tx02U52vZvGzIY3_HEK2WWf_E1ubqqY4sn6n-LNBob_If5mjSsAfjK8DqY19CK5a7R_88ABL1vY0YClOXfMybYrcu_jp3I1Z9nozud_QxWuyvi0LfETTcHqUgINs5pU9_1OL9rB5p_aBmEefrkmJ0BUA7tJ">
+<!-- Focus Guides -->
+<div class="corner-bracket corner-tl"></div>
+<div class="corner-bracket corner-tr"></div>
+<div class="corner-bracket corner-bl"></div>
+<div class="corner-bracket corner-br"></div>
+<!-- Simulated Document Area -->
+<div class="absolute inset-x-8 top-1/4 bottom-1/3 bg-white shadow-2xl rounded-sm p-4 overflow-hidden" data-purpose="scanned-document">
+<div class="text-[10px] text-gray-800 space-y-2 opacity-70 scale-90 origin-top">
+<h2 class="font-bold text-center text-xs">Employment Contract</h2>
+<p class="">This Employment Contract ("Agreement") is made and entered into as of October 23, 2034 by and between:</p>
+<ol class="list-decimal pl-4 space-y-1">
+<li class=""><span class="font-bold">Parties</span><br>Employer: ABC Corporation...</li>
+<li class=""><span class="font-bold">Position</span><br>The Employer hereby employs...</li>
+<li class=""><span class="font-bold">Compensation</span><br>The Employee shall be paid a salary...</li>
+</ol>
+</div>
+</div>
+</div>
+<!-- END: CameraViewfinder -->
+<!-- BEGIN: BottomControls -->
+<div class="bg-black/90 pb-8 pt-4 px-4 flex flex-col gap-6 z-50 absolute bottom-0 w-full" data-purpose="bottom-controls">
+<!-- Mode Selector -->
+<div class="flex overflow-x-auto no-scrollbar gap-6 items-center px-4 snap-x justify-center" data-purpose="mode-selector">
+
+<button class="snap-center text-gray-400 font-medium whitespace-nowrap text-sm">Book</button>
+<button class="snap-center bg-primary text-black px-4 py-1.5 rounded-full font-semibold whitespace-nowrap text-sm">Document</button>
+<button class="snap-center text-gray-400 font-medium whitespace-nowrap text-sm">ID Card</button>
+
+</div>
+<!-- Actions (Thumbnail, Shutter, Gallery/Flip) -->
+<div class="flex justify-between items-center px-6" data-purpose="action-buttons">
+<!-- Thumbnail -->
+<button aria-label="Recent Scans" class="w-12 h-14 bg-white rounded-md border-2 border-gray-600 overflow-hidden relative">
+<div class="absolute inset-2 bg-gray-200">
+<div class="w-full h-1 bg-red-500 mb-1"></div>
+<div class="w-full h-px bg-gray-400 mb-0.5"></div>
+<div class="w-full h-px bg-gray-400 mb-0.5"></div>
+<div class="w-3/4 h-px bg-gray-400"></div>
+</div>
+</button>
+<!-- Shutter Button -->
+<button aria-label="Take Photo" class="w-20 h-20 rounded-full border-4 border-white p-1 flex items-center justify-center">
+<div class="w-full h-full bg-white rounded-full"></div>
+</button>
+<!-- Flip/Gallery Icon -->
+<button aria-label="Photo Options" class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-white">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+</button>
+</div>
+</div>
+<!-- END: BottomControls -->
+</div>
+<!-- END: AppContainer -->
+
+
+</body></html>

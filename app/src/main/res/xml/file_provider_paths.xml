@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Internal app files for sharing (PDFs, exports) -->
+    <files-path name="documents" path="documents/" />
+    <files-path name="exports" path="exports/" />
+    <files-path name="temp" path="temp/" />
+    <cache-path name="cache" path="." />
+</paths>

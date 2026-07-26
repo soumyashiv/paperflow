@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "com.paperflow.app-debug-91:/font_inter_regular.ttf.flat",
+        "source": "com.paperflow.app-main-93:/font/inter_regular.ttf"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/xml_backup_rules.xml.flat",
+        "source": "com.paperflow.app-main-93:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/drawable_ic_launcher.xml.flat",
+        "source": "com.paperflow.app-main-93:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/font_inter_bold.ttf.flat",
+        "source": "com.paperflow.app-main-93:/font/inter_bold.ttf"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/xml_file_provider_paths.xml.flat",
+        "source": "com.paperflow.app-main-93:/xml/file_provider_paths.xml"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/font_inter_semibold.ttf.flat",
+        "source": "com.paperflow.app-main-93:/font/inter_semibold.ttf"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/xml_network_security_config.xml.flat",
+        "source": "com.paperflow.app-main-93:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/xml_data_extraction_rules.xml.flat",
+        "source": "com.paperflow.app-main-93:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.paperflow.app-debug-91:/font_inter_medium.ttf.flat",
+        "source": "com.paperflow.app-main-93:/font/inter_medium.ttf"
+    }
+]

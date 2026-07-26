@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Enter Vault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            surface: '#fff8f1',
+            'on-surface': '#201b13',
+            'surface-container': '#f1e6d4',
+            primary: '#775a00',
+            'primary-container': '#ffdf90',
+            'on-primary-container': '#251a00',
+            secondary: '#695d40',
+            'secondary-container': '#f2e1bb',
+            'on-secondary-container': '#231a04',
+            tertiary: '#496547',
+            'tertiary-container': '#cbebc5',
+            'on-tertiary-container': '#062109',
+            error: '#ba1a1a',
+            'error-container': '#ffdad6',
+            'on-error-container': '#410002',
+          },
+          borderRadius: {
+            'md': '0.5rem',
+            'lg': '0.5rem',
+            'xl': '0.5rem',
+            '2xl': '0.5rem',
+            '3xl': '0.5rem',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    body {
+      background-color: #fff8f1; /* Solaris Modern Surface */
+      color: #201b13; /* Solaris Modern On-Surface */
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="h-screen w-full flex flex-col items-center justify-between relative overflow-hidden bg-surface text-on-surface">
+<!-- BEGIN: Top Navigation Bar -->
+<header class="w-full max-w-md px-6 pt-12 pb-4 flex items-center justify-between absolute top-0 z-10" data-purpose="top-nav">
+<!-- Back Button -->
+<button aria-label="Go back" class="p-2 -ml-2 rounded-full hover:bg-surface-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Title -->
+<h1 class="text-xl font-semibold absolute left-1/2 transform -translate-x-1/2">Enter Vault</h1>
+<!-- Empty div to balance flex layout -->
+<div class="w-10"></div>
+</header>
+<!-- END: Top Navigation Bar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 w-full max-w-md flex flex-col items-center justify-center px-8 mt-20" data-purpose="authentication-content">
+<!-- Lock Icon Section -->
+<div class="flex flex-col items-center mb-16">
+<div class="w-40 h-40 rounded-full bg-[#fae8cc] flex items-center justify-center mb-8 shadow-sm" data-purpose="lock-icon-container">
+<!-- SVG Lock Icon -->
+<svg class="w-20 h-20 text-[#f5a623]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-medium text-center text-on-surface/90 max-w-[240px] leading-snug">
+        Authenticate to access your secure vault
+      </h2>
+</div>
+<!-- Fingerprint Biometric Section -->
+<div class="flex flex-col items-center mb-12">
+<div class="w-24 h-24 rounded-full bg-[#f0f2e6] flex items-center justify-center mb-6 cursor-pointer hover:bg-[#e6ebd6] transition-colors shadow-sm" data-purpose="fingerprint-sensor">
+<!-- SVG Fingerprint Icon -->
+<svg class="w-12 h-12 text-tertiary" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<p class="text-base text-on-surface/70">
+        Touch the fingerprint sensor
+      </p>
+</div>
+<!-- Fallback Action -->
+<button class="text-base font-medium text-on-surface underline decoration-1 underline-offset-4 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface rounded-sm px-2 py-1" data-purpose="use-pin-button">
+      Use PIN
+    </button>
+</main>
+<!-- END: Main Content Area -->
+<!-- BEGIN: Home Indicator Area (iOS specific styling) -->
+<div class="w-full h-8 flex justify-center items-end pb-2 pb-safe" data-purpose="home-indicator">
+<div class="w-32 h-1.5 bg-black rounded-full"></div>
+</div>
+<!-- END: Home Indicator Area -->
+</body></html>

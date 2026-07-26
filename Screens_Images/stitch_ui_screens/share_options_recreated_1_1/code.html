@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Share Options</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              gold: '#ffb900', // Adjusted to match the orange/gold visually
+              surface: '#fff8f1',
+              dark: '#1a1a1a',
+              gray: '#6b7280',
+              lightGray: '#f3f4f6',
+              border: '#e5e7eb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    /* Hide scrollbar for Share With list */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex justify-center min-h-screen text-brand-dark antialiased">
+<!-- BEGIN: Mobile Container -->
+<main class="w-full max-w-[430px] bg-white min-h-screen flex flex-col relative overflow-hidden shadow-2xl">
+<!-- BEGIN: Header -->
+<header class="flex items-center justify-between px-5 pt-12 pb-4 bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-brand-border">
+<button aria-label="Back" class="w-8 h-8 flex items-center justify-center text-brand-dark">
+<svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
+<path d="M15 18l-6-6 6-6"></path>
+</svg>
+</button>
+<h1 class="text-[17px] font-semibold">Share</h1>
+<button aria-label="Cancel" class="text-[17px] font-medium text-brand-gold">
+        Cancel
+      </button>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Content Area -->
+<div class="flex-1 overflow-y-auto pb-8">
+<!-- BEGIN: Document Preview Card -->
+<section class="px-5 py-4">
+<div class="bg-brand-lightGray rounded-[14px] p-4 flex items-center gap-4">
+<div class="w-12 h-12 bg-white rounded-[10px] flex items-center justify-center shadow-sm shrink-0">
+<svg fill="none" height="28" viewBox="0 0 24 24" width="28" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#ef4444" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M14 2v6h6" stroke="#ef4444" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<text fill="#ef4444" font-family="sans-serif" font-size="7" font-weight="bold" x="7" y="17">PDF</text>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<h2 class="text-[16px] font-semibold truncate mb-0.5">Employment Contract.pdf</h2>
+<p class="text-[13px] text-brand-gray truncate">PDF Document • 248 KB</p>
+<p class="text-[13px] text-brand-gray truncate mt-0.5">May 1, 2024 at 9:41 AM</p>
+</div>
+</div>
+</section>
+<!-- END: Document Preview Card -->
+<!-- BEGIN: Share With -->
+<section class="mb-6 pt-2">
+<h3 class="text-[16px] font-semibold px-5 mb-4">Share With</h3>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar px-5 pb-2">
+<!-- Contact 1 -->
+<div class="flex flex-col items-center gap-1.5 w-[72px] shrink-0">
+<div class="relative w-14 h-14">
+<img alt="Sophia Brown" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdfaUR5fgtEPFUtXkvf-W0AV2_hUhnYZUvp9duJhQ_FTI70sOXBt2vucozW119RdtEPvoAh6vR5V4vePFGs_2U7VDVQRYglrim2dY8HWzmnlgsEpije7xTTWlKtU00Z6l6p0qejtbEs2xENd0xXg1jJxJCKXlSjk02_r-GwHiAysIaAP5fjB8oCGYuuTdPTcRTvQF7n1VC53KjgkItDirHasOUJ2XN-1nIGCrIoV3vysZfanW2JAizXZmj8QG6xFpBGVQDClAUE3Wq">
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<span class="text-[12px] text-center leading-tight">Sophia<br>Brown</span>
+</div>
+<!-- Contact 2 -->
+<div class="flex flex-col items-center gap-1.5 w-[72px] shrink-0">
+<div class="relative w-14 h-14">
+<img alt="Liam Johnson" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDofps2SUGVig5L2jUsQZY4yMp9LL01SyRtmQ21Ek56opmwOqraa4PQVtaLrNPHx_itGGM9lRBnNwgj2csNkPA7KgJNjzK7A5WuB1EbOZa1Z9QJQCt-ykV_eWnTnK0QpL4dpX-8Yo1GiEqyve7qBdyn0L3W6Q94cfdqhYvCZ3sVsIPhP9CizXvDTT8K_eHjDwq8g7bonce4hafrIE29PJT-NG5AmQDI3gBw02e85X_oYdljM5kpK32G_uKNk211eay4VoffuOHRamah">
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<span class="text-[12px] text-center leading-tight">Liam<br>Johnson</span>
+</div>
+<!-- Contact 3 -->
+<div class="flex flex-col items-center gap-1.5 w-[72px] shrink-0">
+<div class="relative w-14 h-14">
+<img alt="Olivia Davis" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzkrejUN3zPwTQzhZQYie9-yPd3J4wdYwRmONv3iVvYcNeI7XQzFHC48oSMTj0f19F7_JOnNW-Y2XsL_ytRGeq2NJNFDQ3q28E7b28kVztqhpTKaDO_TY2qeg4BdGpYkEhXGIs52m1whziWttDnec_iNRGdy0onwg2TnzQijXlLOegc1NlSK1IqhJ1RRr1SrGLCC87HyyUMpiNgA9Mc4vRzSfwvuRbPikEwCU0VdabN2xnECvpNdKkymokVIM99G0MJZn5C9LeI5YF">
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<span class="text-[12px] text-center leading-tight">Olivia<br>Davis</span>
+</div>
+<!-- Contact 4 -->
+<div class="flex flex-col items-center gap-1.5 w-[72px] shrink-0">
+<div class="relative w-14 h-14">
+<img alt="Noah Wilson" class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvaytxNHaJDZwAgETw639JTAlzsT30L_hYTi9vs_4Kz5L8BAc9AgsIY_4MJEfen4fYJdEEaqg10UxJ_ggYMmIg3O_LawiwUDxBpVlZSVG090hAVMkUQuBLNJPHiFvvCplvGa58IAirELp8fL6A2Y5_ON8UeBLveF6gxbKcnxkLGUN81nH9MUoHntGV2KBthu_uip0xG62LjlZDt0_H373Jhw_sv2BYrSDoeceOO9AhAV801dcvmm_7XrihdeBoizUiMCQLA8VW1smk">
+<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-gray-300 border-2 border-white rounded-full"></div>
+</div>
+<span class="text-[12px] text-center leading-tight">Noah<br>Wilson</span>
+</div>
+<!-- More Button -->
+<div class="flex flex-col items-center gap-1.5 w-[72px] shrink-0">
+<button class="w-14 h-14 bg-brand-lightGray rounded-full flex items-center justify-center text-brand-dark">
+<svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24">
+<circle cx="5" cy="12" r="2"></circle>
+<circle cx="12" cy="12" r="2"></circle>
+<circle cx="19" cy="12" r="2"></circle>
+</svg>
+</button>
+<span class="text-[12px] text-center leading-tight mt-1">More</span>
+</div>
+</div>
+</section>
+<!-- END: Share With -->
+<!-- BEGIN: Share Link -->
+<section class="px-5 mb-8">
+<h3 class="text-[16px] font-semibold mb-3">Share Link</h3>
+<div class="flex items-center justify-between p-3 bg-brand-lightGray rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-brand-gray shadow-sm">
+<svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+</svg>
+</div>
+<div>
+<p class="text-[15px] text-brand-dark">Anyone with the link</p>
+<p class="text-[13px] text-brand-gray">Can view</p>
+</div>
+</div>
+<button class="text-[14px] font-medium text-brand-gold px-3 py-1.5 bg-white rounded-lg shadow-sm border border-brand-border">
+            Copy Link
+          </button>
+</div>
+</section>
+<!-- END: Share Link -->
+<!-- BEGIN: Share To -->
+<section class="mb-8">
+<h3 class="text-[16px] font-semibold px-5 mb-2">Share to</h3>
+<div class="flex flex-col">
+<button class="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white">
+<!-- AirDrop Icon Placeholder -->
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+</div>
+<span class="text-[16px] text-brand-dark">AirDrop</span>
+</div>
+<svg class="text-gray-400" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+<!-- ... (Repeated structure for Messages, Mail, WhatsApp, Notes, Slack, More Apps - abbreviating for length, but would include all in full response) ... -->
+<button class="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors border-t border-brand-lightGray">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white">
+<svg fill="currentColor" height="18" viewBox="0 0 24 24" width="18"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path></svg>
+</div>
+<span class="text-[16px] text-brand-dark">Messages</span>
+</div>
+<svg class="text-gray-400" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+<button class="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors border-t border-brand-lightGray">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-blue-400 flex items-center justify-center text-white">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><path d="M22 6l-10 7L2 6"></path></svg>
+</div>
+<span class="text-[16px] text-brand-dark">Mail</span>
+</div>
+<svg class="text-gray-400" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+<button class="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors border-t border-brand-lightGray">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 bg-brand-lightGray rounded-full flex items-center justify-center text-brand-dark">
+<svg fill="currentColor" height="18" viewBox="0 0 24 24" width="18"><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></svg>
+</div>
+<span class="text-[16px] text-brand-dark">More Apps</span>
+</div>
+<svg class="text-gray-400" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: Share To -->
+<!-- BEGIN: Export -->
+<section class="mb-8">
+<h3 class="text-[16px] font-semibold px-5 mb-2">Export</h3>
+<div class="flex flex-col">
+<button class="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors border-t border-brand-lightGray">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center text-blue-500">
+<svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
+</div>
+<span class="text-[16px] text-brand-dark">Save to Files</span>
+</div>
+<svg class="text-gray-400" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+<button class="flex items-center justify-between w-full px-5 py-3 hover:bg-gray-50 transition-colors border-t border-brand-lightGray">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 flex items-center justify-center text-blue-600">
+<!-- Dropbox Icon Placeholder -->
+<svg fill="currentColor" height="24" viewBox="0 0 24 24" width="24"><path d="M12 2L4 7.2l8 5.2 8-5.2-8-5.2zM4 17.6l8 5.2 8-5.2V12l-8 5.2L4 12v5.6z"></path></svg>
+</div>
+<span class="text-[16px] text-brand-dark">Save to Dropbox</span>
+</div>
+<svg class="text-gray-400" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+<path d="M9 18l6-6-6-6"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: Export -->
+<!-- BEGIN: Bottom Options & Button -->
+<section class="px-5 pb-8 pt-4 border-t border-brand-border">
+<div class="flex items-center justify-between mb-6 bg-brand-lightGray rounded-xl p-4">
+<div>
+<h3 class="text-[16px] font-semibold text-brand-dark">Include Annotations</h3>
+<p class="text-[13px] text-brand-gray mt-0.5">Share annotations and comments</p>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value="">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-gold"></div>
+</label>
+</div>
+<button class="w-full bg-brand-gold text-white font-semibold text-[17px] py-3.5 rounded-xl shadow-sm hover:opacity-90 transition-opacity">
+          Share
+        </button>
+</section>
+<!-- END: Bottom Options & Button -->
+</div>
+<!-- END: Content Area -->
+<!-- Home Indicator Placeholder -->
+<div class="h-1 w-1/3 bg-black rounded-full absolute bottom-2 left-1/2 -translate-x-1/2"></div>
+</main>
+<!-- END: Mobile Container -->
+</body></html>

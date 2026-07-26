@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="com_google_android_gms_fonts_certs">
+        <item>@array/com_google_android_gms_fonts_certs_dev</item>
+        <item>@array/com_google_android_gms_fonts_certs_prod</item>
+    </array>
+    <string-array name="com_google_android_gms_fonts_certs_dev">
+        <item>
+            MIIEqDCCA5CgAwIBAgIJANWFuGx90071MA0GCSqGSIb3DQEBBAUAMIGUMQswCQYD
+            VQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZyYW5j
+            aXNjbzETMBEGA1UEChMKR29vZ2xlIEluYzEXMBUGA1UECxMOQW5kcm9pZCBNYXJr
+            ZXQxGjAYBgNVBAMTEWFuZHJvaWQubWFya2V0LnVzMB4XDTEwMDMxNTA4NTkzNloX
+            DTM3MDczMTA4NTkzNlowgZQxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9y
+            bmlhMRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMRMwEQYDVQQKEwpHb29nbGUgSW5j
+            MRcwFQYDVQQLEw5BbmRyb2lkIE1hcmtldDEaMBgGA1UEAxMRYW5kcm9pZC5tYXJr
+            ZXQudXMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCUmcVrnmKjKV6d
+            b3RlIBrdJKIf0X+NJmQknQGgdFtAMFSSLXFMFzOKZXl06WbJIIaV5MYEXKdTOsB2
+            oEADIFCa0R/q18FUYPlUMCfPXXhFCBXPYCxzDsPJJRPaVQ4YwdBqQ2nQBb7VVQAT
+            CW+KulKUxCLbgWsHtM/aEEeHq1T7pR9oBvCJVHjyS/UzEF7LGFfFjZGSFPzjpFMt
+            5mVZNtq3kcMcT5xBNKVMR9RRGJanivRX+gEfqZ6t9eLbEQAjmBMl+RvLLhcHSdTL
+            9E/MYqmD/v6YPzJ0QRRkJHRZ+dpDMdIcmSW1qAQRSxR1RHlxrr5NBKZ4Bj5dWpCp
+            AgMBAAGjgdAwgc0wHQYDVR0OBBYEFMd9jMIhF1Ux/XdNGGPFrAOAAUUMMB8GA1Ud
+            IwQYMBaAFMd9jMIhF1Ux/XdNGGPFrAOAAUUMMAkGA1UdEwQCMAAwgaAGA1UdEQSB
+            mDCBlYIRYW5kcm9pZC5tYXJrZXQudXOCFW1hcmtldC5hbmRyb2lkLmNvbS51c4IS
+            bWFya2V0LmFuZHJvaWQuY29tghJhcHBzLmFuZHJvaWQuY29thiZodHRwczovL3d3
+            dy5hbmRyb2lkLmNvbS9tYXJrZXQvYWNjb3VudDANBgkqhkiG9w0BAQEFAAOCAQEA
+            BTBc6jXSb0jbFhRKJqPUVbNBr+s80eECmIqVXfKpLMHjOmMeE0L3tFByLFMdWAME
+            8mBXMu/ESXW+l7m7Y8nf4LLLZ6I9JiSJR6R7Y8BbFQ==
+        </item>
+    </string-array>
+    <string-array name="com_google_android_gms_fonts_certs_prod">
+        <item>
+            MIIEQzCCAyugAwIBAgIJAMLgh0ZkSjCNMA0GCSqGSIb3DQEBBAUAMHQxCzAJBgNV
+            BAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBW
+            aWV3MRQwEgYDVQQKEwtHb29nbGUgSW5jLjEQMA4GA1UECxMHQW5kcm9pZDEQMA4G
+            A1UEAxMHQW5kcm9pZDAeFw0wODA4MjEyMzEzMzRaFw0zNjAxMDcyMzEzMzRaMHQx
+            CzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3Vu
+            dGFpbiBWaWV3MRQwEgYDVQQKEwtHb29nbGUgSW5jLjEQMA4GA1UECxMHQW5kcm9p
+            ZDEQMA4GA1UEAxMHQW5kcm9pZDCCASAwDQYJKoZIhvcNAQEBBQADggENADCCAQgC
+            ggEBAKtWLgDYO6IIrgqWbxJOKdoR8qtW0I9Y4sypEwPpt1TTcvZApxsdyxMJsWd/
+            2ZHziZteQjTHzmBeZHqnPstYsykQcT0CqfMEcDMZHqgj7+Rth5c04WMRD2EABYC7
+            BwnTzKdqKIDbSEa0EJPRr1dLlFq5fTmzMHBPMZTSQdJ5aGelTRqOMgSLHgm24O+n
+            lgmW1NqFm6pSMBZSJcHF5uNNFlZf3pOfwQpb+JWJrQjFYGPnMPJZJbpOLYlQl5YT
+            xzRU9HZqOFMfYJjMc8FBt+GNkGJCZM7RSCIH4JNV6Ro5YiPUMxN1dRjP7FGJLHZS
+            5+Qs7vXpFk7ek00DdCEkiw==
+        </item>
+    </string-array>
+    <color name="background">#F5F0E8</color>
+    <color name="on_primary">#1A1A1A</color>
+    <color name="primary">#F5C842</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#6B6B6B</color>
+    <string name="action_add_to_vault">Add to Vault</string>
+    <string name="action_convert_to_note">Convert to Note</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_move">Move</string>
+    <string name="action_open">Open</string>
+    <string name="action_rename">Rename</string>
+    <string name="action_share">Share</string>
+    <string name="action_undo">Undo</string>
+    <string name="app_name">PaperFlow</string>
+    <string name="cd_back">Go back</string>
+    <string name="cd_bookmark">Bookmark page</string>
+    <string name="cd_close">Close</string>
+    <string name="cd_document_thumbnail">Document thumbnail</string>
+    <string name="cd_favorite">Add to favorites</string>
+    <string name="cd_folder_icon">Folder icon</string>
+    <string name="cd_more_options">More options</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_scan">Scan document</string>
+    <string name="cd_search">Search documents</string>
+    <string name="empty_documents">No documents yet</string>
+    <string name="empty_documents_sub">Tap the scan button to add your first document</string>
+    <string name="empty_notes">No notes yet</string>
+    <string name="empty_notes_sub">Create a note or convert a scan</string>
+    <string name="empty_search">No results found</string>
+    <string name="empty_search_sub">Try different keywords or check spelling</string>
+    <string name="empty_vault">Vault is empty</string>
+    <string name="empty_vault_sub">Move documents here to keep them secure</string>
+    <string name="error_camera_permission">Camera permission required for scanning</string>
+    <string name="error_pdf_open">Unable to open PDF</string>
+    <string name="error_scan_failed">Scan failed. Please try again.</string>
+    <string name="error_storage_low">Storage is running low</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_notes">Notes</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_workspace">Workspace</string>
+    <string name="ocr_complete">Document indexed</string>
+    <string name="ocr_indexing">Indexing document…</string>
+    <string name="security_cancel">Cancel</string>
+    <string name="security_confirm">Confirm</string>
+    <string name="security_move_from_vault_message">This document will become accessible outside the secure vault. Are you sure?</string>
+    <string name="security_move_from_vault_title">Move from Vault?</string>
+    <string name="vault_biometric_hint">Touch the fingerprint sensor</string>
+    <string name="vault_biometric_subtitle">Verify your identity to access secure documents</string>
+    <string name="vault_biometric_title">PaperFlow Vault</string>
+    <string name="vault_negative_button">Use PIN instead</string>
+    <string name="vault_subtitle">Authenticate to access your secure vault</string>
+    <string name="vault_title">Enter Vault</string>
+    <string name="vault_use_pin">Use PIN</string>
+    <style name="Theme.PaperFlow" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

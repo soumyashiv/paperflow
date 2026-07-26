@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Document Management Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style data-purpose="custom-utilities">
+    /* Custom utility classes if needed beyond Tailwind */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            appBg: '#ffffff',
+            cardBg: '#fffbf5',
+            primaryAccent: '#fcd34d', /* yellow-300 approx */
+            textMain: '#111827', /* gray-900 */
+            textSub: '#6b7280', /* gray-500 */
+            tagPdf: '#fce7f3', /* pink-100 */
+            tagPdfText: '#be185d', /* pink-700 */
+            tagNote: '#dcfce7', /* green-100 */
+            tagNoteText: '#15803d', /* green-700 */
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="">
+<!-- Mobile Device Container (simulating phone screen) -->
+<div class="bg-appBg min-h-screen flex flex-col font-sans antialiased relative">
+<!-- Main Scrollable Content Area -->
+<main class="flex-1 pb-28 px-5 pt-4 bg-appBg">
+<!-- Header -->
+<header class="flex justify-between items-start mb-6">
+<div>
+<h1 class="text-3xl font-bold text-textMain tracking-tight">Hello, Arjun 👋</h1>
+<p class="text-textSub text-sm mt-1">What will you work on today?</p>
+</div>
+<div class="relative mt-2">
+<button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-xl text-textMain hover:bg-gray-50 transition-colors">
+<i class="fa-regular fa-bell"></i>
+</button>
+<span class="absolute top-0 right-0 -mt-1 -mr-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full border-2 border-appBg">5</span>
+</div>
+</header>
+<!-- Search -->
+<section class="mb-8 flex gap-3">
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+</div>
+<input class="w-full pl-10 pr-4 py-3.5 bg-white border border-gray-100 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primaryAccent focus:border-transparent shadow-[0_2px_10px_rgba(0,0,0,0.03)] placeholder-gray-400" placeholder="Search documents, notes..." type="text">
+</div>
+<button class="w-12 h-12 bg-primaryAccent rounded-full flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity">
+<i class="fa-solid fa-microphone-lines text-textMain"></i>
+</button>
+</section>
+<!-- Quick Actions Grid -->
+<section class="mb-8 grid grid-cols-4 gap-3">
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-expand text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Scan</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">Scan documents</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-arrow-up-from-bracket text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Upload</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">Import files</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-regular fa-pen-to-square text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Note</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">Create notes</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-regular fa-file text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Import</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">From device</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-arrow-right-from-bracket text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Convert</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">PDF, JPG, OCR</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-microchip text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Ask AI</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">Summarize, explain</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-regular fa-folder text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Documents</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">View all files</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-regular fa-address-card text-textMain text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">ID Card</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">Scan ID cards</span>
+</button>
+</section>
+<!-- Recent Section -->
+<section class="mb-8">
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-lg font-bold text-textMain">Recent</h2>
+<a class="text-sm text-textSub hover:text-textMain flex items-center" href="#">View all <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i></a>
+</div>
+<div class="space-y-4">
+<div class="flex items-center group cursor-pointer border-b border-gray-50 pb-3">
+<div class="w-12 h-14 bg-gray-50 rounded flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-100 mr-4 shadow-sm relative">
+<i class="fa-solid fa-file-lines text-gray-300 text-2xl"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-textMain">Employment Contract</h3>
+<p class="text-[11px] text-textSub mt-0.5">Today, 10:21 AM</p>
+</div>
+<span class="px-2 py-1 bg-tagPdf text-tagPdfText text-[10px] font-bold rounded-md mr-3">PDF</span>
+<i class="fa-solid fa-ellipsis-vertical text-gray-400 px-2"></i>
+</div>
+<div class="flex items-center group cursor-pointer border-b border-gray-50 pb-3">
+<div class="w-12 h-14 bg-gray-50 rounded flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-100 mr-4 shadow-sm relative">
+<i class="fa-solid fa-file-lines text-gray-300 text-2xl"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-textMain">Project Proposal</h3>
+<p class="text-[11px] text-textSub mt-0.5">Today, 8:13 AM</p>
+</div>
+<span class="px-2 py-1 bg-tagPdf text-tagPdfText text-[10px] font-bold rounded-md mr-3">PDF</span>
+<i class="fa-solid fa-ellipsis-vertical text-gray-400 px-2"></i>
+</div>
+<div class="flex items-center group cursor-pointer border-b border-gray-50 pb-3">
+<div class="w-12 h-14 bg-gray-50 rounded flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-100 mr-4 shadow-sm relative">
+<i class="fa-solid fa-file-pen text-gray-300 text-2xl"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-textMain">Handwritten Notes</h3>
+<p class="text-[11px] text-textSub mt-0.5">Yesterday, 11:03 PM</p>
+</div>
+<span class="px-2 py-1 bg-tagNote text-tagNoteText text-[10px] font-bold rounded-md mr-3">NOTE</span>
+<i class="fa-solid fa-ellipsis-vertical text-gray-400 px-2"></i>
+</div>
+<div class="flex items-center group cursor-pointer border-b border-gray-50 pb-3">
+<div class="w-12 h-14 bg-gray-50 rounded flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-100 mr-4 shadow-sm relative">
+<i class="fa-solid fa-file-lines text-gray-300 text-2xl"></i>
+</div>
+<div class="flex-1">
+<h3 class="text-sm font-bold text-textMain">Math Formulas</h3>
+<p class="text-[11px] text-textSub mt-0.5">Yesterday, 9:15 PM</p>
+</div>
+<span class="px-2 py-1 bg-tagPdf text-tagPdfText text-[10px] font-bold rounded-md mr-3">PDF</span>
+<i class="fa-solid fa-ellipsis-vertical text-gray-400 px-2"></i>
+</div>
+</div>
+</section>
+<!-- Folders Section -->
+<section class="mb-4">
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-lg font-bold text-textMain">Folders</h2>
+<a class="text-sm text-textSub hover:text-textMain flex items-center" href="#">View all <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i></a>
+</div>
+<div class="grid grid-cols-4 gap-3">
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-orange-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-folder text-orange-400 text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Work</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">32 items</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-green-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-graduation-cap text-green-600 text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Study</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">18 items</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-user text-blue-500 text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Personal</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">15 items</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-cardBg rounded-3xl p-3 shadow-[0_4px_10px_rgba(0,0,0,0.02)] border border-orange-50/50 hover:bg-orange-50/80 transition-colors py-4">
+<div class="w-10 h-10 rounded-full bg-yellow-100/50 flex items-center justify-center mb-2"><i class="fa-solid fa-lock text-yellow-600 text-lg"></i></div>
+<span class="text-xs font-bold text-textMain">Vault</span>
+<span class="text-[9px] text-textSub mt-1 text-center leading-tight">Locked</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full px-4 pb-8 pt-4 bg-[#FAFAFA]/90 backdrop-blur-md z-50 border-t border-gray-100/50" data-purpose="bottom-nav">
+<div class="flex items-center justify-between mx-auto max-w-sm px-2">
+<!-- Home -->
+<button class="flex flex-col items-center gap-1 group card-bg px-4 py-2 rounded-2xl">
+<svg class="text-gray-900" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span class="text-[10px] font-medium text-gray-900">Home</span>
+</button>
+<!-- Workspace -->
+<button class="flex flex-col items-center gap-1 group px-4 py-2">
+<svg class="text-gray-500 group-hover:text-gray-900 transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+<polyline points="2 17 12 22 22 17"></polyline>
+<polyline points="2 12 12 17 22 12"></polyline>
+</svg>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-gray-900 transition-colors">Workspace</span>
+</button>
+<!-- Central Scan Button -->
+<button class="flex flex-col items-center justify-center bg-black text-white w-14 h-14 rounded-full shadow-lg -mt-6 active:scale-95 transition-transform border-4 border-[#FAFAFA]">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+<path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+<path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+<path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+<line x1="7" x2="17" y1="12" y2="12"></line>
+</svg>
+</button>
+<!-- Notes -->
+<button class="flex flex-col items-center gap-1 group px-4 py-2">
+<svg class="text-gray-500 group-hover:text-gray-900 transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+<polyline points="14 2 14 8 20 8"></polyline>
+<line x1="16" x2="8" y1="13" y2="13"></line>
+<line x1="16" x2="8" y1="17" y2="17"></line>
+<polyline points="10 9 9 9 8 9"></polyline>
+</svg>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-gray-900 transition-colors">Notes</span>
+</button>
+<!-- Settings -->
+<button class="flex flex-col items-center gap-1 group px-4 py-2">
+<svg class="text-gray-500 group-hover:text-gray-900 transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+<circle cx="12" cy="12" r="3"></circle>
+</svg>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-gray-900 transition-colors">Settings</span>
+</button>
+</div>
+<!-- iPhone Home Indicator line -->
+<div class="w-1/3 h-1 bg-gray-900 rounded-full mx-auto mt-6 mb-1"></div>
+</nav>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
