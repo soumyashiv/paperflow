@@ -179,7 +179,7 @@ fun PrintOptionsScreen(
                         Spacer(Modifier.height(8.dp))
                         listOf("All", "Current Page", "Custom Range").forEach { opt ->
                             Row(Modifier.clickable { pageRange = opt }.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                                RadioButton(selected = pageRange == opt, onClick = { pageRange = opt }, colors = RadioButtonDefaults.colors(selectedColor = Amber))
+                                RadioButton(selected = pageRange == opt, onClick = { pageRange = opt }, colors = RadioButtonDefaults.colors(selectedColor = KiwiPrimary))
                                 Text(opt, fontFamily = InterFamily)
                             }
                         }
@@ -191,7 +191,7 @@ fun PrintOptionsScreen(
                         Spacer(Modifier.height(8.dp))
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             listOf("Color", "Grayscale").forEach { opt ->
-                                FilterChip(selected = colorMode == opt, onClick = { colorMode = opt }, label = { Text(opt, fontFamily = InterFamily) }, colors = FilterChipDefaults.filterChipColors(selectedContainerColor = AmberLight))
+                                FilterChip(selected = colorMode == opt, onClick = { colorMode = opt }, label = { Text(opt, fontFamily = InterFamily) }, colors = FilterChipDefaults.filterChipColors(selectedContainerColor = KiwiLight))
                             }
                         }
                     }
@@ -205,8 +205,8 @@ fun PrintOptionsScreen(
 private fun ShareOption(icon: ImageVector, title: String, subtitle: String, onClick: () -> Unit) {
     Surface(color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
         Row(Modifier.clickable(onClick = onClick).padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Box(Modifier.size(44.dp).clip(RoundedCornerShape(12.dp)).background(Amber.copy(alpha = 0.12f)), contentAlignment = Alignment.Center) {
-                Icon(icon, null, tint = Amber, modifier = Modifier.size(22.dp))
+            Box(Modifier.size(44.dp).clip(RoundedCornerShape(12.dp)).background(KiwiPrimary.copy(alpha = 0.12f)), contentAlignment = Alignment.Center) {
+                Icon(icon, null, tint = KiwiPrimary, modifier = Modifier.size(22.dp))
             }
             Column(Modifier.weight(1f)) {
                 Text(title, fontWeight = FontWeight.SemiBold, fontFamily = InterFamily)
@@ -222,3 +222,5 @@ private fun formatSize(bytes: Long) = when {
     bytes < 1_048_576 -> "${bytes / 1024} KB"
     else -> String.format("%.1f MB", bytes / 1_048_576.0)
 }
+
+

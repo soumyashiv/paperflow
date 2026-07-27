@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -33,15 +34,24 @@ fun SettingsScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = KiwiBg,
         topBar = {
             @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
-                title = { Text("Settings", fontWeight = FontWeight.Bold, fontFamily = InterFamily) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                title = {
+                    Text(
+                        "Settings",
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = InterFamily,
+                        color      = NearBlack,
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = KiwiBg),
             )
         },
-        bottomBar = { com.paperflow.app.presentation.components.BottomNavBar(navController, onScanClick) },
+        bottomBar = {
+            com.paperflow.app.presentation.components.BottomNavBar(navController, onScanClick)
+        },
     ) { pv ->
         Column(
             modifier = Modifier
@@ -50,182 +60,315 @@ fun SettingsScreen(
                 .verticalScroll(rememberScrollState()),
         ) {
             // ── Profile Card ──────────────────────────────────────────────
-            ProfileCard(
-                name = state.userName.ifBlank { "Your Name" },
+            KiwiProfileCard(
+                name          = state.userName.ifBlank { "Your Name" },
                 documentCount = state.documentCount,
-                storageUsed = state.storageUsed,
-                onEditName = { viewModel.promptNameEdit() },
+                storageUsed   = state.storageUsed,
+                onEditName    = { viewModel.promptNameEdit() },
                 onAvatarClick = { /* pick avatar */ },
             )
+
             Spacer(Modifier.height(8.dp))
 
             // ── Document Tools ────────────────────────────────────────────
-            SettingsGroup(title = "Document Tools") {
-                SettingsRow(icon = Icons.Outlined.CameraAlt, label = "Scanner", subtitle = "Auto-crop, filters, multi-page") { navController.navigate(Routes.SettingsScanner.route) }
-                SettingsRow(icon = Icons.Outlined.PictureAsPdf, label = "PDF Reader", subtitle = "View mode, reading direction") { navController.navigate(Routes.SettingsPDFReader.route) }
-                SettingsRow(icon = Icons.Outlined.TextFormat, label = "OCR & Text", subtitle = "Languages, handwriting") { navController.navigate(Routes.SettingsOCR.route) }
-                SettingsRow(icon = Icons.Outlined.EditNote, label = "Notes", subtitle = "Font size, autosave") { navController.navigate(Routes.SettingsNotes.route) }
-                SettingsRow(icon = Icons.Outlined.Search, label = "Search", subtitle = "History, OCR search") { navController.navigate(Routes.SettingsSearch.route) }
-                SettingsRow(icon = Icons.Outlined.Folder, label = "Workspace", subtitle = "Layout, sorting, default folder") { navController.navigate(Routes.SettingsWorkspace.route) }
+            KiwiSettingsGroup(title = "Document Tools") {
+                KiwiSettingsRow(Icons.Outlined.CameraAlt,     "Scanner",        "Auto-crop, filters, multi-page")     { navController.navigate(Routes.SettingsScanner.route) }
+                KiwiSettingsRow(Icons.Outlined.PictureAsPdf,  "PDF Reader",     "View mode, reading direction")       { navController.navigate(Routes.SettingsPDFReader.route) }
+                KiwiSettingsRow(Icons.Outlined.TextFormat,    "OCR & Text",     "Languages, handwriting")             { navController.navigate(Routes.SettingsOCR.route) }
+                KiwiSettingsRow(Icons.Outlined.EditNote,      "Notes",          "Font size, autosave")                { navController.navigate(Routes.SettingsNotes.route) }
+                KiwiSettingsRow(Icons.Outlined.Search,        "Search",         "History, OCR search")                { navController.navigate(Routes.SettingsSearch.route) }
+                KiwiSettingsRow(Icons.Outlined.Folder,        "Workspace",      "Layout, sorting, default folder")    { navController.navigate(Routes.SettingsWorkspace.route) }
             }
 
             // ── Preferences ───────────────────────────────────────────────
-            SettingsGroup(title = "Preferences") {
-                SettingsRow(icon = Icons.Outlined.Palette, label = "Themes & Appearance", subtitle = "Dark mode, accent color") { navController.navigate(Routes.SettingsThemes.route) }
-                SettingsRow(icon = Icons.Outlined.Notifications, label = "Notifications", subtitle = "Alerts, reminders") { navController.navigate(Routes.SettingsNotifications.route) }
-                SettingsRow(icon = Icons.Outlined.Accessibility, label = "Accessibility", subtitle = "Text size, contrast") { navController.navigate(Routes.SettingsAccessibility.route) }
+            KiwiSettingsGroup(title = "Preferences") {
+                KiwiSettingsRow(Icons.Outlined.Palette,        "Themes & Appearance", "Dark mode, Kiwi / Dynamic Color") { navController.navigate(Routes.SettingsThemes.route) }
+                KiwiSettingsRow(Icons.Outlined.Notifications,  "Notifications",        "Alerts, reminders")              { navController.navigate(Routes.SettingsNotifications.route) }
+                KiwiSettingsRow(Icons.Outlined.Accessibility,  "Accessibility",        "Text size, contrast")            { navController.navigate(Routes.SettingsAccessibility.route) }
             }
 
             // ── Privacy, Security & Data ──────────────────────────────────
-            SettingsGroup(title = "Privacy & Data") {
-                SettingsRow(icon = Icons.Outlined.Lock, label = "Security", subtitle = "App lock, vault, biometrics") { navController.navigate(Routes.SettingsSecurity.route) }
-                SettingsRow(icon = Icons.Outlined.Storage, label = "Storage", subtitle = "Cache, usage details") { navController.navigate(Routes.SettingsStorage.route) }
-                SettingsRow(icon = Icons.Outlined.Backup, label = "Backup & Restore", subtitle = "Export data, import") { navController.navigate(Routes.SettingsBackup.route) }
+            KiwiSettingsGroup(title = "Privacy & Data") {
+                KiwiSettingsRow(Icons.Outlined.Lock,    "Security",         "App lock, vault, biometrics") { navController.navigate(Routes.SettingsSecurity.route) }
+                KiwiSettingsRow(Icons.Outlined.Storage, "Storage",          "Cache, usage details")        { navController.navigate(Routes.SettingsStorage.route) }
+                KiwiSettingsRow(Icons.Outlined.Backup,  "Backup & Restore", "Export data, import")         { navController.navigate(Routes.SettingsBackup.route) }
             }
 
             // ── About ─────────────────────────────────────────────────────
-            SettingsGroup(title = "About") {
-                SettingsRow(icon = Icons.Outlined.Info, label = "About PaperFlow", subtitle = "Version, licenses") { navController.navigate(Routes.SettingsAbout.route) }
-                SettingsRow(icon = Icons.Outlined.HelpOutline, label = "Help Center") { navController.navigate(Routes.HelpCenter.route) }
-                
-                // Note: Developer settings is unlocked via taps inside AboutScreen
-                // But if unlocked, it can appear here. Assuming it's hidden by default.
+            KiwiSettingsGroup(title = "About") {
+                KiwiSettingsRow(Icons.Outlined.Info,        "About PaperFlow", "Version, licenses") { navController.navigate(Routes.SettingsAbout.route) }
+                KiwiSettingsRow(Icons.Outlined.HelpOutline, "Help Center")                         { navController.navigate(Routes.HelpCenter.route) }
             }
 
-            Spacer(Modifier.height(32.dp))
+            Spacer(Modifier.height(40.dp))
         }
     }
 
     if (state.showNameEdit) {
-        NameEditDialog(
-            initial = state.userName,
+        KiwiNameEditDialog(
+            initial   = state.userName,
             onConfirm = { viewModel.saveName(it) },
             onDismiss = { viewModel.dismissNameEdit() },
         )
     }
 }
 
+// ─── Profile Card (Kiwi) ──────────────────────────────────────────────────────
 @Composable
-private fun ProfileCard(name: String, documentCount: Int, storageUsed: String, onEditName: () -> Unit, onAvatarClick: () -> Unit) {
+private fun KiwiProfileCard(
+    name: String,
+    documentCount: Int,
+    storageUsed: String,
+    onEditName: () -> Unit,
+    onAvatarClick: () -> Unit,
+) {
     com.paperflow.app.presentation.components.PressableCard(
-        onClick = onEditName,
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
-        shape = RoundedCornerShape(24.dp),
+        onClick  = onEditName,
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
+        shape    = RoundedCornerShape(KiwiRadius.LargeCard),
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Row(
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment    = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
+                // Avatar — gradient circle with initial
                 Box(
-                    modifier = Modifier.size(64.dp).clip(CircleShape).background(Amber).clickable(onClick = onAvatarClick),
+                    modifier = Modifier
+                        .size(68.dp)
+                        .clip(CircleShape)
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(KiwiAccent, KiwiPrimary)
+                            )
+                        )
+                        .clickable(onClick = onAvatarClick),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
-                        text = name.firstOrNull()?.uppercase() ?: "U",
-                        fontSize = 28.sp,
+                        text       = name.firstOrNull()?.uppercase() ?: "U",
+                        fontSize   = 28.sp,
                         fontWeight = FontWeight.Bold,
-                        color = NearBlack,
+                        color      = White,
                         fontFamily = InterFamily,
                     )
                 }
+
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(name, fontWeight = FontWeight.Bold, fontSize = 20.sp, fontFamily = InterFamily)
-                    Text("Tap to edit profile", style = MaterialTheme.typography.bodyMedium, color = Gray, fontFamily = InterFamily)
+                    Text(
+                        name,
+                        fontWeight = FontWeight.Bold,
+                        fontSize   = 20.sp,
+                        fontFamily = InterFamily,
+                        color      = NearBlack,
+                    )
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        "Tap to edit profile",
+                        style      = MaterialTheme.typography.bodyMedium,
+                        color      = Gray,
+                        fontFamily = InterFamily,
+                    )
                 }
-                Icon(Icons.Default.ChevronRight, null, tint = GrayLight)
+
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(KiwiLight),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(Icons.Default.ChevronRight, null, tint = KiwiPrimary, modifier = Modifier.size(18.dp))
+                }
             }
-            
+
             Spacer(Modifier.height(20.dp))
-            HorizontalDivider(color = Border.copy(alpha = 0.5f))
+            HorizontalDivider(color = KiwiDivider)
             Spacer(Modifier.height(16.dp))
-            
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                ProfileStat(value = documentCount.toString(), label = "Documents")
-                ProfileStat(value = "0", label = "Notes") // Placeholder until Notes DB is queried
-                ProfileStat(value = storageUsed, label = "Storage")
+
+            // Stats row
+            Row(
+                modifier              = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                KiwiProfileStat(value = documentCount.toString(), label = "Documents")
+                KiwiProfileStat(value = "0",          label = "Notes")
+                KiwiProfileStat(value = storageUsed,  label = "Storage")
             }
         }
     }
 }
 
 @Composable
-private fun ProfileStat(value: String, label: String) {
+private fun KiwiProfileStat(value: String, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(value, fontWeight = FontWeight.Bold, fontSize = 18.sp, fontFamily = InterFamily, color = NearBlack)
-        Text(label, style = MaterialTheme.typography.bodySmall, color = Gray, fontFamily = InterFamily)
+        Text(
+            value,
+            fontWeight = FontWeight.Bold,
+            fontSize   = 20.sp,
+            fontFamily = InterFamily,
+            color      = KiwiPrimary,
+        )
+        Spacer(Modifier.height(2.dp))
+        Text(
+            label,
+            style  = MaterialTheme.typography.bodySmall,
+            color  = Gray,
+            fontFamily = InterFamily,
+        )
     }
 }
 
+// ─── Settings Group Card ──────────────────────────────────────────────────────
 @Composable
-fun SettingsGroup(title: String, content: @Composable ColumnScope.() -> Unit) {
+fun KiwiSettingsGroup(title: String, content: @Composable ColumnScope.() -> Unit) {
     Text(
-        text = title,
-        style = MaterialTheme.typography.labelMedium,
-        color = GrayLight,
-        fontWeight = FontWeight.SemiBold,
-        modifier = Modifier.padding(start = 24.dp, top = 24.dp, bottom = 8.dp),
+        text       = title.uppercase(),
+        style      = MaterialTheme.typography.labelSmall,
+        color      = KiwiPrimary,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = androidx.compose.ui.unit.TextUnit(1.5f, androidx.compose.ui.unit.TextUnitType.Sp),
+        modifier   = Modifier.padding(start = 24.dp, top = 24.dp, bottom = 8.dp),
     )
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.surface,
-        shadowElevation = 2.dp,
+        modifier       = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        shape          = RoundedCornerShape(KiwiRadius.LargeCard),
+        color          = KiwiSurface,
+        shadowElevation = KiwiElevation.Card,
+        border         = androidx.compose.foundation.BorderStroke(1.dp, KiwiDivider),
     ) {
         Column(content = content)
     }
 }
 
+// Backward-compat alias used by existing sub-screens
 @Composable
-fun SettingsRow(icon: ImageVector, label: String, subtitle: String = "", onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(horizontal = 20.dp, vertical = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        Box(
-            modifier = Modifier.size(40.dp).clip(CircleShape).background(AmberLight.copy(alpha = 0.5f)),
-            contentAlignment = Alignment.Center
+fun SettingsGroup(title: String, content: @Composable ColumnScope.() -> Unit) =
+    KiwiSettingsGroup(title, content)
+
+// ─── Settings Row ─────────────────────────────────────────────────────────────
+@Composable
+fun KiwiSettingsRow(
+    icon: ImageVector,
+    label: String,
+    subtitle: String = "",
+    showDivider: Boolean = true,
+    onClick: () -> Unit,
+) {
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onClick)
+                .padding(horizontal = 18.dp, vertical = 14.dp),
+            verticalAlignment     = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            Icon(icon, contentDescription = null, tint = Amber, modifier = Modifier.size(22.dp))
-        }
-        Column(modifier = Modifier.weight(1f)) {
-            Text(label, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, fontFamily = InterFamily, color = NearBlack)
-            if (subtitle.isNotBlank()) {
-                Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Gray, fontFamily = InterFamily)
+            // Kiwi-tinted icon badge
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(RoundedCornerShape(KiwiRadius.Small))
+                    .background(KiwiLight),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector        = icon,
+                    contentDescription = null,
+                    tint               = KiwiPrimary,
+                    modifier           = Modifier.size(22.dp),
+                )
             }
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    label,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize   = 15.sp,
+                    fontFamily = InterFamily,
+                    color      = NearBlack,
+                )
+                if (subtitle.isNotBlank()) {
+                    Spacer(Modifier.height(1.dp))
+                    Text(
+                        subtitle,
+                        style      = MaterialTheme.typography.bodySmall,
+                        color      = Gray,
+                        fontFamily = InterFamily,
+                    )
+                }
+            }
+
+            Icon(
+                Icons.Default.ChevronRight,
+                null,
+                tint     = GrayLight,
+                modifier = Modifier.size(18.dp),
+            )
         }
-        Icon(Icons.Default.ChevronRight, null, tint = GrayLight, modifier = Modifier.size(20.dp))
+        if (showDivider) {
+            HorizontalDivider(
+                color    = KiwiDivider,
+                modifier = Modifier.padding(start = 72.dp, end = 18.dp),
+            )
+        }
     }
 }
 
+// Backward-compat alias used by existing sub-screens
 @Composable
-fun NameEditDialog(initial: String, onConfirm: (String) -> Unit, onDismiss: () -> Unit) {
+fun SettingsRow(icon: ImageVector, label: String, subtitle: String = "", onClick: () -> Unit) =
+    KiwiSettingsRow(icon, label, subtitle, showDivider = true, onClick)
+
+// ─── Name Edit Dialog ─────────────────────────────────────────────────────────
+@Composable
+fun KiwiNameEditDialog(
+    initial: String,
+    onConfirm: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
     var text by remember { mutableStateOf(initial) }
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Edit Name", fontFamily = InterFamily, fontWeight = FontWeight.Bold) },
+        title = {
+            Text(
+                "Edit Name",
+                fontFamily = InterFamily,
+                fontWeight = FontWeight.Bold,
+                color      = NearBlack,
+            )
+        },
         text = {
             OutlinedTextField(
-                value = text,
+                value         = text,
                 onValueChange = { text = it },
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
+                singleLine    = true,
+                modifier      = Modifier.fillMaxWidth(),
+                shape         = RoundedCornerShape(KiwiRadius.Card),
+                colors        = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor   = KiwiPrimary,
+                    unfocusedBorderColor = KiwiDivider,
+                    cursorColor          = KiwiPrimary,
+                ),
             )
         },
         confirmButton = {
-            Button(onClick = { onConfirm(text) }, colors = ButtonDefaults.buttonColors(containerColor = Amber, contentColor = NearBlack)) {
-                Text("Save", fontFamily = InterFamily, fontWeight = FontWeight.Bold)
-            }
+            com.paperflow.app.presentation.components.KiwiPrimaryButton(
+                text    = "Save",
+                onClick = { onConfirm(text) },
+            )
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel", color = Gray) }
+            TextButton(onClick = onDismiss) {
+                Text("Cancel", color = Gray, fontFamily = InterFamily)
+            }
         },
-        containerColor = MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(24.dp)
+        containerColor = KiwiSurface,
+        shape          = RoundedCornerShape(KiwiRadius.Dialog),
     )
 }
+
+// Backward-compat alias
+@Composable
+fun NameEditDialog(initial: String, onConfirm: (String) -> Unit, onDismiss: () -> Unit) =
+    KiwiNameEditDialog(initial, onConfirm, onDismiss)

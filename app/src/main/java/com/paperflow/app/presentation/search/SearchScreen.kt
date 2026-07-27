@@ -58,7 +58,7 @@ fun SearchScreen(
                         modifier = Modifier.fillMaxWidth().focusRequester(focus),
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = Amber,
+                            focusedBorderColor = KiwiPrimary,
                             unfocusedBorderColor = Border,
                         ),
                         trailingIcon = {
@@ -199,3 +199,4 @@ private fun SearchResultSkeleton() {
         }
     }
 }
+

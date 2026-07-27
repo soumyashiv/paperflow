@@ -156,7 +156,7 @@ fun VaultAuthScreen(
                         onClick = { context?.let { viewModel.authenticate(it) } },
                         modifier = Modifier.fillMaxWidth().height(52.dp),
                         shape = RoundedCornerShape(16.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Amber),
+                        colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary),
                         enabled = state.authState != VaultAuthState.AUTHENTICATING,
                     ) {
                         if (state.authState == VaultAuthState.AUTHENTICATING) {
@@ -199,3 +199,4 @@ fun VaultContentsScreen(
         onScanClick = {},
     )
 }
+

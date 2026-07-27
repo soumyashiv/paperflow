@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#F5F0E8</color>
+    <!-- Kiwi Premium — system chrome colors (used before Compose takes over) -->
+    <color name="background">#FAFBF8</color>   <!-- KiwiBg -->
     <color name="surface">#FFFFFF</color>
-    <color name="primary">#F5C842</color>
-    <color name="on_primary">#1A1A1A</color>
-    <color name="text_primary">#1A1A1A</color>
-    <color name="text_secondary">#6B6B6B</color>
+    <color name="primary">#4E8E18</color>        <!-- KiwiPrimary -->
+    <color name="on_primary">#FFFFFF</color>
+    <color name="text_primary">#1E1E1E</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="kiwi_accent">#95D63A</color>
+    <color name="kiwi_light">#EAF9C8</color>
 </resources>

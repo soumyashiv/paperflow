@@ -49,7 +49,7 @@ fun NoteEditorScreen(
     var underlineActive by remember { mutableStateOf(false) }
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = KiwiBg,
         topBar = {
             TopAppBar(
                 navigationIcon = {
@@ -83,7 +83,7 @@ fun NoteEditorScreen(
                     }
                     IconButton(onClick = { /* more */ }) { Icon(Icons.Default.MoreVert, "More") }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = KiwiBg),
             )
         },
         bottomBar = {
@@ -114,7 +114,7 @@ fun NoteEditorScreen(
     ) { paddingValues ->
         if (state.isLoading) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(color = Amber)
+                CircularProgressIndicator(color = KiwiPrimary)
             }
         } else {
             Column(
@@ -141,7 +141,7 @@ fun NoteEditorScreen(
                         fontSize = 26.sp,
                         color = NearBlack,
                     ),
-                    cursorBrush = SolidColor(Amber),
+                    cursorBrush = SolidColor(KiwiPrimary),
                     decorationBox = { inner ->
                         if ((state.note?.title ?: "").isEmpty()) {
                             Text("Title", fontFamily = InterFamily, fontWeight = FontWeight.Bold, fontSize = 26.sp, color = GrayLight)
@@ -152,7 +152,7 @@ fun NoteEditorScreen(
                 )
 
                 Spacer(Modifier.height(16.dp))
-                HorizontalDivider(color = Border)
+                HorizontalDivider(color = KiwiDivider)
                 Spacer(Modifier.height(16.dp))
 
                 // Content
@@ -166,7 +166,7 @@ fun NoteEditorScreen(
                         color = NearBlack,
                         lineHeight = 26.sp,
                     ),
-                    cursorBrush = SolidColor(Amber),
+                    cursorBrush = SolidColor(KiwiPrimary),
                     decorationBox = { inner ->
                         if ((state.note?.content ?: "").isEmpty()) {
                             Text(
@@ -203,10 +203,10 @@ private fun FormatButton(
         modifier = Modifier
             .size(36.dp)
             .background(
-                color = if (active) AmberLight else Color.Transparent,
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(6.dp),
+                color = if (active) KiwiLight else Color.Transparent,
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(KiwiRadius.XSmall),
             ),
     ) {
-        Icon(icon, label, tint = if (active) Amber else Gray, modifier = Modifier.size(18.dp))
+        Icon(icon, label, tint = if (active) KiwiPrimary else Gray, modifier = Modifier.size(18.dp))
     }
 }

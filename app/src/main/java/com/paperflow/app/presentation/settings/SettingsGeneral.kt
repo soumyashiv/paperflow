@@ -43,10 +43,10 @@ fun ThemesSettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hilt
         SettingSectionLabel("Theme")
         Surface(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp), shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surface) {
             Column {
-                listOf("LIGHT" to "Light", "DARK" to "Dark", "AMOLED" to "AMOLED (Battery Saver)").forEach { (key, label) ->
+                listOf("LIGHT" to "Kiwi Light (Default)", "DARK" to "Dark", "AMOLED" to "AMOLED", "DYNAMIC" to "Material You (Dynamic)").forEach { (key, label) ->
                     Row(Modifier.fillMaxWidth().clickable { viewModel.setTheme(key) }.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
                         Text(label, Modifier.weight(1f), fontFamily = InterFamily)
-                        RadioButton(selected = state.appTheme == key, onClick = { viewModel.setTheme(key) }, colors = RadioButtonDefaults.colors(selectedColor = Amber))
+                        RadioButton(selected = state.appTheme == key, onClick = { viewModel.setTheme(key) }, colors = RadioButtonDefaults.colors(selectedColor = KiwiPrimary))
                     }
                 }
             }

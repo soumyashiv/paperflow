@@ -4,23 +4,23 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,24 +32,30 @@ import com.paperflow.app.core.theme.*
 import com.paperflow.app.domain.model.*
 
 // ─── Document Type Badge ──────────────────────────────────────────────────────
+// Kiwi style: rounded pill, green-tinted backgrounds, dark green text
 @Composable
 fun TypeBadge(type: DocumentType, modifier: Modifier = Modifier) {
-    val (bg, text) = when (type) {
-        DocumentType.PDF -> PdfBadge to "PDF"
-        DocumentType.JPG -> ImgBadge to "IMG"
-        DocumentType.PNG -> ImgBadge to "PNG"
+    val (bg, label) = when (type) {
+        DocumentType.PDF  -> PdfBadge  to "PDF"
+        DocumentType.JPG  -> ImgBadge  to "IMG"
+        DocumentType.PNG  -> ImgBadge  to "PNG"
         DocumentType.NOTE -> NoteBadge to "NOTE"
+    }
+    val textColor = when (type) {
+        DocumentType.PDF  -> Color(0xFFB71C1C)
+        DocumentType.NOTE -> KiwiDark
+        else              -> Color(0xFF0D47A1)
     }
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(4.dp))
+            .clip(RoundedCornerShape(KiwiRadius.Pill))
             .background(bg)
-            .padding(horizontal = 6.dp, vertical = 2.dp),
+            .padding(horizontal = 10.dp, vertical = 4.dp),
     ) {
         Text(
-            text = text,
-            color = Color.White,
-            fontSize = 10.sp,
+            text       = label,
+            color      = textColor,
+            fontSize   = 10.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = InterFamily,
         )
@@ -57,60 +63,180 @@ fun TypeBadge(type: DocumentType, modifier: Modifier = Modifier) {
 }
 
 // ─── Pressable Card ───────────────────────────────────────────────────────────
-/**
- * Card that scales down slightly on press — motion design micro-interaction.
- * Press scale: 0.97, spring stiffness: 400, damping: 30 (Premium archetype).
- */
+// Kiwi style: 28dp radius, thin green border, soft elevation, spring press
 @Composable
 fun PressableCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    shape: RoundedCornerShape = RoundedCornerShape(16.dp),
+    shape: RoundedCornerShape = RoundedCornerShape(KiwiRadius.LargeCard),
     containerColor: Color = MaterialTheme.colorScheme.surface,
-    elevation: Dp = 2.dp,
+    elevation: Dp = KiwiElevation.Card,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed && enabled) 0.97f else 1f,
-        animationSpec = spring(stiffness = 400f, dampingRatio = Spring.DampingRatioMediumBouncy),
-        label = "card_press_scale",
-    )
+    val scale by rememberKiwiPressScale(interactionSource)
 
     Card(
-        onClick = onClick,
-        modifier = modifier.graphicsLayer { scaleX = scale; scaleY = scale },
-        enabled = enabled,
-        shape = shape,
-        colors = CardDefaults.cardColors(containerColor = containerColor),
-        elevation = CardDefaults.cardElevation(defaultElevation = elevation),
-        interactionSource = interactionSource,
+        onClick            = onClick,
+        modifier           = modifier.graphicsLayer { scaleX = scale; scaleY = scale },
+        enabled            = enabled,
+        shape              = shape,
+        colors             = CardDefaults.cardColors(containerColor = containerColor),
+        elevation          = CardDefaults.cardElevation(defaultElevation = elevation),
+        border             = BorderStroke(1.dp, Border),
+        interactionSource  = interactionSource,
     ) {
         Column(content = content)
     }
 }
 
+// ─── Kiwi Primary Button ──────────────────────────────────────────────────────
+// Gradient capsule, soft shadow, spring press scale
+@Composable
+fun KiwiPrimaryButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    icon: ImageVector? = null,
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue   = if (isPressed && enabled) 0.97f else 1f,
+        animationSpec = KiwiCardPressSpring,
+        label         = "kiwi_btn_scale",
+    )
+
+    Box(
+        modifier = modifier
+            .graphicsLayer { scaleX = scale; scaleY = scale }
+            .shadow(
+                elevation     = if (isPressed) 2.dp else 8.dp,
+                shape         = RoundedCornerShape(KiwiRadius.Button),
+                spotColor     = KiwiAccent.copy(alpha = 0.35f),
+                ambientColor  = KiwiPrimary.copy(alpha = 0.10f),
+            )
+            .clip(RoundedCornerShape(KiwiRadius.Button))
+            .background(
+                if (enabled) ButtonGradient
+                else Brush.linearGradient(colors = listOf(GrayLight, GrayLight))
+            )
+            .clickable(
+                interactionSource = interactionSource,
+                indication        = null,
+                enabled           = enabled,
+                onClick           = onClick,
+            )
+            .padding(horizontal = 24.dp, vertical = 14.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Row(
+            verticalAlignment    = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            icon?.let {
+                Icon(it, contentDescription = null, tint = KiwiDark, modifier = Modifier.size(20.dp))
+            }
+            Text(
+                text       = text,
+                color      = KiwiDark,
+                fontFamily = InterFamily,
+                fontWeight = FontWeight.Bold,
+                fontSize   = 15.sp,
+            )
+        }
+    }
+}
+
+// ─── Kiwi Outlined Button ─────────────────────────────────────────────────────
+@Composable
+fun KiwiOutlinedButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        shape = RoundedCornerShape(KiwiRadius.Button),
+        border = BorderStroke(1.5.dp, KiwiPrimary),
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = KiwiPrimary,
+        ),
+    ) {
+        icon?.let {
+            Icon(it, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(6.dp))
+        }
+        Text(text, fontFamily = InterFamily, fontWeight = FontWeight.SemiBold)
+    }
+}
+
+// ─── Kiwi FAB ─────────────────────────────────────────────────────────────────
+// Gradient fill, 36dp radius, bouncy spring press
+@Composable
+fun KiwiFAB(
+    onClick: () -> Unit,
+    icon: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    contentDescription: String = "",
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val scale by rememberKiwiFabScale(interactionSource)
+    val elev  by rememberKiwiPressElevation(interactionSource, defaultElevation = 12.dp, pressedElevation = 4.dp)
+
+    Box(
+        modifier = modifier
+            .graphicsLayer { scaleX = scale; scaleY = scale }
+            .shadow(
+                elevation    = elev,
+                shape        = RoundedCornerShape(KiwiRadius.FAB),
+                spotColor    = KiwiAccent.copy(alpha = 0.40f),
+                ambientColor = KiwiPrimary.copy(alpha = 0.12f),
+            )
+            .clip(RoundedCornerShape(KiwiRadius.FAB))
+            .background(FabGradient)
+            .clickable(
+                interactionSource = interactionSource,
+                indication        = null,
+                onClick           = onClick,
+            )
+            .padding(18.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        icon()
+    }
+}
+
+// Backward-compat alias used in existing screens
+@Composable
+fun AmberFAB(
+    onClick: () -> Unit,
+    icon: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    contentDescription: String = "",
+) = KiwiFAB(onClick, icon, modifier, contentDescription)
+
 // ─── Skeleton Loader ──────────────────────────────────────────────────────────
+// Kiwi: green-tinted shimmer
 @Composable
 fun SkeletonBox(
     modifier: Modifier = Modifier,
-    shape: RoundedCornerShape = RoundedCornerShape(8.dp),
+    shape: RoundedCornerShape = RoundedCornerShape(KiwiRadius.Small),
 ) {
     val shimmerAlpha by rememberInfiniteTransition(label = "shimmer").animateFloat(
-        initialValue = 0.4f,
-        targetValue = 0.9f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 800, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse,
-        ),
-        label = "shimmer_alpha",
+        initialValue = 0.3f,
+        targetValue  = 0.7f,
+        animationSpec = KiwiShimmerSpec,
+        label        = "shimmer_alpha",
     )
     Box(
         modifier = modifier
             .clip(shape)
-            .background(MaterialTheme.colorScheme.outline.copy(alpha = shimmerAlpha)),
+            .background(KiwiDivider.copy(alpha = shimmerAlpha)),
     )
 }
 
@@ -123,34 +249,42 @@ fun EmptyState(
     modifier: Modifier = Modifier,
     action: (@Composable () -> Unit)? = null,
 ) {
-    val infiniteTransition = rememberInfiniteTransition(label = "empty_state_float")
+    val infiniteTransition = rememberInfiniteTransition(label = "empty_float")
     val offsetY by infiniteTransition.animateFloat(
-        initialValue = -4f,
-        targetValue = 4f,
+        initialValue = -6f,
+        targetValue  = 6f,
         animationSpec = infiniteRepeatable(
-            animation = tween(1500, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
+            animation  = tween(1800, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse,
         ),
-        label = "empty_state_offset"
+        label = "empty_float_y",
     )
 
     Column(
-        modifier = modifier.padding(32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        modifier              = modifier.padding(40.dp),
+        horizontalAlignment   = Alignment.CenterHorizontally,
+        verticalArrangement   = Arrangement.Center,
     ) {
         Box(modifier = Modifier.graphicsLayer { translationY = offsetY }) {
             icon()
         }
-        Spacer(Modifier.height(16.dp))
-        Text(title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+        Spacer(Modifier.height(20.dp))
+        Text(
+            text       = title,
+            style      = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color      = NearBlack,
+        )
         Spacer(Modifier.height(8.dp))
         Text(
-            subtitle,
+            text  = subtitle,
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = Gray,
         )
-        action?.let { Spacer(Modifier.height(24.dp)); it() }
+        action?.let {
+            Spacer(Modifier.height(28.dp))
+            it()
+        }
     }
 }
 
@@ -164,14 +298,15 @@ fun SectionHeader(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 20.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment     = Alignment.CenterVertically,
     ) {
         Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
+            text       = title,
+            style      = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color      = NearBlack,
         )
         action?.invoke()
     }
@@ -187,21 +322,25 @@ fun DocumentThumbnail(
 ) {
     if (thumbnailPath != null) {
         AsyncImage(
-            model = thumbnailPath,
+            model          = thumbnailPath,
             contentDescription = null,
-            modifier = modifier.clip(RoundedCornerShape(8.dp)),
-            contentScale = contentScale,
+            modifier       = modifier.clip(RoundedCornerShape(KiwiRadius.Card)),
+            contentScale   = contentScale,
         )
     } else {
-        // Placeholder based on type
         val bg = when (type) {
-            DocumentType.PDF -> PdfBadge.copy(alpha = 0.1f)
-            DocumentType.NOTE -> NoteBadge.copy(alpha = 0.1f)
-            else -> ImgBadge.copy(alpha = 0.1f)
+            DocumentType.PDF  -> PdfBadge.copy(alpha = 0.15f)
+            DocumentType.NOTE -> NoteBadge.copy(alpha = 0.15f)
+            else              -> ImgBadge.copy(alpha = 0.15f)
+        }
+        val tint = when (type) {
+            DocumentType.PDF  -> Color(0xFFB71C1C)
+            DocumentType.NOTE -> KiwiDark
+            else              -> Color(0xFF1565C0)
         }
         Box(
             modifier = modifier
-                .clip(RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(KiwiRadius.Card))
                 .background(bg),
             contentAlignment = Alignment.Center,
         ) {
@@ -210,95 +349,72 @@ fun DocumentThumbnail(
     }
 }
 
+// ─── Kiwi Search Bar ──────────────────────────────────────────────────────────
+// Large pill, floating, animated focus expansion, kiwi green focus border
 @Composable
 fun PaperFlowSearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
-    placeholder: String = "Search documents, folders, notes…",
+    placeholder: String = "Search documents, notes…",
     modifier: Modifier = Modifier,
-    trailingIcon: @Composable (() -> Unit)? = null,
+    trailingContent: (@Composable () -> Unit)? = null,
     onSearch: () -> Unit = {},
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
 
     val elevation by animateDpAsState(
-        targetValue = if (isFocused) 8.dp else 2.dp,
+        targetValue   = if (isFocused) 12.dp else 3.dp,
         animationSpec = tween(300),
-        label = "search_elevation"
+        label         = "search_elevation",
+    )
+    val borderColor by animateColorAsState(
+        targetValue   = if (isFocused) KiwiPrimary else Border,
+        animationSpec = tween(250),
+        label         = "search_border",
     )
 
     OutlinedTextField(
-        value = query,
+        value         = query,
         onValueChange = onQueryChange,
-        modifier = modifier
+        modifier      = modifier
             .fillMaxWidth()
-            .shadow(elevation, CircleShape, spotColor = Color.Black.copy(alpha = 0.05f), ambientColor = Color.Transparent),
+            .shadow(
+                elevation    = elevation,
+                shape        = RoundedCornerShape(KiwiRadius.SearchBar),
+                spotColor    = KiwiPrimary.copy(alpha = 0.08f),
+                ambientColor = Color.Transparent,
+            ),
         placeholder = {
             Text(
                 placeholder,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = GrayLight,
             )
         },
         leadingIcon = {
             Icon(
-                imageVector = Icons.Default.Search,
+                imageVector = Icons.Outlined.Search,
                 contentDescription = "Search",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                tint        = if (isFocused) KiwiPrimary else GrayLight,
+                modifier    = Modifier.size(22.dp),
             )
         },
-        trailingIcon = trailingIcon,
-        singleLine = true,
-        shape = CircleShape,
+        trailingIcon   = trailingContent,
+        singleLine     = true,
+        shape          = RoundedCornerShape(KiwiRadius.SearchBar),
         interactionSource = interactionSource,
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Amber,
-            unfocusedBorderColor = Border.copy(alpha = 0.3f),
-            focusedContainerColor = MaterialTheme.colorScheme.surface,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+        colors         = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor   = KiwiPrimary,
+            unfocusedBorderColor = Border,
+            focusedContainerColor   = KiwiSurface,
+            unfocusedContainerColor = KiwiSurface,
+            cursorColor          = KiwiPrimary,
         ),
     )
 }
 
-// ─── Amber FAB ────────────────────────────────────────────────────────────────
-@Composable
-fun AmberFAB(
-    onClick: () -> Unit,
-    icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    contentDescription: String = "",
-) {
-    val interactionSource = remember { MutableInteractionSource() }
-    val isPressed by interactionSource.collectIsPressedAsState()
-    val scale by animateFloatAsState(
-        targetValue = if (isPressed) 0.9f else 1f,
-        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy, stiffness = Spring.StiffnessLow),
-        label = "fab_scale",
-    )
-    val elevation by animateDpAsState(
-        targetValue = if (isPressed) 4.dp else 12.dp,
-        animationSpec = spring(stiffness = Spring.StiffnessMedium),
-        label = "fab_elevation"
-    )
-
-    FloatingActionButton(
-        onClick = onClick,
-        modifier = modifier.graphicsLayer { scaleX = scale; scaleY = scale },
-        containerColor = Amber,
-        contentColor = NearBlack,
-        interactionSource = interactionSource,
-        elevation = FloatingActionButtonDefaults.elevation(defaultElevation = elevation, pressedElevation = elevation),
-    ) {
-        icon()
-    }
-}
-
-// ─── Animated List Entrance ───────────────────────────────────────────────────
-/**
- * Staggered entrance animation for list items.
- * Delay = index * 30ms (motion design token: stagger 30ms per item).
- */
+// ─── Animated List Item ───────────────────────────────────────────────────────
 @Composable
 fun AnimatedListItem(
     index: Int,
@@ -307,16 +423,16 @@ fun AnimatedListItem(
 ) {
     var visible by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        kotlinx.coroutines.delay(index * 30L)
+        kotlinx.coroutines.delay(kiwiListStaggerMs(index))
         visible = true
     }
     AnimatedVisibility(
-        visible = visible,
-        enter = fadeIn(tween(300)) + slideInVertically(
-            initialOffsetY = { it / 4 },
-            animationSpec = spring(
+        visible  = visible,
+        enter    = fadeIn(tween(300)) + slideInVertically(
+            initialOffsetY = { it / 5 },
+            animationSpec  = spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessMediumLow,
+                stiffness    = Spring.StiffnessMediumLow,
             ),
         ),
         modifier = modifier,
@@ -325,7 +441,8 @@ fun AnimatedListItem(
     }
 }
 
-// ─── Filter Chip Row ──────────────────────────────────────────────────────────
+// ─── Filter Chip Row (Kiwi Style) ─────────────────────────────────────────────
+// Selected: #EAF9C8 bg + KiwiDark text; Unselected: white + thin border; spring animation
 @Composable
 fun FilterChipRow(
     chips: List<String>,
@@ -334,57 +451,73 @@ fun FilterChipRow(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier.horizontalScroll(rememberScrollState()),
+        modifier              = modifier.horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         chips.forEach { chip ->
-            val selected = chip == selectedChip
-            val interactionSource = remember { MutableInteractionSource() }
-            val isPressed by interactionSource.collectIsPressedAsState()
-            
-            val scale by animateFloatAsState(
-                targetValue = if (isPressed) 0.95f else 1f,
-                animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
-                label = "chip_scale"
+            KiwiFilterChip(
+                label      = chip,
+                selected   = chip == selectedChip,
+                onClick    = { onChipSelected(chip) },
             )
-            val bgColor by animateColorAsState(
-                targetValue = if (selected) AmberLight else MaterialTheme.colorScheme.surface,
-                animationSpec = tween(250),
-                label = "chip_bg"
-            )
-            val textColor by animateColorAsState(
-                targetValue = if (selected) NearBlack else MaterialTheme.colorScheme.onSurfaceVariant,
-                animationSpec = tween(250),
-                label = "chip_text"
-            )
-            val borderColor by animateColorAsState(
-                targetValue = if (selected) Amber else Border.copy(alpha = 0.5f),
-                animationSpec = tween(250),
-                label = "chip_border"
-            )
-
-            Box(
-                modifier = Modifier
-                    .graphicsLayer { scaleX = scale; scaleY = scale }
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(bgColor)
-                    .border(1.dp, borderColor, RoundedCornerShape(12.dp))
-                    .clickable(
-                        interactionSource = interactionSource,
-                        indication = androidx.compose.material3.ripple(),
-                        onClick = { onChipSelected(chip) }
-                    )
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    chip,
-                    fontFamily = InterFamily,
-                    fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
-                    color = textColor,
-                    fontSize = 13.sp
-                )
-            }
         }
     }
 }
+
+@Composable
+fun KiwiFilterChip(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
+    val scale by animateFloatAsState(
+        targetValue   = if (isPressed) 0.95f else 1f,
+        animationSpec = KiwiChipSpring,
+        label         = "chip_scale",
+    )
+    val bgColor by animateColorAsState(
+        targetValue   = if (selected) KiwiLight else KiwiSurface,
+        animationSpec = tween(200),
+        label         = "chip_bg",
+    )
+    val textColor by animateColorAsState(
+        targetValue   = if (selected) KiwiDark else Gray,
+        animationSpec = tween(200),
+        label         = "chip_text",
+    )
+    val borderColor by animateColorAsState(
+        targetValue   = if (selected) KiwiPrimary else Border,
+        animationSpec = tween(200),
+        label         = "chip_border",
+    )
+
+    Box(
+        modifier = modifier
+            .graphicsLayer { scaleX = scale; scaleY = scale }
+            .clip(RoundedCornerShape(KiwiRadius.Pill))
+            .background(bgColor)
+            .border(1.5.dp, borderColor, RoundedCornerShape(KiwiRadius.Pill))
+            .clickable(
+                interactionSource = interactionSource,
+                indication        = null,
+                onClick           = onClick,
+            )
+            .padding(horizontal = 18.dp, vertical = 8.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text       = label,
+            fontFamily = InterFamily,
+            fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+            color      = textColor,
+            fontSize   = 13.sp,
+        )
+    }
+}
+
+
+

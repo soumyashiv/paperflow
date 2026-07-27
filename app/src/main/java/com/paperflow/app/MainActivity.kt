@@ -26,6 +26,7 @@ class MainActivity : ComponentActivity() {
             val appTheme = when (themeString) {
                 "DARK" -> AppTheme.DARK
                 "AMOLED" -> AppTheme.AMOLED
+                "DYNAMIC" -> AppTheme.DYNAMIC
                 else -> AppTheme.LIGHT
             }
             PaperFlowTheme(appTheme = appTheme) {

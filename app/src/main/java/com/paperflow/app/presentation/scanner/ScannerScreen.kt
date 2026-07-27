@@ -129,15 +129,26 @@ fun ScannerScreen(
                     }
 
                     drawPath(
-                        path = path,
-                        color = Amber.copy(alpha = 0.3f),
+                        path  = path,
+                        color = KiwiAccent.copy(alpha = 0.25f),
                         style = androidx.compose.ui.graphics.drawscope.Fill
                     )
                     drawPath(
-                        path = path,
-                        color = Amber,
-                        style = androidx.compose.ui.graphics.drawscope.Stroke(width = 6f)
+                        path  = path,
+                        color = KiwiPrimary,
+                        style = androidx.compose.ui.graphics.drawscope.Stroke(width = 5f)
                     )
+                    // Corner accent dots
+                    listOf(
+                        androidx.compose.ui.geometry.Offset(corners.topLeft.x * scale + offsetX, corners.topLeft.y * scale + offsetY),
+                        androidx.compose.ui.geometry.Offset(corners.topRight.x * scale + offsetX, corners.topRight.y * scale + offsetY),
+                        androidx.compose.ui.geometry.Offset(corners.bottomRight.x * scale + offsetX, corners.bottomRight.y * scale + offsetY),
+                        androidx.compose.ui.geometry.Offset(corners.bottomLeft.x * scale + offsetX, corners.bottomLeft.y * scale + offsetY),
+                    ).forEach { pt ->
+                        drawCircle(KiwiAccent, radius = 10f, center = pt)
+                        drawCircle(KiwiPrimary, radius = 10f, center = pt,
+                            style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+                    }
                 }
             }
         }
@@ -360,14 +371,14 @@ private fun BottomControls(
             modifier = Modifier
                 .size(56.dp)
                 .clip(CircleShape)
-                .background(if (capturedCount > 0) Amber else Color.Transparent)
+                .background(if (capturedCount > 0) KiwiAccent else Color.Transparent)
                 .clickable(enabled = capturedCount > 0, onClick = onFinishSession),
             contentAlignment = Alignment.Center,
         ) {
             if (capturedCount > 0) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(Icons.Default.Check, contentDescription = "Finish", tint = NearBlack, modifier = Modifier.size(24.dp))
-                    Text("$capturedCount", fontSize = 10.sp, color = NearBlack, fontWeight = FontWeight.Bold, fontFamily = InterFamily)
+                    Icon(Icons.Default.Check, contentDescription = "Finish", tint = KiwiDark, modifier = Modifier.size(24.dp))
+                    Text("$capturedCount", fontSize = 10.sp, color = KiwiDark, fontWeight = FontWeight.Bold, fontFamily = InterFamily)
                 }
             }
         }
@@ -397,8 +408,15 @@ private fun ShutterButton(isCapturing: Boolean, onClick: () -> Unit) {
             ),
         contentAlignment = Alignment.Center,
     ) {
-        Box(Modifier.size(80.dp).clip(CircleShape).border(4.dp, Color.White, CircleShape))
-        Box(Modifier.size(64.dp).clip(CircleShape).background(Color.White))
+        Box(Modifier.size(80.dp).clip(CircleShape).border(3.dp, Color.White, CircleShape))
+        Box(
+            Modifier.size(64.dp).clip(CircleShape)
+                .background(
+                    androidx.compose.ui.graphics.Brush.linearGradient(
+                        colors = listOf(KiwiAccent, KiwiPrimary)
+                    )
+                )
+        )
     }
 }
 
@@ -509,7 +527,7 @@ private fun CameraErrorScreen(message: String, onRetry: () -> Unit, onClose: () 
             Spacer(Modifier.height(24.dp))
             Button(
                 onClick = onRetry,
-                colors = ButtonDefaults.buttonColors(containerColor = Amber),
+                colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary, contentColor = White),
             ) {
                 Text("Retry", color = NearBlack, fontFamily = InterFamily, fontWeight = FontWeight.SemiBold)
             }
@@ -531,7 +549,7 @@ private fun CameraPermissionRequest(onRequest: () -> Unit, onClose: () -> Unit) 
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(32.dp),
         ) {
-            Icon(Icons.Default.CameraAlt, null, tint = Amber, modifier = Modifier.size(64.dp))
+            Icon(Icons.Default.CameraAlt, null, tint = KiwiPrimary, modifier = Modifier.size(64.dp))
             Spacer(Modifier.height(16.dp))
             Text(
                 "Camera Access Needed",
@@ -549,7 +567,7 @@ private fun CameraPermissionRequest(onRequest: () -> Unit, onClose: () -> Unit) 
             Spacer(Modifier.height(24.dp))
             Button(
                 onClick = onRequest,
-                colors = ButtonDefaults.buttonColors(containerColor = Amber),
+                colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary, contentColor = White),
             ) {
                 Text("Grant Permission", color = NearBlack, fontFamily = InterFamily, fontWeight = FontWeight.SemiBold)
             }

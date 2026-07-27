@@ -67,7 +67,7 @@ fun DocumentDetailsScreen(
     ) { pv ->
         if (state.isLoading) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(color = Amber)
+                CircularProgressIndicator(color = KiwiPrimary)
             }
         } else {
             val doc = state.document
@@ -149,9 +149,9 @@ private fun ActionButtonsRow(onOpen: () -> Unit, onAnnotate: () -> Unit, onShare
         data class Btn(val label: String, val icon: ImageVector, val primary: Boolean, val action: () -> Unit)
         listOf(
             Btn("Open", Icons.Default.OpenInNew, true, onOpen),
-            Btn("Annotate", Icons.Default.Edit, false, onAnnotate),
+            Btn("Edit", Icons.Default.Edit, false, onAnnotate),
             Btn("Share", Icons.Default.Share, false, onShare),
-            Btn("To Note", Icons.Default.EditNote, false, onConvertToNote),
+            Btn("Note", Icons.Default.EditNote, false, onConvertToNote),
         ).forEach { btn ->
             if (btn.primary) {
                 Button(onClick = btn.action, modifier = Modifier.weight(1f), colors = ButtonDefaults.buttonColors(containerColor = NearBlack), shape = RoundedCornerShape(12.dp)) {
@@ -221,3 +221,4 @@ private fun formatSize(bytes: Long) = when {
     bytes < 1_048_576 -> "${bytes / 1024} KB"
     else -> String.format("%.1f MB", bytes / 1_048_576.0)
 }
+

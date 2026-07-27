@@ -186,7 +186,7 @@ fun PDFViewerScreen(
                                 onValueChange = { viewModel.setBrightness(it) },
                                 valueRange = 0.2f..1.5f,
                                 modifier = Modifier.weight(1f),
-                                colors = SliderDefaults.colors(thumbColor = Amber, activeTrackColor = Amber),
+                                colors = SliderDefaults.colors(thumbColor = KiwiPrimary, activeTrackColor = KiwiPrimary),
                             )
                             Icon(Icons.Default.BrightnessHigh, null, tint = Color.White, modifier = Modifier.size(16.dp))
                         }
@@ -280,3 +280,4 @@ private fun PDFPageContent(
 // Expose viewModelScope for use in composable (workaround for pager scroll)
 private val PDFViewerViewModel.viewModelScope: CoroutineScope
     get() = viewModelScope
+

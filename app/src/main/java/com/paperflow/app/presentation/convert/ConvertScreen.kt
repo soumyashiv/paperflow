@@ -160,7 +160,7 @@ private fun ConvertOption(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Box(
-                Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(Amber.copy(alpha = if (enabled) 0.15f else 0.05f)),
+                Modifier.size(48.dp).clip(RoundedCornerShape(12.dp)).background(KiwiPrimary.copy(alpha = if (enabled) 0.15f else 0.05f)),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(icon, null, tint = if (enabled) Amber else GrayLight, modifier = Modifier.size(24.dp))
@@ -169,8 +169,9 @@ private fun ConvertOption(
                 Text(title, fontWeight = FontWeight.SemiBold, fontFamily = InterFamily, color = if (enabled) NearBlack else GrayLight)
                 Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Gray, fontFamily = InterFamily)
             }
-            if (isLoading) CircularProgressIndicator(Modifier.size(20.dp), color = Amber, strokeWidth = 2.dp)
+            if (isLoading) CircularProgressIndicator(Modifier.size(20.dp), color = KiwiPrimary, strokeWidth = 2.dp)
             else Icon(Icons.Default.ChevronRight, null, tint = if (enabled) GrayLight else Border.copy(alpha = 0.5f))
         }
     }
 }
+

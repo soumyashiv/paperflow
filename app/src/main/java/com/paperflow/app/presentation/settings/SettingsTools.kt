@@ -50,7 +50,7 @@ fun PDFReaderSettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = h
                     Spacer(Modifier.height(8.dp))
                     listOf("single" to "Single Page", "scroll" to "Continuous Scroll").forEach { (key, label) ->
                         Row(Modifier.fillMaxWidth().clickable { viewModel.setPdfView(key) }.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                            RadioButton(selected = state.pdfDefaultView == key, onClick = { viewModel.setPdfView(key) }, colors = RadioButtonDefaults.colors(selectedColor = Amber))
+                            RadioButton(selected = state.pdfDefaultView == key, onClick = { viewModel.setPdfView(key) }, colors = RadioButtonDefaults.colors(selectedColor = KiwiPrimary))
                             Text(label, fontFamily = InterFamily)
                         }
                     }
@@ -99,7 +99,7 @@ fun NotesSettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
                         onValueChange = { viewModel.setNotesFontSize(it.toInt()) },
                         valueRange = 12f..24f,
                         steps = 5,
-                        colors = SliderDefaults.colors(thumbColor = Amber, activeTrackColor = Amber),
+                        colors = SliderDefaults.colors(thumbColor = KiwiPrimary, activeTrackColor = KiwiPrimary),
                     )
                 }
                 HorizontalDivider(color = Border.copy(alpha = 0.5f), modifier = Modifier.padding(horizontal = 16.dp))
@@ -112,3 +112,5 @@ fun NotesSettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltV
         }
     }
 }
+
+

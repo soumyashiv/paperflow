@@ -493,90 +493,90 @@ public final class DaggerPaperFlowApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_paperflow_app_presentation_notes_NoteEditorViewModel = "com.paperflow.app.presentation.notes.NoteEditorViewModel";
-
-      static String com_paperflow_app_presentation_pdfviewer_PDFViewerViewModel = "com.paperflow.app.presentation.pdfviewer.PDFViewerViewModel";
-
-      static String com_paperflow_app_presentation_search_SearchViewModel = "com.paperflow.app.presentation.search.SearchViewModel";
-
-      static String com_paperflow_app_presentation_upload_UploadViewModel = "com.paperflow.app.presentation.upload.UploadViewModel";
-
-      static String com_paperflow_app_presentation_aichat_AIChatViewModel = "com.paperflow.app.presentation.aichat.AIChatViewModel";
-
       static String com_paperflow_app_presentation_convert_ConvertViewModel = "com.paperflow.app.presentation.convert.ConvertViewModel";
-
-      static String com_paperflow_app_presentation_share_SharePrintViewModel = "com.paperflow.app.presentation.share.SharePrintViewModel";
-
-      static String com_paperflow_app_presentation_onboarding_OnboardingViewModel = "com.paperflow.app.presentation.onboarding.OnboardingViewModel";
-
-      static String com_paperflow_app_presentation_home_HomeViewModel = "com.paperflow.app.presentation.home.HomeViewModel";
-
-      static String com_paperflow_app_presentation_annotations_AnnotationViewModel = "com.paperflow.app.presentation.annotations.AnnotationViewModel";
 
       static String com_paperflow_app_presentation_scanner_ScannerViewModel = "com.paperflow.app.presentation.scanner.ScannerViewModel";
 
+      static String com_paperflow_app_presentation_share_SharePrintViewModel = "com.paperflow.app.presentation.share.SharePrintViewModel";
+
+      static String com_paperflow_app_presentation_aichat_AIChatViewModel = "com.paperflow.app.presentation.aichat.AIChatViewModel";
+
       static String com_paperflow_app_presentation_workspace_DocumentDetailsViewModel = "com.paperflow.app.presentation.workspace.DocumentDetailsViewModel";
+
+      static String com_paperflow_app_presentation_notes_NoteEditorViewModel = "com.paperflow.app.presentation.notes.NoteEditorViewModel";
 
       static String com_paperflow_app_presentation_scanner_EditScanViewModel = "com.paperflow.app.presentation.scanner.EditScanViewModel";
 
-      static String com_paperflow_app_presentation_vault_VaultViewModel = "com.paperflow.app.presentation.vault.VaultViewModel";
+      static String com_paperflow_app_presentation_onboarding_OnboardingViewModel = "com.paperflow.app.presentation.onboarding.OnboardingViewModel";
+
+      static String com_paperflow_app_presentation_search_SearchViewModel = "com.paperflow.app.presentation.search.SearchViewModel";
+
+      static String com_paperflow_app_presentation_annotations_AnnotationViewModel = "com.paperflow.app.presentation.annotations.AnnotationViewModel";
 
       static String com_paperflow_app_presentation_notes_NotesViewModel = "com.paperflow.app.presentation.notes.NotesViewModel";
 
-      static String com_paperflow_app_presentation_settings_SettingsViewModel = "com.paperflow.app.presentation.settings.SettingsViewModel";
-
       static String com_paperflow_app_presentation_workspace_WorkspaceViewModel = "com.paperflow.app.presentation.workspace.WorkspaceViewModel";
 
-      @KeepFieldType
-      NoteEditorViewModel com_paperflow_app_presentation_notes_NoteEditorViewModel2;
+      static String com_paperflow_app_presentation_pdfviewer_PDFViewerViewModel = "com.paperflow.app.presentation.pdfviewer.PDFViewerViewModel";
 
-      @KeepFieldType
-      PDFViewerViewModel com_paperflow_app_presentation_pdfviewer_PDFViewerViewModel2;
+      static String com_paperflow_app_presentation_vault_VaultViewModel = "com.paperflow.app.presentation.vault.VaultViewModel";
 
-      @KeepFieldType
-      SearchViewModel com_paperflow_app_presentation_search_SearchViewModel2;
+      static String com_paperflow_app_presentation_home_HomeViewModel = "com.paperflow.app.presentation.home.HomeViewModel";
 
-      @KeepFieldType
-      UploadViewModel com_paperflow_app_presentation_upload_UploadViewModel2;
+      static String com_paperflow_app_presentation_settings_SettingsViewModel = "com.paperflow.app.presentation.settings.SettingsViewModel";
 
-      @KeepFieldType
-      AIChatViewModel com_paperflow_app_presentation_aichat_AIChatViewModel2;
+      static String com_paperflow_app_presentation_upload_UploadViewModel = "com.paperflow.app.presentation.upload.UploadViewModel";
 
       @KeepFieldType
       ConvertViewModel com_paperflow_app_presentation_convert_ConvertViewModel2;
 
       @KeepFieldType
+      ScannerViewModel com_paperflow_app_presentation_scanner_ScannerViewModel2;
+
+      @KeepFieldType
       SharePrintViewModel com_paperflow_app_presentation_share_SharePrintViewModel2;
 
       @KeepFieldType
-      OnboardingViewModel com_paperflow_app_presentation_onboarding_OnboardingViewModel2;
-
-      @KeepFieldType
-      HomeViewModel com_paperflow_app_presentation_home_HomeViewModel2;
-
-      @KeepFieldType
-      AnnotationViewModel com_paperflow_app_presentation_annotations_AnnotationViewModel2;
-
-      @KeepFieldType
-      ScannerViewModel com_paperflow_app_presentation_scanner_ScannerViewModel2;
+      AIChatViewModel com_paperflow_app_presentation_aichat_AIChatViewModel2;
 
       @KeepFieldType
       DocumentDetailsViewModel com_paperflow_app_presentation_workspace_DocumentDetailsViewModel2;
 
       @KeepFieldType
+      NoteEditorViewModel com_paperflow_app_presentation_notes_NoteEditorViewModel2;
+
+      @KeepFieldType
       EditScanViewModel com_paperflow_app_presentation_scanner_EditScanViewModel2;
 
       @KeepFieldType
-      VaultViewModel com_paperflow_app_presentation_vault_VaultViewModel2;
+      OnboardingViewModel com_paperflow_app_presentation_onboarding_OnboardingViewModel2;
+
+      @KeepFieldType
+      SearchViewModel com_paperflow_app_presentation_search_SearchViewModel2;
+
+      @KeepFieldType
+      AnnotationViewModel com_paperflow_app_presentation_annotations_AnnotationViewModel2;
 
       @KeepFieldType
       NotesViewModel com_paperflow_app_presentation_notes_NotesViewModel2;
 
       @KeepFieldType
+      WorkspaceViewModel com_paperflow_app_presentation_workspace_WorkspaceViewModel2;
+
+      @KeepFieldType
+      PDFViewerViewModel com_paperflow_app_presentation_pdfviewer_PDFViewerViewModel2;
+
+      @KeepFieldType
+      VaultViewModel com_paperflow_app_presentation_vault_VaultViewModel2;
+
+      @KeepFieldType
+      HomeViewModel com_paperflow_app_presentation_home_HomeViewModel2;
+
+      @KeepFieldType
       SettingsViewModel com_paperflow_app_presentation_settings_SettingsViewModel2;
 
       @KeepFieldType
-      WorkspaceViewModel com_paperflow_app_presentation_workspace_WorkspaceViewModel2;
+      UploadViewModel com_paperflow_app_presentation_upload_UploadViewModel2;
     }
   }
 
@@ -753,51 +753,39 @@ public final class DaggerPaperFlowApp_HiltComponents_SingletonC {
 
     @IdentifierNameString
     private static final class LazyClassKeyProvider {
-      static String com_paperflow_app_presentation_aichat_AIChatViewModel = "com.paperflow.app.presentation.aichat.AIChatViewModel";
-
-      static String com_paperflow_app_presentation_annotations_AnnotationViewModel = "com.paperflow.app.presentation.annotations.AnnotationViewModel";
-
-      static String com_paperflow_app_presentation_notes_NotesViewModel = "com.paperflow.app.presentation.notes.NotesViewModel";
-
-      static String com_paperflow_app_presentation_vault_VaultViewModel = "com.paperflow.app.presentation.vault.VaultViewModel";
-
       static String com_paperflow_app_presentation_workspace_WorkspaceViewModel = "com.paperflow.app.presentation.workspace.WorkspaceViewModel";
 
       static String com_paperflow_app_presentation_upload_UploadViewModel = "com.paperflow.app.presentation.upload.UploadViewModel";
 
-      static String com_paperflow_app_presentation_settings_SettingsViewModel = "com.paperflow.app.presentation.settings.SettingsViewModel";
+      static String com_paperflow_app_presentation_onboarding_OnboardingViewModel = "com.paperflow.app.presentation.onboarding.OnboardingViewModel";
 
-      static String com_paperflow_app_presentation_share_SharePrintViewModel = "com.paperflow.app.presentation.share.SharePrintViewModel";
-
-      static String com_paperflow_app_presentation_scanner_EditScanViewModel = "com.paperflow.app.presentation.scanner.EditScanViewModel";
-
-      static String com_paperflow_app_presentation_home_HomeViewModel = "com.paperflow.app.presentation.home.HomeViewModel";
-
-      static String com_paperflow_app_presentation_notes_NoteEditorViewModel = "com.paperflow.app.presentation.notes.NoteEditorViewModel";
-
-      static String com_paperflow_app_presentation_scanner_ScannerViewModel = "com.paperflow.app.presentation.scanner.ScannerViewModel";
-
-      static String com_paperflow_app_presentation_convert_ConvertViewModel = "com.paperflow.app.presentation.convert.ConvertViewModel";
-
-      static String com_paperflow_app_presentation_workspace_DocumentDetailsViewModel = "com.paperflow.app.presentation.workspace.DocumentDetailsViewModel";
+      static String com_paperflow_app_presentation_notes_NotesViewModel = "com.paperflow.app.presentation.notes.NotesViewModel";
 
       static String com_paperflow_app_presentation_pdfviewer_PDFViewerViewModel = "com.paperflow.app.presentation.pdfviewer.PDFViewerViewModel";
 
-      static String com_paperflow_app_presentation_onboarding_OnboardingViewModel = "com.paperflow.app.presentation.onboarding.OnboardingViewModel";
+      static String com_paperflow_app_presentation_notes_NoteEditorViewModel = "com.paperflow.app.presentation.notes.NoteEditorViewModel";
+
+      static String com_paperflow_app_presentation_aichat_AIChatViewModel = "com.paperflow.app.presentation.aichat.AIChatViewModel";
+
+      static String com_paperflow_app_presentation_home_HomeViewModel = "com.paperflow.app.presentation.home.HomeViewModel";
+
+      static String com_paperflow_app_presentation_annotations_AnnotationViewModel = "com.paperflow.app.presentation.annotations.AnnotationViewModel";
+
+      static String com_paperflow_app_presentation_convert_ConvertViewModel = "com.paperflow.app.presentation.convert.ConvertViewModel";
+
+      static String com_paperflow_app_presentation_scanner_ScannerViewModel = "com.paperflow.app.presentation.scanner.ScannerViewModel";
+
+      static String com_paperflow_app_presentation_settings_SettingsViewModel = "com.paperflow.app.presentation.settings.SettingsViewModel";
+
+      static String com_paperflow_app_presentation_scanner_EditScanViewModel = "com.paperflow.app.presentation.scanner.EditScanViewModel";
 
       static String com_paperflow_app_presentation_search_SearchViewModel = "com.paperflow.app.presentation.search.SearchViewModel";
 
-      @KeepFieldType
-      AIChatViewModel com_paperflow_app_presentation_aichat_AIChatViewModel2;
+      static String com_paperflow_app_presentation_share_SharePrintViewModel = "com.paperflow.app.presentation.share.SharePrintViewModel";
 
-      @KeepFieldType
-      AnnotationViewModel com_paperflow_app_presentation_annotations_AnnotationViewModel2;
+      static String com_paperflow_app_presentation_workspace_DocumentDetailsViewModel = "com.paperflow.app.presentation.workspace.DocumentDetailsViewModel";
 
-      @KeepFieldType
-      NotesViewModel com_paperflow_app_presentation_notes_NotesViewModel2;
-
-      @KeepFieldType
-      VaultViewModel com_paperflow_app_presentation_vault_VaultViewModel2;
+      static String com_paperflow_app_presentation_vault_VaultViewModel = "com.paperflow.app.presentation.vault.VaultViewModel";
 
       @KeepFieldType
       WorkspaceViewModel com_paperflow_app_presentation_workspace_WorkspaceViewModel2;
@@ -806,37 +794,49 @@ public final class DaggerPaperFlowApp_HiltComponents_SingletonC {
       UploadViewModel com_paperflow_app_presentation_upload_UploadViewModel2;
 
       @KeepFieldType
-      SettingsViewModel com_paperflow_app_presentation_settings_SettingsViewModel2;
+      OnboardingViewModel com_paperflow_app_presentation_onboarding_OnboardingViewModel2;
 
       @KeepFieldType
-      SharePrintViewModel com_paperflow_app_presentation_share_SharePrintViewModel2;
-
-      @KeepFieldType
-      EditScanViewModel com_paperflow_app_presentation_scanner_EditScanViewModel2;
-
-      @KeepFieldType
-      HomeViewModel com_paperflow_app_presentation_home_HomeViewModel2;
-
-      @KeepFieldType
-      NoteEditorViewModel com_paperflow_app_presentation_notes_NoteEditorViewModel2;
-
-      @KeepFieldType
-      ScannerViewModel com_paperflow_app_presentation_scanner_ScannerViewModel2;
-
-      @KeepFieldType
-      ConvertViewModel com_paperflow_app_presentation_convert_ConvertViewModel2;
-
-      @KeepFieldType
-      DocumentDetailsViewModel com_paperflow_app_presentation_workspace_DocumentDetailsViewModel2;
+      NotesViewModel com_paperflow_app_presentation_notes_NotesViewModel2;
 
       @KeepFieldType
       PDFViewerViewModel com_paperflow_app_presentation_pdfviewer_PDFViewerViewModel2;
 
       @KeepFieldType
-      OnboardingViewModel com_paperflow_app_presentation_onboarding_OnboardingViewModel2;
+      NoteEditorViewModel com_paperflow_app_presentation_notes_NoteEditorViewModel2;
+
+      @KeepFieldType
+      AIChatViewModel com_paperflow_app_presentation_aichat_AIChatViewModel2;
+
+      @KeepFieldType
+      HomeViewModel com_paperflow_app_presentation_home_HomeViewModel2;
+
+      @KeepFieldType
+      AnnotationViewModel com_paperflow_app_presentation_annotations_AnnotationViewModel2;
+
+      @KeepFieldType
+      ConvertViewModel com_paperflow_app_presentation_convert_ConvertViewModel2;
+
+      @KeepFieldType
+      ScannerViewModel com_paperflow_app_presentation_scanner_ScannerViewModel2;
+
+      @KeepFieldType
+      SettingsViewModel com_paperflow_app_presentation_settings_SettingsViewModel2;
+
+      @KeepFieldType
+      EditScanViewModel com_paperflow_app_presentation_scanner_EditScanViewModel2;
 
       @KeepFieldType
       SearchViewModel com_paperflow_app_presentation_search_SearchViewModel2;
+
+      @KeepFieldType
+      SharePrintViewModel com_paperflow_app_presentation_share_SharePrintViewModel2;
+
+      @KeepFieldType
+      DocumentDetailsViewModel com_paperflow_app_presentation_workspace_DocumentDetailsViewModel2;
+
+      @KeepFieldType
+      VaultViewModel com_paperflow_app_presentation_vault_VaultViewModel2;
     }
 
     private static final class SwitchingProvider<T> implements Provider<T> {

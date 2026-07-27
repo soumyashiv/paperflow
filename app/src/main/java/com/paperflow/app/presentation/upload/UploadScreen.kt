@@ -99,10 +99,10 @@ fun UploadScreen(onBack: () -> Unit, onDone: () -> Unit, viewModel: UploadViewMo
         Column(Modifier.fillMaxSize().padding(pv).padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             // Drop zone
             Surface(modifier = Modifier.fillMaxWidth().height(160.dp).clickable { launcher.launch("*/*") },
-                shape = RoundedCornerShape(20.dp), color = Amber.copy(alpha = 0.06f),
+                shape = RoundedCornerShape(20.dp), color = KiwiPrimary.copy(alpha = 0.06f),
                 border = BorderStroke(2.dp, Amber.copy(alpha = 0.4f))) {
                 Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-                    Icon(Icons.Default.UploadFile, null, tint = Amber, modifier = Modifier.size(48.dp))
+                    Icon(Icons.Default.UploadFile, null, tint = KiwiPrimary, modifier = Modifier.size(48.dp))
                     Spacer(Modifier.height(8.dp))
                     Text("Tap to browse files", fontWeight = FontWeight.SemiBold, fontFamily = InterFamily)
                     Text("PDF, JPG, PNG supported", style = MaterialTheme.typography.bodySmall, color = Gray, fontFamily = InterFamily)
@@ -116,7 +116,7 @@ fun UploadScreen(onBack: () -> Unit, onDone: () -> Unit, viewModel: UploadViewMo
                             null, tint = if (item.done) Color(0xFF4CAF50) else Amber, modifier = Modifier.size(32.dp))
                         Text(item.name, Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis, fontFamily = InterFamily)
                         when {
-                            item.isImporting -> CircularProgressIndicator(Modifier.size(20.dp), color = Amber, strokeWidth = 2.dp)
+                            item.isImporting -> CircularProgressIndicator(Modifier.size(20.dp), color = KiwiPrimary, strokeWidth = 2.dp)
                             item.error != null -> Icon(Icons.Default.Error, null, tint = Error)
                             !item.done -> IconButton(onClick = { viewModel.removeItem(i) }, Modifier.size(28.dp)) { Icon(Icons.Default.Close, null, Modifier.size(14.dp), tint = GrayLight) }
                         }
@@ -126,3 +126,4 @@ fun UploadScreen(onBack: () -> Unit, onDone: () -> Unit, viewModel: UploadViewMo
         }
     }
 }
+

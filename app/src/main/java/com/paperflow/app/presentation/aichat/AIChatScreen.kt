@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -52,7 +53,7 @@ fun AIChatScreen(
                 navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Default.ArrowBack, "Back") } },
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Box(Modifier.size(36.dp).clip(CircleShape).background(Amber), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(36.dp).clip(CircleShape).background(Brush.linearGradient(listOf(KiwiAccent, KiwiPrimary))), contentAlignment = Alignment.Center) {
                             Icon(Icons.Default.SmartToy, null, tint = NearBlack, modifier = Modifier.size(20.dp))
                         }
                         Column {
@@ -69,11 +70,11 @@ fun AIChatScreen(
                 actions = {
                     IconButton(onClick = { viewModel.clearConversation() }) { Icon(Icons.Outlined.DeleteSweep, "Clear") }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = KiwiBg),
             )
         },
         bottomBar = {
-            Surface(color = MaterialTheme.colorScheme.surface, tonalElevation = 4.dp) {
+            Surface(color = KiwiSurface, tonalElevation = 0.dp, shadowElevation = 8.dp) {
                 Row(
                     modifier = Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 12.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.Bottom,
@@ -86,12 +87,12 @@ fun AIChatScreen(
                         placeholder = { Text("Ask about your documents…", fontFamily = InterFamily, color = GrayLight) },
                         shape = RoundedCornerShape(24.dp),
                         maxLines = 4,
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Amber, unfocusedBorderColor = Border),
+                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = KiwiPrimary, unfocusedBorderColor = Border),
                         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                         keyboardActions = KeyboardActions(onSend = { viewModel.sendMessage() }),
                     )
                     Box(
-                        modifier = Modifier.size(48.dp).clip(CircleShape).background(if (state.inputText.isNotBlank() && !state.isThinking) Amber else GrayLight).clickable(enabled = state.inputText.isNotBlank() && !state.isThinking) { viewModel.sendMessage() },
+                        modifier = Modifier.size(48.dp).clip(CircleShape).background(if (state.inputText.isNotBlank() && !state.isThinking) KiwiPrimary else GrayLight).clickable(enabled = state.inputText.isNotBlank() && !state.isThinking) { viewModel.sendMessage() },
                         contentAlignment = Alignment.Center,
                     ) {
                         Icon(Icons.Default.Send, "Send", tint = if (state.inputText.isNotBlank()) NearBlack else Color.White, modifier = Modifier.size(20.dp))
@@ -109,9 +110,9 @@ fun AIChatScreen(
             // Context badge
             state.contextDocumentName?.let { name ->
                 item {
-                    Surface(color = AmberLight, shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth()) {
+                    Surface(color = KiwiLight, shape = RoundedCornerShape(KiwiRadius.Card), modifier = Modifier.fillMaxWidth()) {
                         Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Icon(Icons.Default.PictureAsPdf, null, tint = Amber, modifier = Modifier.size(16.dp))
+                            Icon(Icons.Default.PictureAsPdf, null, tint = KiwiPrimary, modifier = Modifier.size(16.dp))
                             Text("Context: $name", fontSize = 12.sp, fontFamily = InterFamily, color = NearBlack)
                         }
                     }
@@ -128,7 +129,7 @@ fun AIChatScreen(
             if (state.isThinking) {
                 item {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Box(Modifier.size(32.dp).clip(CircleShape).background(Amber), contentAlignment = Alignment.Center) {
+                        Box(Modifier.size(32.dp).clip(CircleShape).background(Brush.linearGradient(listOf(KiwiAccent, KiwiPrimary))), contentAlignment = Alignment.Center) {
                             Icon(Icons.Default.SmartToy, null, tint = NearBlack, modifier = Modifier.size(16.dp))
                         }
                         ThinkingDots()
@@ -153,7 +154,7 @@ private fun ChatBubble(message: ChatMessage) {
         }
     } else {
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
-            Box(Modifier.size(32.dp).clip(CircleShape).background(Amber), contentAlignment = Alignment.Center) {
+            Box(Modifier.size(32.dp).clip(CircleShape).background(Brush.linearGradient(listOf(KiwiAccent, KiwiPrimary))), contentAlignment = Alignment.Center) {
                 Icon(Icons.Default.SmartToy, null, tint = NearBlack, modifier = Modifier.size(16.dp))
             }
             Column(modifier = Modifier.widthIn(max = 280.dp)) {

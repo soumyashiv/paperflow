@@ -57,7 +57,7 @@ fun NotificationsScreen(onBack: () -> Unit) {
                 actions = {
                     if (notifications.any { !it.isRead }) {
                         TextButton(onClick = { notifications.replaceAll { it.copy(isRead = true) } }) {
-                            Text("Mark all read", color = Amber, fontFamily = InterFamily)
+                            Text("Mark all read", color = KiwiPrimary, fontFamily = InterFamily)
                         }
                     }
                 },
@@ -117,7 +117,7 @@ private fun NotificationRow(notif: AppNotification, onClick: () -> Unit, onDismi
             Column(Modifier.weight(1f)) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text(notif.title, fontWeight = FontWeight.SemiBold, fontFamily = InterFamily, fontSize = 14.sp)
-                    if (!notif.isRead) Box(Modifier.size(8.dp).clip(RoundedCornerShape(4.dp)).background(Amber))
+                    if (!notif.isRead) Box(Modifier.size(8.dp).clip(RoundedCornerShape(4.dp)).background(KiwiPrimary))
                 }
                 Spacer(Modifier.height(2.dp))
                 Text(notif.body, style = MaterialTheme.typography.bodySmall, color = Gray, fontFamily = InterFamily, maxLines = 2, overflow = TextOverflow.Ellipsis)
@@ -140,3 +140,4 @@ private fun formatRelTime(ts: Long): String {
         else -> SimpleDateFormat("MMM d", Locale.getDefault()).format(Date(ts))
     }
 }
+

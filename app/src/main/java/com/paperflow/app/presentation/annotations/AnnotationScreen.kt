@@ -54,7 +54,7 @@ fun AnnotationScreen(
                 actions = {
                     IconButton(onClick = { strokes.clear() }) { Icon(Icons.Default.Undo, "Undo", tint = Color.White) }
                     TextButton(onClick = { viewModel.saveAnnotations(strokes.toList(), selectedColor, documentId, pageIndex) }) {
-                        Text("Done", color = Amber, fontWeight = FontWeight.Bold, fontFamily = InterFamily)
+                        Text("Done", color = KiwiPrimary, fontWeight = FontWeight.Bold, fontFamily = InterFamily)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF1A1A1A)),
@@ -100,7 +100,7 @@ fun AnnotationScreen(
                             onValueChange = { strokeWidth = it },
                             valueRange = 1f..20f,
                             modifier = Modifier.weight(1f),
-                            colors = SliderDefaults.colors(thumbColor = Amber, activeTrackColor = Amber),
+                            colors = SliderDefaults.colors(thumbColor = KiwiPrimary, activeTrackColor = KiwiPrimary),
                         )
                     }
                 }
@@ -189,3 +189,5 @@ private fun ToolButton(icon: androidx.compose.ui.graphics.vector.ImageVector, se
         Icon(icon, null, tint = if (selected) Amber else GrayLight)
     }
 }
+
+

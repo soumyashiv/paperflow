@@ -67,9 +67,9 @@ fun WorkspaceScreen(
             }
         },
         floatingActionButton = {
-            AmberFAB(
+            KiwiFAB(
                 onClick = { showCreateFolder = true },
-                icon = { Icon(Icons.Default.Add, "New", tint = NearBlack) },
+                icon    = { Icon(Icons.Default.Add, "New", tint = KiwiDark, modifier = Modifier.size(24.dp)) },
             )
         },
     ) { paddingValues ->
@@ -106,7 +106,7 @@ fun WorkspaceScreen(
                                     text = { Text(sort.label()) },
                                     onClick = { viewModel.setSortBy(sort); showSortMenu = false },
                                     trailingIcon = if (state.sortBy == sort) {
-                                        { Icon(Icons.Default.Check, null, tint = Amber) }
+                                        { Icon(Icons.Default.Check, null, tint = KiwiPrimary) }
                                     } else null,
                                 )
                             }
@@ -237,7 +237,7 @@ fun WorkspaceScreen(
                     onValueChange = { newFolderName = it },
                     label = { Text("Folder name") },
                     singleLine = true,
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Amber),
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = KiwiPrimary),
                 )
             },
             confirmButton = {
@@ -248,8 +248,8 @@ fun WorkspaceScreen(
                             showCreateFolder = false; newFolderName = ""
                         }
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = NearBlack),
-                ) { Text("Create") }
+                    colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary, contentColor = White),
+                ) { Text("Create", fontFamily = InterFamily, fontWeight = FontWeight.Bold) }
             },
             dismissButton = {
                 TextButton(onClick = { showCreateFolder = false; newFolderName = "" }) { Text("Cancel") }
@@ -285,7 +285,7 @@ private fun WorkspaceTopBar(
             IconButton(onClick = onNotifications) { Icon(Icons.Outlined.Notifications, "Notifications") }
             IconButton(onClick = onMenuClick) { Icon(Icons.Default.MoreVert, "Menu") }
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = KiwiBg),
     )
 }
 
@@ -313,7 +313,7 @@ private fun SpecialFoldersGrid(
                     PressableCard(
                         onClick = item.action,
                         modifier = Modifier.weight(1f).aspectRatio(1f),
-                        shape = RoundedCornerShape(16.dp),
+                        shape = RoundedCornerShape(KiwiRadius.LargeCard),
                     ) {
                         Column(
                             modifier = Modifier.fillMaxSize().padding(8.dp),
@@ -350,7 +350,7 @@ private fun WorkspaceDocumentListItem(
         IconButton(onClick = onFavorite, modifier = Modifier.size(28.dp)) {
             Icon(
                 if (document.isFavorite) Icons.Filled.Star else Icons.Outlined.StarOutline,
-                null, tint = if (document.isFavorite) Amber else GrayLight,
+                null, tint = if (document.isFavorite) KiwiPrimary else GrayLight,
                 modifier = Modifier.size(18.dp),
             )
         }
@@ -371,12 +371,12 @@ private fun WorkspaceDocumentListItem(
             }
         }
     }
-    HorizontalDivider(color = Border.copy(alpha = 0.4f), thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 24.dp))
+    HorizontalDivider(color = KiwiDivider, thickness = 0.75.dp, modifier = Modifier.padding(horizontal = 24.dp))
 }
 
 @Composable
 private fun WorkspaceDocumentGridItem(document: Document, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    PressableCard(onClick = onClick, modifier = modifier, shape = RoundedCornerShape(16.dp)) {
+    PressableCard(onClick = onClick, modifier = modifier, shape = RoundedCornerShape(KiwiRadius.LargeCard)) {
         Column(modifier = Modifier.padding(8.dp)) {
             DocumentThumbnail(document.thumbnailPath, document.type, Modifier.fillMaxWidth().height(100.dp))
             Spacer(Modifier.height(6.dp))
@@ -392,7 +392,7 @@ private fun WorkspaceDocumentGridItem(document: Document, onClick: () -> Unit, m
 @Composable
 private fun ViewModeButton(icon: ImageVector, selected: Boolean, onClick: () -> Unit) {
     IconButton(onClick = onClick, modifier = Modifier.size(32.dp)) {
-        Icon(icon, null, tint = if (selected) Amber else GrayLight, modifier = Modifier.size(18.dp))
+        Icon(icon, null, tint = if (selected) KiwiPrimary else GrayLight, modifier = Modifier.size(18.dp))
     }
 }
 

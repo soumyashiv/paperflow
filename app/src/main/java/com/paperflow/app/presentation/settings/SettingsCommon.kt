@@ -17,39 +17,61 @@ import com.paperflow.app.core.theme.*
 @Composable
 fun SettingsSubScreen(title: String, onBack: () -> Unit, content: @Composable ColumnScope.() -> Unit) {
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = KiwiBg,
         topBar = {
             TopAppBar(
-                title = { Text(title, fontWeight = FontWeight.Bold, fontFamily = InterFamily) },
-                navigationIcon = { IconButton(onClick = onBack) { Icon(Icons.Default.ArrowBack, "Back") } },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                title          = { Text(title, fontWeight = FontWeight.Bold, fontFamily = InterFamily) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.Default.ArrowBack, "Back", tint = NearBlack)
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = KiwiBg),
             )
         },
     ) { pv ->
-        Column(modifier = Modifier.fillMaxSize().padding(pv).verticalScroll(rememberScrollState()), content = content)
+        Column(
+            modifier = Modifier.fillMaxSize().padding(pv).verticalScroll(rememberScrollState()),
+            content  = content,
+        )
     }
 }
 
 @Composable
-fun SettingToggle(label: String, subtitle: String = "", checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+fun SettingToggle(
+    label: String,
+    subtitle: String = "",
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier          = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(Modifier.weight(1f)) {
-            Text(label, fontFamily = InterFamily, fontWeight = FontWeight.Medium)
-            if (subtitle.isNotBlank()) Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Gray)
+            Text(label, fontFamily = InterFamily, fontWeight = FontWeight.Medium, color = NearBlack)
+            if (subtitle.isNotBlank()) {
+                Text(subtitle, style = MaterialTheme.typography.bodySmall, color = Gray)
+            }
         }
         Switch(
-            checked = checked,
+            checked         = checked,
             onCheckedChange = onCheckedChange,
-            colors = SwitchDefaults.colors(checkedThumbColor = NearBlack, checkedTrackColor = Amber),
+            colors          = SwitchDefaults.colors(
+                checkedThumbColor   = White,
+                checkedTrackColor   = KiwiPrimary,
+                uncheckedThumbColor = GrayLight,
+                uncheckedTrackColor = KiwiDivider,
+            ),
         )
     }
 }
 
 @Composable
 fun SettingSectionLabel(text: String) = Text(
-    text, style = MaterialTheme.typography.labelMedium, color = GrayLight,
+    text,
+    style    = MaterialTheme.typography.labelSmall,
+    color    = KiwiPrimary,
+    fontWeight = FontWeight.Bold,
     modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 4.dp),
 )

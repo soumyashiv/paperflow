@@ -41,11 +41,11 @@ fun IDCardScanScreen(onClose: () -> Unit) {
     if (!cameraPermission.status.isGranted) {
         Box(Modifier.fillMaxSize().background(NearBlack), contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(32.dp)) {
-                Icon(Icons.Default.CameraAlt, null, tint = Amber, modifier = Modifier.size(48.dp))
+                Icon(Icons.Default.CameraAlt, null, tint = KiwiPrimary, modifier = Modifier.size(48.dp))
                 Spacer(Modifier.height(12.dp))
                 Text("Camera permission needed", color = Color.White, fontFamily = InterFamily)
                 Spacer(Modifier.height(16.dp))
-                Button(onClick = { cameraPermission.launchPermissionRequest() }, colors = ButtonDefaults.buttonColors(containerColor = Amber)) {
+                Button(onClick = { cameraPermission.launchPermissionRequest() }, colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary)) {
                     Text("Grant", color = NearBlack, fontFamily = InterFamily)
                 }
             }
@@ -120,7 +120,7 @@ fun IDCardScanScreen(onClose: () -> Unit) {
             if (frontCaptured && backCaptured) {
                 Button(
                     onClick = onClose,
-                    colors = ButtonDefaults.buttonColors(containerColor = Amber),
+                    colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary),
                     shape = RoundedCornerShape(12.dp),
                 ) {
                     Icon(Icons.Default.Check, null, tint = NearBlack)
@@ -144,10 +144,11 @@ private fun IDCardOverlay(side: String, modifier: Modifier = Modifier) {
                 .let {
                     it.border(
                         width = 2.dp,
-                        color = Amber,
+                        color = KiwiPrimary,
                         shape = RoundedCornerShape(8.dp),
                     )
                 },
         )
     }
 }
+

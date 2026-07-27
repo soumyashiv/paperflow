@@ -50,7 +50,7 @@ fun EditScanScreen(
                         onClick = { showSaveDialog = true },
                         enabled = state.pages.isNotEmpty(),
                     ) {
-                        Text("Save", color = Amber, fontWeight = FontWeight.Bold, fontFamily = InterFamily, fontSize = 16.sp)
+                        Text("Save", color = KiwiPrimary, fontWeight = FontWeight.Bold, fontFamily = InterFamily, fontSize = 16.sp)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
@@ -187,11 +187,11 @@ fun EditScanScreen(
                         onValueChange = { documentName = it },
                         label = { Text("Document name") },
                         singleLine = true,
-                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Amber),
+                        colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = KiwiPrimary),
                     )
                     var asPdf by remember { mutableStateOf(true) }
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = asPdf, onCheckedChange = { asPdf = it }, colors = CheckboxDefaults.colors(checkedColor = Amber))
+                        Checkbox(checked = asPdf, onCheckedChange = { asPdf = it }, colors = CheckboxDefaults.colors(checkedColor = KiwiPrimary))
                         Text("Save as PDF", fontFamily = InterFamily)
                     }
                 }
@@ -221,3 +221,5 @@ private fun EditActionButton(icon: androidx.compose.ui.graphics.vector.ImageVect
         Text(label, fontSize = 9.sp, color = Gray, fontFamily = InterFamily)
     }
 }
+
+

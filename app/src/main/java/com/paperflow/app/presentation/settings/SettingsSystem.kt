@@ -38,7 +38,7 @@ fun SecuritySettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                     Spacer(Modifier.height(8.dp))
                     listOf(5 to "5 min", 10 to "10 min", 15 to "15 min", 30 to "30 min").forEach { (mins, label) ->
                         Row(Modifier.fillMaxWidth().clickable { viewModel.setVaultTimeout(mins) }.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                            RadioButton(selected = state.vaultTimeoutMinutes == mins, onClick = { viewModel.setVaultTimeout(mins) }, colors = RadioButtonDefaults.colors(selectedColor = Amber))
+                            RadioButton(selected = state.vaultTimeoutMinutes == mins, onClick = { viewModel.setVaultTimeout(mins) }, colors = RadioButtonDefaults.colors(selectedColor = KiwiPrimary))
                             Text(label, fontFamily = InterFamily)
                         }
                     }
@@ -63,7 +63,7 @@ fun SecuritySettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hi
                 Button(
                     onClick = { viewModel.setGeminiKey(apiKey); showKeyInput = false },
                     modifier = Modifier.align(Alignment.End),
-                    colors = ButtonDefaults.buttonColors(containerColor = Amber, contentColor = NearBlack)
+                    colors = ButtonDefaults.buttonColors(containerColor = KiwiPrimary, contentColor = White)
                 ) {
                     Text("Save Key", fontWeight = FontWeight.Bold, fontFamily = InterFamily)
                 }
@@ -85,7 +85,7 @@ fun StorageSettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hil
                 LinearProgressIndicator(
                     progress = { state.storagePercent },
                     modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
-                    color = Amber, trackColor = GrayLight.copy(alpha = 0.3f)
+                    color = KiwiPrimary, trackColor = GrayLight.copy(alpha = 0.3f)
                 )
                 Spacer(Modifier.height(16.dp))
                 Button(
@@ -135,3 +135,5 @@ fun NotificationsSettingsScreen(onBack: () -> Unit, viewModel: SettingsViewModel
         }
     }
 }
+
+

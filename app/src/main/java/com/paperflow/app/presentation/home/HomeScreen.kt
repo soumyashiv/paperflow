@@ -1,9 +1,11 @@
 package com.paperflow.app.presentation.home
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -13,10 +15,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,7 +49,7 @@ fun HomeScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = KiwiBg,
         bottomBar = {
             BottomNavBar(navController = navController, onScanClick = onScanClick)
         },
@@ -52,48 +60,34 @@ fun HomeScreen(
                 .padding(paddingValues),
             contentPadding = PaddingValues(bottom = 24.dp),
         ) {
-            // ── Top Bar ──────────────────────────────────────────────────
+            // ── Greeting ─────────────────────────────────────────────────
             item {
-                HomeTopBar(
-                    userName = state.userName,
-                    notificationCount = state.notificationCount,
+                HomeGreetingSection(
+                    userName             = state.userName,
+                    notificationCount    = state.notificationCount,
                     onNotificationsClick = onNotificationsClick,
                 )
             }
 
             // ── Search Bar ───────────────────────────────────────────────
             item {
-                Row(
+                KiwiSearchBarWithDecor(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    // Clean search field — no trailing mic/AI button
-                    PaperFlowSearchBar(
-                        query = "",
-                        onQueryChange = {},
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable { onSearchClick() },
-                        placeholder = "Search documents, notes...",
-                    )
-                }
+                        .padding(horizontal = 20.dp, vertical = 8.dp)
+                        .clickable { onSearchClick() },
+                )
             }
 
-            // ── Quick Actions Grid ────────────────────────────────────────
-            item {
-                SectionHeader(title = "Quick Actions")
-            }
-
+            // ── Quick Actions ────────────────────────────────────────────
+            item { SectionHeader(title = "Quick Actions") }
             item {
                 QuickActionsGrid(
-                    onScanClick = onScanClick,
-                    onUploadClick = onUploadClick,
-                    onNoteClick = { navController.navigate(com.paperflow.app.core.navigation.Routes.NoteEditor.newNote()) },
-                    onConvertClick = onConvertClick,
-                    onAiChatClick = onAiChatClick,
+                    onScanClick      = onScanClick,
+                    onUploadClick    = onUploadClick,
+                    onNoteClick      = { navController.navigate(com.paperflow.app.core.navigation.Routes.NoteEditor.newNote()) },
+                    onConvertClick   = onConvertClick,
+                    onAiChatClick    = onAiChatClick,
                     onDocumentsClick = { navController.navigate(com.paperflow.app.core.navigation.Routes.Workspace.route) },
                 )
             }
@@ -103,7 +97,7 @@ fun HomeScreen(
                 item { SectionHeader(title = "Folders") }
                 item {
                     FoldersRow(
-                        folders = state.folders,
+                        folders       = state.folders,
                         onFolderClick = { folder ->
                             navController.navigate(com.paperflow.app.core.navigation.Routes.FolderContents.withId(folder.id))
                         },
@@ -114,56 +108,92 @@ fun HomeScreen(
             // ── Recent Documents ──────────────────────────────────────────
             item {
                 SectionHeader(
-                    title = "Recent Documents",
+                    title  = "Recent Documents",
                     action = {
-                        TextButton(onClick = { navController.navigate(com.paperflow.app.core.navigation.Routes.Workspace.route) }) {
-                            Text("See all", color = Amber, fontFamily = InterFamily)
+                        TextButton(
+                            onClick = { navController.navigate(com.paperflow.app.core.navigation.Routes.Workspace.route) },
+                        ) {
+                            Text(
+                                text       = "See all",
+                                color      = KiwiPrimary,
+                                fontFamily = InterFamily,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize   = 13.sp,
+                            )
+                            Icon(
+                                Icons.Default.ChevronRight,
+                                contentDescription = null,
+                                tint     = KiwiPrimary,
+                                modifier = Modifier.size(16.dp),
+                            )
                         }
                     },
                 )
             }
 
-            if (state.isLoading) {
-                items(5) { index ->
-                    AnimatedListItem(index = index) {
-                        DocumentItemSkeleton()
+            when {
+                state.isLoading -> {
+                    items(5) { index ->
+                        AnimatedListItem(index = index) { DocumentItemSkeleton() }
                     }
                 }
-            } else if (state.recentDocuments.isEmpty()) {
-                item {
-                    EmptyState(
-                        icon = { Icon(Icons.Outlined.FolderOpen, contentDescription = null, modifier = Modifier.size(64.dp), tint = GrayLight) },
-                        title = "No documents yet",
-                        subtitle = "Tap the scan button below to add your first document",
-                    )
-                }
-            } else {
-                itemsIndexed(
-                    items = state.recentDocuments,
-                    key = { _, doc -> doc.id },
-                ) { index, doc ->
-                    AnimatedListItem(index = index) {
-                        RecentDocumentItem(
-                            document = doc,
-                            onClick = { onDocumentClick(doc.id) },
-                            onFavoriteClick = { viewModel.toggleFavorite(doc) },
-                            onMenuClick = { /* context menu */ },
+                state.recentDocuments.isEmpty() -> {
+                    item {
+                        EmptyState(
+                            icon = {
+                                Box(
+                                    modifier = Modifier
+                                        .size(80.dp)
+                                        .clip(RoundedCornerShape(KiwiRadius.LargeCard))
+                                        .background(KiwiLight),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        Icons.Outlined.FolderOpen,
+                                        contentDescription = null,
+                                        tint     = KiwiPrimary,
+                                        modifier = Modifier.size(40.dp),
+                                    )
+                                }
+                            },
+                            title    = "No documents yet",
+                            subtitle = "Tap the scan button below to add your first document",
+                            action   = {
+                                KiwiPrimaryButton(
+                                    text    = "Scan Now",
+                                    icon    = Icons.Outlined.CameraAlt,
+                                    onClick = onScanClick,
+                                )
+                            },
                         )
+                    }
+                }
+                else -> {
+                    itemsIndexed(
+                        items = state.recentDocuments,
+                        key   = { _, doc -> doc.id },
+                    ) { index, doc ->
+                        AnimatedListItem(index = index) {
+                            RecentDocumentItem(
+                                document        = doc,
+                                onClick         = { onDocumentClick(doc.id) },
+                                onFavoriteClick = { viewModel.toggleFavorite(doc) },
+                                onMenuClick     = { /* context menu */ },
+                            )
+                        }
                     }
                 }
             }
 
-            // ── Storage Indicator ─────────────────────────────────────────
-            item {
-                StorageBar(storageInfo = state.storageInfo)
-            }
+            // ── Storage ───────────────────────────────────────────────────
+            item { StorageBar(storageInfo = state.storageInfo) }
         }
     }
 }
 
-// ─── Top Bar ─────────────────────────────────────────────────────────────────
+// ─── Greeting Section ─────────────────────────────────────────────────────────
 @Composable
-private fun HomeTopBar(
+private fun HomeGreetingSection(
     userName: String,
     notificationCount: Int,
     onNotificationsClick: () -> Unit,
@@ -171,57 +201,123 @@ private fun HomeTopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 16.dp),
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp, bottom = 4.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment     = Alignment.CenterVertically,
     ) {
         Column {
             val greeting = when (java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)) {
-                in 5..11 -> "Good morning"
+                in 5..11  -> "Good morning"
                 in 12..17 -> "Good afternoon"
-                else -> "Good evening"
+                else      -> "Good evening"
             }
+            // "Good evening, shivv 👋" — name in KiwiPrimary
+            val displayName = if (userName.isNotBlank()) userName else "there"
             Text(
-                text = if (userName.isNotBlank()) "$greeting, $userName 👋" else "Hello! 👋",
-                style = MaterialTheme.typography.headlineSmall,
+                text = buildAnnotatedString {
+                    append("$greeting, ")
+                    withStyle(SpanStyle(color = KiwiPrimary, fontWeight = FontWeight.Bold)) {
+                        append(displayName)
+                    }
+                    append(" 👋")
+                },
+                style      = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
-                color = NearBlack,
+                color      = NearBlack,
             )
+            Spacer(Modifier.height(2.dp))
             Text(
-                text = "All your documents in one place",
+                text  = "All your documents in one place",
                 style = MaterialTheme.typography.bodySmall,
                 color = Gray,
             )
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            BadgedBox(badge = {
-                if (notificationCount > 0) {
-                    Badge(containerColor = Error) {
-                        Text(notificationCount.toString(), fontSize = 10.sp)
-                    }
+
+        BadgedBox(badge = {
+            if (notificationCount > 0) {
+                Badge(containerColor = Error) {
+                    Text(notificationCount.toString(), fontSize = 10.sp)
                 }
-            }) {
-                IconButton(onClick = onNotificationsClick) {
-                    Icon(Icons.Outlined.Notifications, contentDescription = "Notifications")
-                }
+            }
+        }) {
+            Box(
+                modifier = Modifier
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(KiwiRadius.Card))
+                    .background(KiwiLight)
+                    .clickable(onClick = onNotificationsClick),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector        = Icons.Outlined.NotificationsNone,
+                    contentDescription = "Notifications",
+                    tint               = KiwiPrimary,
+                    modifier           = Modifier.size(26.dp),
+                )
             }
         }
     }
 }
 
+// ─── Search Bar With Kiwi Decor ───────────────────────────────────────────────
+@Composable
+private fun KiwiSearchBarWithDecor(modifier: Modifier = Modifier) {
+    Box(modifier = modifier) {
+        // The pill search bar (non-interactive — clicking routes to search screen)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .shadow(
+                    elevation    = 4.dp,
+                    shape        = RoundedCornerShape(KiwiRadius.SearchBar),
+                    spotColor    = KiwiPrimary.copy(alpha = 0.90f),
+                    ambientColor = Color.Transparent,
+                )
+                .clip(RoundedCornerShape(KiwiRadius.SearchBar))
+                .background(KiwiSurface)
+                .border(2.dp, Border, RoundedCornerShape(KiwiRadius.SearchBar)),
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            Row(
+                modifier             = Modifier.padding(horizontal = 16.dp),
+                verticalAlignment    = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Icon(
+                    imageVector        = Icons.Outlined.Search,
+                    contentDescription = null,
+                    tint               = GrayLight,
+                    modifier           = Modifier.size(24.dp),
+                )
+                Text(
+                    text   = "Search documents, notes...",
+                    style  = MaterialTheme.typography.bodyMedium,
+                    color  = GrayLight,
+                )
+            }
+            // Kiwi slice decoration — trailing right side
+            KiwiSliceDecor(
+                modifier = Modifier
+                    .size(25.dp)
+                    .align(Alignment.CenterEnd),
+                alpha = 0.90f,
+                size  = 50.dp,
+            )
+        }
+    }
+}
+
 // ─── Quick Actions Grid ───────────────────────────────────────────────────────
+private data class QuickAction(
+    val label: String,
+    val subtitle: String,
+    val icon: ImageVector,
+    val iconBg: Color,
+    val decor: @Composable (Modifier) -> Unit,
+    val onClick: () -> Unit,
+)
 
-private data class QuickAction(val label: String, val icon: ImageVector, val color: Color, val onClick: () -> Unit)
-
-/**
- * 6-action grid in 2 rows of 3:
- *
- *  [ Scan ]  [ Upload ]  [ Note ]
- *  [ Convert ] [ Ask AI ] [ Documents ]
- *
- * Import and ID Card have been removed — Upload covers file import, and the
- * Scanner now detects ID cards automatically.
- */
 @Composable
 private fun QuickActionsGrid(
     onScanClick: () -> Unit,
@@ -232,27 +328,23 @@ private fun QuickActionsGrid(
     onDocumentsClick: () -> Unit,
 ) {
     val actions = listOf(
-        QuickAction("Scan",      Icons.Default.CameraAlt,   Color(0xFFFFE8CC), onScanClick),
-        QuickAction("Upload",    Icons.Default.Upload,       Color(0xFFF0F0F0), onUploadClick),
-        QuickAction("Note",      Icons.Default.EditNote,     Color(0xFFF0F0F0), onNoteClick),
-        QuickAction("Convert",   Icons.Default.Transform,    Color(0xFFF0F0F0), onConvertClick),
-        QuickAction("Ask AI",    Icons.Default.SmartToy,     Color(0xFFFFF0D0), onAiChatClick),
-        QuickAction("Documents", Icons.Default.FolderOpen,   Color(0xFFF0F0F0), onDocumentsClick),
+        QuickAction("Scan",      "Smart scanner",     Icons.Outlined.CameraAlt,    KiwiLighter,           { m -> LeafDecor(m, alpha = 0.5f, size = 50.dp) },    onScanClick),
+        QuickAction("Upload",    "Import & files",    Icons.Outlined.Upload,        KiwiLighter,         { m -> KiwiSliceDecor(m, alpha = 0.9f, size = 45.dp) }, onUploadClick),
+        QuickAction("Note",      "Create notes",      Icons.Outlined.EditNote,      KiwiLighter,         { m -> LeafDecor(m, mirrorX = true, alpha = 0.5f, size = 50.dp) }, onNoteClick),
+        QuickAction("Convert",   "PDF, JPG, OCR",     Icons.Outlined.Transform,     KiwiLighter,         { m -> OrganicBlobDecor(m, alpha = 0.15f, size = 60.dp) }, onConvertClick),
+        QuickAction("Ask AI",    "Summarize, explain",Icons.Outlined.AutoAwesome,   KiwiLighter,   { m -> SparkleDecor(m, alpha = 0.50f) }, onAiChatClick),
+        QuickAction("Documents", "View all files",    Icons.Outlined.FolderOpen,    KiwiLighter,         { m -> KiwiSliceDecor(m, alpha = 0.9f, size = 40.dp) }, onDocumentsClick),
     )
 
-    Column(modifier = Modifier.padding(horizontal = 16.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 18.dp)) {
         for (row in actions.chunked(3)) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier              = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 row.forEach { action ->
-                    QuickActionCard(
-                        action = action,
-                        modifier = Modifier.weight(1f),
-                    )
+                    KiwiQuickActionCard(action = action, modifier = Modifier.weight(1f))
                 }
-                // Fill any trailing gap (shouldn't happen with 6 items / 3 cols, but defensive)
                 repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
             }
             Spacer(Modifier.height(8.dp))
@@ -261,60 +353,57 @@ private fun QuickActionsGrid(
 }
 
 @Composable
-private fun QuickActionCard(action: QuickAction, modifier: Modifier = Modifier) {
+private fun KiwiQuickActionCard(action: QuickAction, modifier: Modifier = Modifier) {
     PressableCard(
-        onClick = action.onClick,
-        modifier = modifier,
-        containerColor = MaterialTheme.colorScheme.surface,
-        elevation = 0.dp,
-        shape = RoundedCornerShape(20.dp),
+        onClick        = action.onClick,
+        modifier       = modifier.height(115.dp),
+        containerColor = KiwiSurface,
+        elevation      = KiwiElevation.Card,
+        shape          = RoundedCornerShape(KiwiRadius.LargeCard),
     ) {
-        Column(
-            modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(action.color),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = action.icon,
-                    contentDescription = action.label,
-                    tint = NearBlack,
-                    modifier = Modifier.size(24.dp),
-                )
-            }
-            Spacer(Modifier.height(10.dp))
-            Text(
-                text = action.label,
-                fontSize = 12.sp,
-                fontFamily = InterFamily,
-                fontWeight = FontWeight.SemiBold,
-                color = NearBlack,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Decorative element in corner
+            action.decor(
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .size(52.dp),
             )
-            val subtitle = when (action.label) {
-                "Scan"      -> "Smart scanner"
-                "Upload"    -> "Import & files"
-                "Note"      -> "Create notes"
-                "Convert"   -> "PDF, JPG, OCR"
-                "Ask AI"    -> "Summarize, explain"
-                "Documents" -> "View all files"
-                else        -> ""
-            }
-            if (subtitle.isNotEmpty()) {
-                Spacer(Modifier.height(4.dp))
+            // Content
+            Column(
+                modifier            = Modifier.padding(vertical = 14.dp, horizontal = 14.dp),
+                horizontalAlignment = Alignment.Start,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(38.dp)
+                        .clip(RoundedCornerShape(KiwiRadius.Small))
+                        .background(action.iconBg),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector        = action.icon,
+                        contentDescription = action.label,
+                        tint               = KiwiPrimary,
+                        modifier           = Modifier.size(22.dp),
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
                 Text(
-                    text = subtitle,
-                    fontSize = 9.sp,
+                    text       = action.label,
+                    fontSize   = 14.sp,
                     fontFamily = InterFamily,
-                    color = Gray,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    fontWeight = FontWeight.Bold,
+                    color      = NearBlack,
+                    maxLines   = 1,
+                    overflow   = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text       = action.subtitle,
+                    fontSize   = 10.sp,
+                    fontFamily = InterFamily,
+                    color      = Gray,
+                    maxLines   = 1,
+                    overflow   = TextOverflow.Ellipsis,
                 )
             }
         }
@@ -325,72 +414,63 @@ private fun QuickActionCard(action: QuickAction, modifier: Modifier = Modifier) 
 @Composable
 private fun FoldersRow(folders: List<Folder>, onFolderClick: (Folder) -> Unit) {
     Row(
-        modifier = Modifier
+        modifier              = Modifier
             .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 18.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         folders.forEach { folder ->
-            FolderCard(
-                folder = folder,
-                onClick = { onFolderClick(folder) },
-            )
+            KiwiFolderCard(folder = folder, onClick = { onFolderClick(folder) })
         }
     }
 }
 
 @Composable
-private fun FolderCard(folder: Folder, onClick: () -> Unit) {
-    val (icon, bgColor) = when {
-        folder.name.contains("Work", ignoreCase = true)     -> Icons.Default.Folder     to Color(0xFFFFE8CC)
-        folder.name.contains("Study", ignoreCase = true)    -> Icons.Default.School     to Color(0xFFE8F5E9)
-        folder.name.contains("Personal", ignoreCase = true) -> Icons.Default.Person     to Color(0xFFE8F5E9)
-        folder.name.contains("Vault", ignoreCase = true) || folder.isLocked
-                                                            -> Icons.Default.Lock       to Color(0xFFFFF0D0)
-        else                                                -> Icons.Default.Folder     to Color(0xFFF0F0F0)
+private fun KiwiFolderCard(folder: Folder, onClick: () -> Unit) {
+    val (icon, iconBg) = when {
+        folder.name.contains("Work",     ignoreCase = true) -> Icons.Outlined.Work          to KiwiLighter
+        folder.name.contains("Study",    ignoreCase = true) -> Icons.Outlined.School        to KiwiLighter
+        folder.name.contains("Personal", ignoreCase = true) -> Icons.Outlined.Person        to KiwiLighter
+        folder.isLocked                                      -> Icons.Outlined.Lock          to KiwiLighter
+        else                                                 -> Icons.Outlined.FolderOpen   to KiwiLighter
     }
 
     PressableCard(
-        onClick = onClick,
-        modifier = Modifier.width(100.dp),
-        containerColor = MaterialTheme.colorScheme.surface,
-        shape = RoundedCornerShape(20.dp),
-        elevation = 0.dp,
+        onClick        = onClick,
+        modifier       = Modifier.width(115.dp),
+        containerColor = KiwiSurface,
+        shape          = RoundedCornerShape(KiwiRadius.LargeCard),
+        elevation      = KiwiElevation.Card,
     ) {
         Column(
-            modifier = Modifier.padding(vertical = 16.dp, horizontal = 12.dp),
+            modifier            = Modifier.padding(vertical = 10.dp, horizontal = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box(
                 modifier = Modifier
                     .size(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(bgColor),
+                    .clip(RoundedCornerShape(KiwiRadius.Small))
+                    .background(iconBg),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = folder.name,
-                    tint = NearBlack,
-                    modifier = Modifier.size(24.dp),
-                )
+                Icon(icon, contentDescription = folder.name, tint = KiwiPrimary, modifier = Modifier.size(22.dp))
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(6.dp))
             Text(
-                text = folder.name,
-                fontSize = 12.sp,
+                text       = folder.name,
+                fontSize   = 13.sp,
                 fontFamily = InterFamily,
                 fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = NearBlack,
+                maxLines   = 1,
+                overflow   = TextOverflow.Ellipsis,
+                color      = NearBlack,
             )
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(2.dp))
             Text(
-                text = if (folder.isLocked) "Locked" else "${folder.itemCount} items",
-                fontSize = 10.sp,
+                text       = if (folder.isLocked) "Locked" else "${folder.itemCount} items",
+                fontSize   = 10.sp,
                 fontFamily = InterFamily,
-                color = Gray,
+                color      = Gray,
             )
         }
     }
@@ -408,39 +488,40 @@ private fun RecentDocumentItem(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(horizontal = 20.dp, vertical = 10.dp),
+        verticalAlignment     = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
+        // Star icon — kiwi tinted when favorited
         IconButton(onClick = onFavoriteClick, modifier = Modifier.size(32.dp)) {
             Icon(
-                imageVector = if (document.isFavorite) Icons.Filled.Star else Icons.Outlined.StarOutline,
+                imageVector        = if (document.isFavorite) Icons.Filled.Star else Icons.Outlined.StarOutline,
                 contentDescription = "Favorite",
-                tint = if (document.isFavorite) Amber else GrayLight,
-                modifier = Modifier.size(20.dp),
+                tint               = if (document.isFavorite) KiwiPrimary else GrayLight,
+                modifier           = Modifier.size(20.dp),
             )
         }
 
         DocumentThumbnail(
             thumbnailPath = document.thumbnailPath,
-            type = document.type,
-            modifier = Modifier.size(width = 56.dp, height = 72.dp),
+            type          = document.type,
+            modifier      = Modifier.size(width = 52.dp, height = 68.dp),
         )
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = document.name,
-                style = MaterialTheme.typography.titleSmall,
+                text       = document.name,
+                style      = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = NearBlack,
+                maxLines   = 1,
+                overflow   = TextOverflow.Ellipsis,
+                color      = NearBlack,
             )
-            Spacer(Modifier.height(2.dp))
+            Spacer(Modifier.height(3.dp))
             Text(
-                text = "${document.type.name} • ${formatRelativeTime(document.updatedAt)} • ${formatSize(document.sizeBytes)}",
-                style = MaterialTheme.typography.bodySmall,
-                color = Gray,
+                text   = "${document.type.name} • ${formatRelativeTime(document.updatedAt)} • ${formatSize(document.sizeBytes)}",
+                style  = MaterialTheme.typography.bodySmall,
+                color  = Gray,
                 maxLines = 1,
             )
         }
@@ -448,10 +529,19 @@ private fun RecentDocumentItem(
         TypeBadge(document.type)
 
         IconButton(onClick = onMenuClick, modifier = Modifier.size(32.dp)) {
-            Icon(Icons.Default.MoreVert, contentDescription = "More", tint = Gray, modifier = Modifier.size(18.dp))
+            Icon(
+                Icons.Default.MoreVert,
+                contentDescription = "More",
+                tint     = GrayLight,
+                modifier = Modifier.size(18.dp),
+            )
         }
     }
-    HorizontalDivider(color = Border.copy(alpha = 0.5f), thickness = 0.5.dp, modifier = Modifier.padding(horizontal = 16.dp))
+    HorizontalDivider(
+        color     = KiwiDivider,
+        thickness = 0.75.dp,
+        modifier  = Modifier.padding(horizontal = 20.dp),
+    )
 }
 
 @Composable
@@ -459,17 +549,17 @@ private fun DocumentItemSkeleton() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .padding(horizontal = 20.dp, vertical = 12.dp),
+        verticalAlignment     = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        SkeletonBox(Modifier.size(32.dp), shape = RoundedCornerShape(50))
-        SkeletonBox(Modifier.size(56.dp, 72.dp))
+        SkeletonBox(Modifier.size(32.dp), shape = RoundedCornerShape(KiwiRadius.Pill))
+        SkeletonBox(Modifier.size(52.dp, 68.dp), shape = RoundedCornerShape(KiwiRadius.Card))
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             SkeletonBox(Modifier.fillMaxWidth(0.7f).height(14.dp))
             SkeletonBox(Modifier.fillMaxWidth(0.5f).height(10.dp))
         }
-        SkeletonBox(Modifier.size(40.dp, 20.dp))
+        SkeletonBox(Modifier.size(44.dp, 22.dp), shape = RoundedCornerShape(KiwiRadius.Pill))
     }
 }
 
@@ -477,48 +567,57 @@ private fun DocumentItemSkeleton() {
 @Composable
 private fun StorageBar(storageInfo: StorageInfo) {
     PressableCard(
-        onClick = {},
+        onClick  = {},
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        shape = RoundedCornerShape(16.dp),
+            .padding(horizontal = 20.dp, vertical = 12.dp),
+        shape    = RoundedCornerShape(KiwiRadius.LargeCard),
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier              = Modifier.padding(18.dp),
+            verticalAlignment     = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             Box(contentAlignment = Alignment.Center) {
                 CircularProgressIndicator(
-                    progress = { storageInfo.usedPercent },
-                    modifier = Modifier.size(48.dp),
-                    color = Amber,
-                    trackColor = Border,
+                    progress    = { storageInfo.usedPercent },
+                    modifier    = Modifier.size(52.dp),
+                    color       = KiwiPrimary,
+                    trackColor  = KiwiDivider,
                     strokeWidth = 4.dp,
                 )
                 Text(
-                    text = "${(storageInfo.usedPercent * 100).toInt()}%",
-                    fontSize = 10.sp,
+                    text       = "${(storageInfo.usedPercent * 100).toInt()}%",
+                    fontSize   = 10.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = InterFamily,
+                    color      = KiwiDark,
                 )
             }
             Column(modifier = Modifier.weight(1f)) {
-                Text("Storage", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
+                Text("Storage", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = NearBlack)
                 Text(
-                    text = "${formatSize(storageInfo.usedBytes)} of ${formatSize(storageInfo.totalBytes)} used",
+                    text  = "${formatSize(storageInfo.usedBytes)} of ${formatSize(storageInfo.totalBytes)} used",
                     style = MaterialTheme.typography.bodySmall,
                     color = Gray,
                 )
-                Spacer(Modifier.height(6.dp))
+                Spacer(Modifier.height(8.dp))
                 LinearProgressIndicator(
-                    progress = { storageInfo.usedPercent },
-                    modifier = Modifier.fillMaxWidth().height(4.dp).clip(RoundedCornerShape(2.dp)),
-                    color = Amber,
-                    trackColor = Border,
+                    progress    = { storageInfo.usedPercent },
+                    modifier    = Modifier.fillMaxWidth().height(5.dp).clip(RoundedCornerShape(KiwiRadius.Pill)),
+                    color       = KiwiPrimary,
+                    trackColor  = KiwiDivider,
                 )
             }
-            Icon(Icons.Default.ChevronRight, contentDescription = null, tint = Gray)
+            Box(
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(CircleShape)
+                    .background(KiwiLight),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(Icons.Default.ChevronRight, contentDescription = null, tint = KiwiPrimary, modifier = Modifier.size(18.dp))
+            }
         }
     }
 }
@@ -527,16 +626,16 @@ private fun StorageBar(storageInfo: StorageInfo) {
 private fun formatRelativeTime(ts: Long): String {
     val diff = System.currentTimeMillis() - ts
     return when {
-        diff < 60_000     -> "Just now"
-        diff < 3_600_000  -> "${diff / 60_000}m ago"
-        diff < 86_400_000 -> "Today, ${java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault()).format(java.util.Date(ts))}"
+        diff < 60_000      -> "Just now"
+        diff < 3_600_000   -> "${diff / 60_000}m ago"
+        diff < 86_400_000  -> "Today, ${java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault()).format(java.util.Date(ts))}"
         diff < 172_800_000 -> "Yesterday"
         else -> java.text.SimpleDateFormat("MMM d, yyyy", java.util.Locale.getDefault()).format(java.util.Date(ts))
     }
 }
 
 private fun formatSize(bytes: Long): String = when {
-    bytes < 1024       -> "$bytes B"
-    bytes < 1_048_576  -> "${bytes / 1024} KB"
-    else               -> String.format("%.1f MB", bytes / 1_048_576.0)
+    bytes < 1024      -> "$bytes B"
+    bytes < 1_048_576 -> "${bytes / 1024} KB"
+    else              -> String.format("%.1f MB", bytes / 1_048_576.0)
 }

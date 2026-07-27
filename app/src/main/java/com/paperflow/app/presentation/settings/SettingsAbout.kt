@@ -26,7 +26,7 @@ fun AboutScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewModel
             modifier = Modifier.fillMaxWidth().padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(Icons.Default.Info, contentDescription = null, tint = Amber, modifier = Modifier.size(64.dp))
+            Icon(Icons.Default.Info, contentDescription = null, tint = KiwiPrimary, modifier = Modifier.size(64.dp))
             Spacer(Modifier.height(16.dp))
             Text("PaperFlow", fontWeight = FontWeight.Bold, fontSize = 24.sp, fontFamily = InterFamily)
             Text("Version 1.0.0", color = Gray, fontFamily = InterFamily)
@@ -59,7 +59,7 @@ fun HelpCenterScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltView
             modifier = Modifier.fillMaxWidth().padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(Icons.Default.HelpOutline, contentDescription = null, tint = Amber, modifier = Modifier.size(64.dp))
+            Icon(Icons.Default.HelpOutline, contentDescription = null, tint = KiwiPrimary, modifier = Modifier.size(64.dp))
             Spacer(Modifier.height(16.dp))
             Text("Help & Support", fontWeight = FontWeight.Bold, fontSize = 24.sp, fontFamily = InterFamily)
             Spacer(Modifier.height(16.dp))
@@ -69,3 +69,4 @@ fun HelpCenterScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltView
         }
     }
 }
+
